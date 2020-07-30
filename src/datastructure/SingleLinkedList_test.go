@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-/*func TestInsertFirst(t *testing.T) {
+func TestInsertFirst(t *testing.T) {
 	var first *Node
 	item := 3
 	res := insert(first, item)
@@ -88,9 +88,9 @@ func TestDeleteItemEmpty(t *testing.T) {
 	if res != [1]int{0} {
 		t.Errorf("Item not deleted")
 	}
-}*/
+}
 
-/*func TestDeleteItemFirst(t *testing.T) {
+func TestDeleteItemFirst(t *testing.T) {
 	var first *Node
 	first = insert(first, 2)
 	first = deleteItem(first, 2)
@@ -100,7 +100,7 @@ func TestDeleteItemEmpty(t *testing.T) {
 	if res != expected {
 		t.Errorf("Expected %v but was %v", expected, res)
 	}
-}*/
+}
 
 func TestDeleteItemMiddle(t *testing.T) {
 	var first *Node
