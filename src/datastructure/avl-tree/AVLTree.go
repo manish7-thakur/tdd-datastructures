@@ -34,3 +34,14 @@ func preorder(node *Node, items *[]int) []int {
 	}
 	return *items
 }
+
+func inorder(node *Node, res []int) []int {
+	if node == nil {
+		return res
+	} else {
+		inorder(node.left, res)
+		res = append(res, node.value)
+		inorder(node.right, res)
+	}
+	return res
+}

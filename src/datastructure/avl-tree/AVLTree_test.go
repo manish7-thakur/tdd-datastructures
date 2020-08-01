@@ -92,3 +92,17 @@ func TestPreorderTraversalMulti(t *testing.T) {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
 }
+
+func TestInorderTraversal(t *testing.T) {
+	var root *Node
+	var items = []int{2, 82, 492, 39, 32}
+	var res = make([]int, 0, 5)
+	insertM(root, &items)
+	inorder(root, res)
+	var actual [5]int
+	copy(actual[:], res)
+	expected := [5]int{2, 32, 39, 82, 492}
+	if actual != expected {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
