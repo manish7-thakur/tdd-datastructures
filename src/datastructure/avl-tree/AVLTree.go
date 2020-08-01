@@ -50,9 +50,9 @@ func postorder(node *Node, res *[]int) []int {
 	if node == nil {
 		return *res
 	} else {
-		inorder(node.left, res)
+		postorder(node.left, res)
+		postorder(node.right, res)
 		*res = append(*res, node.value)
-		inorder(node.right, res)
 	}
 	return *res
 }
