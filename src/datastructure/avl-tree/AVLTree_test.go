@@ -59,3 +59,13 @@ func TestInsertRootLeftRight(t *testing.T) {
 		t.Errorf("Expected %d but found %d", item, actual)
 	}
 }
+
+func TestInsertMulti(t *testing.T) {
+	var root *Node
+	items := []int{3,48,28,73,62,35}
+	root = insertM(root, &items)
+	actual := root.right.right.value
+	if actual != items[3] {
+		t.Errorf("Expected %d but found %d", items[3], actual)
+	}
+}

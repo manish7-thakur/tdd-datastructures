@@ -6,13 +6,20 @@ type Node struct {
 	right *Node
 }
 
-func insert(node *Node, i int) *Node {
-	if node == nil {
-		node = &Node{value: i}
-	} else if i < node.value {
-		node.left = insert(node.left, i)
+func insert(root *Node, i int) *Node {
+	if root == nil {
+		root = &Node{value: i}
+	} else if i < root.value {
+		root.left = insert(root.left, i)
 	} else {
-		node.right = insert(node.right, i)
+		root.right = insert(root.right, i)
 	}
-	return node
+	return root
+}
+
+func insertM(root *Node, items *[]int) *Node {
+	for _, v := range *items {
+		root = insert(root, v)
+	}
+	return root
 }
