@@ -23,3 +23,14 @@ func insertM(root *Node, items *[]int) *Node {
 	}
 	return root
 }
+
+func preorder(node *Node, items *[]int) []int {
+	if node == nil {
+		return *items
+	} else {
+		*items = append(*items, node.value)
+		preorder(node.left, items)
+		preorder(node.right, items)
+	}
+	return *items
+}
