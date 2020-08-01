@@ -1,6 +1,7 @@
 package avl_tree
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -93,12 +94,12 @@ func TestPreorderTraversalMulti(t *testing.T) {
 	}
 }
 
-func TestInorderTraversal(t *testing.T) {
+func TestInorderTraversalMulti(t *testing.T) {
 	var root *Node
 	var items = []int{2, 82, 492, 39, 32}
 	var res = make([]int, 0, 5)
-	insertM(root, &items)
-	inorder(root, res)
+	root = insertM(root, &items)
+	inorder(root, &res)
 	var actual [5]int
 	copy(actual[:], res)
 	expected := [5]int{2, 32, 39, 82, 492}
