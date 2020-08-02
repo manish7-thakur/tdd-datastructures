@@ -62,6 +62,10 @@ func deleteNode(node *Node, i int) *Node {
 		return node
 	} else if node.value == i {
 		node = nil
+	} else if node.left != nil && node.left.value == i {
+		node.left = nil
+	} else if node.right != nil && node.right.value == i {
+		node.right = nil
 	}
 	return node
 }
