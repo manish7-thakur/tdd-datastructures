@@ -131,7 +131,7 @@ func TestDeleteEmpty(t *testing.T) {
 	}
 }
 
-func TestDeleteRooNodeNoChild(t *testing.T) {
+func TestDeleteRootNodeNoChild(t *testing.T) {
 	var root *Node
 	root = insert(root, 2)
 	root = deleteNode(root, 2)
@@ -140,7 +140,7 @@ func TestDeleteRooNodeNoChild(t *testing.T) {
 	}
 }
 
-func TestDeleteLeftLeafNoChild(t *testing.T) {
+func TestDeleteRootLeftLeafNoChild(t *testing.T) {
 	var root *Node
 	root = insertM(root, &[]int{3, 28, 2})
 	root = deleteNode(root, 2)
@@ -154,7 +154,7 @@ func TestDeleteLeftLeafNoChild(t *testing.T) {
 	}
 }
 
-func TestDeleteRightLeafNoChild(t *testing.T) {
+func TestDeleteRootRightLeafNoChild(t *testing.T) {
 	var root *Node
 	root = insertM(root, &[]int{3, 28, 2})
 	root = deleteNode(root, 28)
