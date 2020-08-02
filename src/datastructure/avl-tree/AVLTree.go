@@ -69,7 +69,11 @@ func deleteNode(node *Node, i int) *Node {
 			node.left = node.left.right
 		}
 	} else if node.right != nil && node.right.value == i {
-		node.right = node.right.left
+		if node.right.left != nil {
+			node.right = node.right.left
+		} else {
+			node.right = node.right.right
+		}
 	} else if i < node.value {
 		deleteNode(node.left, i)
 	} else if i > node.value {
