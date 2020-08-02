@@ -173,7 +173,7 @@ func TestDeleteLeafNoChild(t *testing.T) {
 	root = insertM(root, &[]int{3, 28, 2, 37, 26, 1})
 	root = deleteNode(root, 1)
 	var res []int
-	preorder(root, &res)
+	inorder(root, &res)
 	var actual [5]int
 	copy(actual[:], res)
 	expected := [5]int{2, 3, 26, 28, 37}
