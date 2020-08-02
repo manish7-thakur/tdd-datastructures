@@ -120,3 +120,22 @@ func TestPostorderTraversalMulti(t *testing.T) {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
 }
+
+func TestDeleteEmpty(t *testing.T) {
+	var root *Node
+	root = deleteNode(root, 4)
+	var actual []int
+	postorder(root, &actual)
+	if len(actual) != 0 {
+		t.Errorf("Expected empty but found %v", actual)
+	}
+}
+
+func TestDeleteRooNodeNoChild(t *testing.T) {
+	var root *Node
+	root = insert(root, 2)
+	root = deleteNode(root, 2)
+	if root != nil {
+		t.Errorf("Root was not deleted, found %v", root)
+	}
+}

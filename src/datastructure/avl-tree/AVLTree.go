@@ -56,3 +56,12 @@ func postorder(node *Node, res *[]int) []int {
 	}
 	return *res
 }
+
+func deleteNode(node *Node, i int) *Node {
+	if node == nil {
+		return node
+	} else if node.value == i {
+		node = nil
+	}
+	return node
+}
