@@ -168,7 +168,7 @@ func TestDeleteRootRightLeafNoChild(t *testing.T) {
 	}
 }
 
-func TestDeleteLeafNoChild(t *testing.T) {
+func TestDeleteLeftLeafNoChild(t *testing.T) {
 	var root *Node
 	root = insertM(root, &[]int{3, 28, 2, 37, 26, 1})
 	root = deleteNode(root, 1)
@@ -177,6 +177,20 @@ func TestDeleteLeafNoChild(t *testing.T) {
 	var actual [5]int
 	copy(actual[:], res)
 	expected := [5]int{2, 3, 26, 28, 37}
+	if actual != expected {
+		t.Errorf("Expected %v, found %v", expected, actual)
+	}
+}
+
+func TestDeleteRightLeafNoChild(t *testing.T) {
+	var root *Node
+	root = insertM(root, &[]int{3, 1, 2, 28, 29, 27})
+	root = deleteNode(root, 29)
+	var res []int
+	postorder(root, &res)
+	var actual [5]int
+	copy(actual[:], res)
+	expected := [5]int{2, 1, 27, 28, 3}
 	if actual != expected {
 		t.Errorf("Expected %v, found %v", expected, actual)
 	}
