@@ -223,3 +223,17 @@ func TestDeleteLeftNodeWithRightChild(t *testing.T) {
 		t.Errorf("Expected %v, found %v", expected, actual)
 	}
 }
+
+func TestDeleteRightNodeWithLeftChild(t *testing.T) {
+	var root *Node
+	root = insertM(root, &[]int{3, 2, 1, 25, 30, 27})
+	root = deleteNode(root, 30)
+	var res []int
+	inorder(root, &res)
+	var actual [5]int
+	copy(actual[:], res)
+	expected := [5]int{1, 2, 3, 25, 27}
+	if actual != expected {
+		t.Errorf("Expected %v, found %v", expected, actual)
+	}
+}
