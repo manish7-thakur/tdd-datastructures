@@ -57,13 +57,57 @@ func postorder(node *Node, res *[]int) []int {
 	return *res
 }
 
-func deleteNode(node *Node, i int) *Node {
+func deleteNode(node *Node, i int, parent *Node) *Node {
+	if node == nil {
+		return node
+	} else if i < node.value {
+		deleteNode(node.left, i, node)
+	} else if i > node.value {
+		deleteNode(node.right, i, node)
+	} else {
+		if node.left == nil && node.right == nil {
+			if node == parent.left {
+				parent.left = nil
+			} else {
+				parent.right = nil
+			}
+		} else if node.left == nil {
+			if node == parent.left {
+				parent.left = node.right
+			} else {
+				parent.right = node.right
+			}
+		} else if node.right == nil {
+			if node == parent.left {
+				parent.left = node.left
+			} else {
+				parent.right = node.left
+			}
+		} else {
+			succ := node.right
+			succParent := node
+			for ; succ.left != nil; {
+				succParent = succ
+				succ = succ.left
+			}
+			node.value = succ.value
+			succParent.left = nil
+		}
+	}
+	return node
+}
+
+/*func deleteNode(node *Node, i int) *Node {
 	if node == nil {
 		return node
 	} else if node.value == i {
 		node = nil
 	} else if node.left != nil && node.left.value == i {
-		if node.left.left != nil {
+		if node.left.left != nil && node.left.right != nil {
+			succ := inorderSucc(node.left)
+			node.left.value = succ.value
+			deleteNode(succ, succ.value)
+		} else if node.left.left != nil {
 			node.left = node.left.left
 		} else {
 			node.left = node.left.right
@@ -80,4 +124,12 @@ func deleteNode(node *Node, i int) *Node {
 		deleteNode(node.right, i)
 	}
 	return node
+}*/
+
+func inorderSucc(node *Node) *Node {
+	tra := node.right
+	for ; tra.left != nil; {
+		tra = tra.left
+	}
+	return tra
 }
