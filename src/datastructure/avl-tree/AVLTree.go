@@ -94,9 +94,9 @@ func deleteNode(node *Node, i int, parent *Node) *Node {
 			}
 			node.value = succ.value
 			if succParent != node {
-				succParent.left = nil
+				succParent.left = succ.right
 			} else {
-				node.right = succ.right
+				node.right = succ.right //could be succParent.right = succ.right
 			}
 		}
 	}
