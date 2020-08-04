@@ -1,4 +1,4 @@
-package avl_tree
+package bst_tree
 
 import (
 	"testing"
