@@ -65,7 +65,9 @@ func deleteNode(node *Node, i int, parent *Node) *Node {
 	} else if i > node.value {
 		deleteNode(node.right, i, node)
 	} else {
-		if node.left == nil && node.right == nil {
+		if parent.value == -2635 {
+			node = nil
+		} else if node.left == nil && node.right == nil {
 			if node == parent.left {
 				parent.left = nil
 			} else {
@@ -125,11 +127,3 @@ func deleteNode(node *Node, i int, parent *Node) *Node {
 	}
 	return node
 }*/
-
-func inorderSucc(node *Node) *Node {
-	tra := node.right
-	for ; tra.left != nil; {
-		tra = tra.left
-	}
-	return tra
-}

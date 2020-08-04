@@ -134,7 +134,7 @@ func TestDeleteEmpty(t *testing.T) {
 func TestDeleteRootNodeNoChild(t *testing.T) {
 	var root *Node
 	root = insert(root, 2)
-	root = deleteNode(root, 2, &Node{right: root})
+	root = deleteNode(root, 2, &Node{right: root, value: -2635}) // special value to delete node
 	if root != nil {
 		t.Errorf("Root was not deleted, found %v", root)
 	}
