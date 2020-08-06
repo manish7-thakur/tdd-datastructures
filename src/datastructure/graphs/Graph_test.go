@@ -27,7 +27,9 @@ func TestGraphAppendToExistingList(t *testing.T) {
 func TestGraphBFSEmpty(t *testing.T) {
 	graph := Graph{map[string][]string{}}
 	elems := graph.bfs("")
-	if len(elems) != 0 {
+	var actual [0]string
+	copy(actual[:], elems)
+	if actual != [0]string{} {
 		t.Errorf("Expected empty but found %v", elems)
 	}
 }
@@ -39,6 +41,24 @@ func TestGraphBFSTwoVertices(t *testing.T) {
 	var actual [2]string
 	copy(actual[:], elems)
 	expected := [2]string{"u", "v"}
+	if actual != expected {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
+
+func TestGraphBFSMultipleVertices(t *testing.T) {
+	graph := Graph{map[string][]string{}}
+	graph.insertAdj("a", []string{"b", "c"})
+	graph.insertAdj("b", []string{"a", "c", "d"})
+	graph.insertAdj("c", []string{"a", "b", "d"})
+	graph.insertAdj("d", []string{"b", "c", "e", "f"})
+	graph.insertAdj("e", []string{"d", "g"})
+	graph.insertAdj("f", []string{"d"})
+	graph.insertAdj("g", []string{"g"})
+	var elems = graph.bfs("a")
+	var actual [7]string
+	copy(actual[:], elems)
+	expected := [7]string{"a", "b", "c", "d", "e", "f", "g"}
 	if actual != expected {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
