@@ -4,14 +4,6 @@ import (
 	"testing"
 )
 
-type Graph struct {
-	adjList map[string][]string
-}
-
-func (graph Graph) insert(u string, v string) {
-	graph.adjList[u] = append(graph.adjList[u], v)
-}
-
 func TestGraphInsertVertex(t *testing.T) {
 	graph := Graph{map[string][]string{}}
 	graph.insert("a", "b")
