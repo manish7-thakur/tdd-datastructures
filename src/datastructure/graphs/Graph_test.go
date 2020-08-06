@@ -40,6 +40,6 @@ func TestGraphBFSTwoVertices(t *testing.T) {
 	copy(actual[:], elems)
 	expected := [2]string{"u", "v"}
 	if actual != expected {
-		t.Errorf("Expected empty but found %v", elems)
+		t.Errorf("Expected %v but found %v", expected, actual)
 	}
 }

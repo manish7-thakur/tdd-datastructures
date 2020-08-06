@@ -9,6 +9,15 @@ func (graph Graph) insert(u string, v string) {
 }
 
 func (graph Graph) bfs(root string) []string {
-	strings := graph.adjList[root]
-	return strings
+	var queue []string
+	var visited []string
+	queue = append(queue, root)
+	for ; len(queue) != 0; {
+		current := queue[0]
+		visited = append(visited, current)
+		adjacent := graph.adjList[current]
+		queue = append(queue, adjacent...)
+		queue = queue[1:]
+	}
+	return visited
 }
