@@ -33,5 +33,14 @@ func (graph Graph) bfs(root string) []string {
 }
 
 func (graph Graph) dfs(start string) []string {
-	return []string{}
+	var stack []string
+	var processed []string
+	stack = append(stack, start)
+	for ; len(stack) != 0; {
+		top := stack[len(stack)-1]
+		processed = append(processed, top)
+		stack = stack[:len(stack)-1]
+		stack = append(stack, graph.adjList[top]...)
+	}
+	return processed
 }
