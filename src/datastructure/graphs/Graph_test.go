@@ -81,3 +81,11 @@ func TestGraphBFSMultipleVerticesLastNode(t *testing.T) {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
 }
+
+func TestGraphDFSEmpty(t *testing.T) {
+	graph := Graph{map[string][]string{}}
+	vertices := graph.dfs("")
+	if len(vertices) != 0 {
+		t.Errorf("Expected empty but found %d", len(vertices))
+	}
+}

@@ -31,3 +31,7 @@ func (graph Graph) bfs(root string) []string {
 	}
 	return processed
 }
+
+func (graph Graph) dfs(start string) []string {
+	return []string{}
+}
