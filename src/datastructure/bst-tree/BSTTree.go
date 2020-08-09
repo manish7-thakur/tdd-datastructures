@@ -102,32 +102,3 @@ func deleteNode(node *Node, i int, parent *Node) *Node {
 	}
 	return node
 }
-
-/*func deleteNode(node *Node, i int) *Node {
-	if node == nil {
-		return node
-	} else if node.value == i {
-		node = nil
-	} else if node.left != nil && node.left.value == i {
-		if node.left.left != nil && node.left.right != nil {
-			succ := inorderSucc(node.left)
-			node.left.value = succ.value
-			deleteNode(succ, succ.value)
-		} else if node.left.left != nil {
-			node.left = node.left.left
-		} else {
-			node.left = node.left.right
-		}
-	} else if node.right != nil && node.right.value == i {
-		if node.right.left != nil {
-			node.right = node.right.left
-		} else {
-			node.right = node.right.right
-		}
-	} else if i < node.value {
-		deleteNode(node.left, i)
-	} else if i > node.value {
-		deleteNode(node.right, i)
-	}
-	return node
-}*/
