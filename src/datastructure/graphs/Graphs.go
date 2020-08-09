@@ -12,22 +12,20 @@ func (graph Graph) insertAdj(u string, adjacent []string) {
 	graph.adjList[u] = append(graph.adjList[u], adjacent...)
 }
 
-func (graph Graph) bfs(root string) []string {
+func (graph Graph) bfs(start string) []string {
 	var queue []string
 	var processed []string
 	visited := make(map[string]struct{})
-	queue = append(queue, root)
+	queue = append(queue, start)
 	for ; len(queue) != 0; {
 		current := queue[0]
+		queue = queue[1:]
 		_, ok := visited[current]
 		if !ok {
 			visited[current] = struct{}{}
 			processed = append(processed, current)
-			adjacent := graph.adjList[current]
-			queue = append(queue, adjacent...)
+			queue = append(queue, graph.adjList[current]...)
 		}
-
-		queue = queue[1:]
 	}
 	return processed
 }
