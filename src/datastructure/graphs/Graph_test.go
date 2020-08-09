@@ -105,3 +105,21 @@ func TestGraphDFSTwoVertices(t *testing.T) {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
 }
+
+func TestGraphDFSMultipleVertices(t *testing.T) {
+	graph := Graph{map[string][]string{}}
+	graph.insertAdj("a", []string{"b", "c"})
+	graph.insertAdj("b", []string{"a", "c", "d"})
+	graph.insertAdj("c", []string{"a", "b", "d"})
+	graph.insertAdj("d", []string{"b", "c", "e", "f"})
+	graph.insertAdj("e", []string{"d", "g"})
+	graph.insertAdj("f", []string{"d"})
+	graph.insertAdj("g", []string{"e"})
+	var elems = graph.dfs("a")
+	var actual [7]string
+	copy(actual[:], elems)
+	expected := [7]string{"a", "c", "d", "f", "e", "g", "b"}
+	if actual != expected {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}

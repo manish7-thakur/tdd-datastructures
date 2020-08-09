@@ -35,12 +35,17 @@ func (graph Graph) bfs(root string) []string {
 func (graph Graph) dfs(start string) []string {
 	var stack []string
 	var processed []string
+	visited := make(map[string]struct{})
 	stack = append(stack, start)
 	for ; len(stack) != 0; {
-		top := stack[len(stack)-1]
-		processed = append(processed, top)
+		current := stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
-		stack = append(stack, graph.adjList[top]...)
+		_, ok := visited[current]
+		if !ok {
+			visited[current] = struct{}{}
+			processed = append(processed, current)
+			stack = append(stack, graph.adjList[current]...)
+		}
 	}
 	return processed
 }
