@@ -1,6 +1,7 @@
 package graphs
 
 import (
+	"math"
 	"testing"
 )
 
@@ -137,6 +138,27 @@ func TestGraphDFSMultipleVerticesLastNode(t *testing.T) {
 	var actual [7]string
 	copy(actual[:], elems)
 	expected := [7]string{"g", "e", "d", "f", "c", "b", "a"}
+	if actual != expected {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
+
+func TestDijkstraEmptyGraph(t *testing.T) {
+	graph := WeightedGraph{map[Node][]Node{}}
+	res := graph.dijkstraShortestPath(Node{})
+	if len(res) != 1 {
+		t.Errorf("Expected empty but found %d", len(res))
+	}
+}
+
+func TestDijkstraTwoNodes(t *testing.T) {
+	graph := WeightedGraph{map[Node][]Node{}}
+	source := Node{vertex: "u"}
+	graph.insert(source, []Node{{"v", 8, math.MaxInt32}})
+	res := graph.dijkstraShortestPath(source)
+	var actual [2]Node
+	copy(actual[:], res)
+	expected := [2]Node{{"u", 0, 0}, {"v", 8, 8}}
 	if actual != expected {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
