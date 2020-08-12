@@ -19,31 +19,10 @@ type Node struct {
 }
 
 type WeightedGraph struct {
-	adjList map[Node][]Node
+	adjList map[string][]Node
 }
 
-func (g WeightedGraph) dijkstraShortestPath(source Node) []Node {
-	var minQueue []Node
-	var processed []Node
-	source.dist = 0
-	minQueue = append(minQueue, source)
-	for ;len(minQueue) != 0; {
-		current := minQueue[0]
-		minQueue = minQueue[1:]
-		adjacent := g.adjList[current]
-		for i, n := range adjacent {
-			if current.dist + n.weight < n.dist {
-				adjacent[i].dist = current.dist + n.weight
-			}
-		}
-		processed = append(processed, current)
-		minQueue = append(minQueue, adjacent ...)
-	}
-
-	return processed
-}
-
-func (g WeightedGraph) insert(node Node, adjacent []Node) {
+func (g WeightedGraph) insert(node string, adjacent []Node) {
 	g.adjList[node] = adjacent
 }
 
@@ -80,5 +59,26 @@ func (graph Graph) dfs(start string) []string {
 			stack = append(stack, graph.adjList[current]...)
 		}
 	}
+	return processed
+}
+
+func (g WeightedGraph) dijkstraShortestPath(source Node) []Node {
+	var minQueue []Node
+	var processed []Node
+	source.dist = 0
+	minQueue = append(minQueue, source)
+	for ;len(minQueue) != 0; {
+		current := minQueue[0]
+		minQueue = minQueue[1:]
+		adjacent := g.adjList[current.vertex]
+		for i, n := range adjacent {
+			if current.dist + n.weight < n.dist {
+				adjacent[i].dist = current.dist + n.weight
+			}
+		}
+		processed = append(processed, current)
+		minQueue = append(minQueue, adjacent ...)
+	}
+
 	return processed
 }

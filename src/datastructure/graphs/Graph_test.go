@@ -144,7 +144,7 @@ func TestGraphDFSMultipleVerticesLastNode(t *testing.T) {
 }
 
 func TestDijkstraEmptyGraph(t *testing.T) {
-	graph := WeightedGraph{map[Node][]Node{}}
+	graph := WeightedGraph{map[string][]Node{}}
 	res := graph.dijkstraShortestPath(Node{})
 	if len(res) != 1 {
 		t.Errorf("Expected empty but found %d", len(res))
@@ -152,13 +152,27 @@ func TestDijkstraEmptyGraph(t *testing.T) {
 }
 
 func TestDijkstraTwoNodes(t *testing.T) {
-	graph := WeightedGraph{map[Node][]Node{}}
+	graph := WeightedGraph{map[string][]Node{}}
 	source := Node{vertex: "u"}
-	graph.insert(source, []Node{{"v", 8, math.MaxInt32}})
+	graph.insert(source.vertex, []Node{{"v", 8, math.MaxInt32}})
 	res := graph.dijkstraShortestPath(source)
 	var actual [2]Node
 	copy(actual[:], res)
 	expected := [2]Node{{"u", 0, 0}, {"v", 8, 8}}
+	if actual != expected {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
+
+func TestDijkstraThreeNodes(t *testing.T) {
+	graph := WeightedGraph{map[string][]Node{}}
+	source := Node{vertex: "a"}
+	graph.insert(source.vertex, []Node{{"b", 8, math.MaxInt32}})
+	graph.insert("b", []Node{{"c", 5, math.MaxInt32}})
+	res := graph.dijkstraShortestPath(source)
+	var actual [3]Node
+	copy(actual[:], res)
+	expected := [3]Node{{"a", 0, 0}, {"b", 8, 8}, {"c", 5, 13}}
 	if actual != expected {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
