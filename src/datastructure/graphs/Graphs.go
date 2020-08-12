@@ -70,17 +70,21 @@ func (g WeightedGraph) dijkstraShortestPath(source Node) []Node {
 	var visited = make(map[string]struct{})
 	source.dist = 0
 	minQueue = append(minQueue, source)
-	for ; len(minQueue) != 0; {
+	for len(minQueue) != 0 {
 		current := minQueue[0]
 		minQueue = minQueue[1:]
 		adjacent := g.adjList[current.vertex]
-		for _, n := range adjacent {
-			if _, ok := visited[n.vertex]; !ok && current.dist+n.weight < n.dist {
-				n.dist = current.dist + n.weight
-				minQueue = appendMin(minQueue, n)
+		for i, n := range adjacent {
+			if _, ok := visited[n.vertex]; !ok {
+				if current.dist+n.weight < n.dist {
+					adjacent[i].dist = current.dist + n.weight
+					minQueue = appendMin(minQueue, adjacent[i])
+				}
 			}
 		}
-		processed = append(processed, current)
+		if _, ok := visited[current.vertex]; !ok {
+			processed = append(processed, current)
+		}
 		visited[current.vertex] = struct{}{}
 	}
 	return processed

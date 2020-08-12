@@ -194,3 +194,22 @@ func TestDijkstraFourNodesNodes(t *testing.T) {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
 }
+
+func TestGraphDijkstraMultipleVertices(t *testing.T) {
+	graph := WeightedGraph{map[string][]Node{}}
+	source := Node{vertex: "a"}
+	graph.insert("a", []Node{{"b", 3, math.MaxInt32}, {"c", 2, math.MaxInt32}})
+	graph.insert("b", []Node{{"a", 6, math.MaxInt32}, {"c", 7, math.MaxInt32}, {"d", 1, math.MaxInt32}})
+	graph.insert("c", []Node{{"a", 2, math.MaxInt32}, {"b", 4, math.MaxInt32}, {"d", 5, math.MaxInt32}})
+	graph.insert("d", []Node{{"b", 9, math.MaxInt32}, {"c", 4, math.MaxInt32}, {"e", 8, math.MaxInt32}, {"f", 4, math.MaxInt32}})
+	graph.insert("e", []Node{{"d", 4, math.MaxInt32}, {"g", 3, math.MaxInt32}})
+	graph.insert("f", []Node{{"d", 6, math.MaxInt32}})
+	graph.insert("g", []Node{{"e", 3, math.MaxInt32}})
+	var elems = graph.dijkstraShortestPath(source)
+	var actual [7]Node
+	copy(actual[:], elems)
+	expected := [7]Node{{"a", 0, 0}, {"c", 2, 2}, {"b", 3, 3}, {"d", 1, 4}, {"f", 4, 8}, {"e", 8, 12}, {"g", 3, 15}}
+	if actual != expected {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
