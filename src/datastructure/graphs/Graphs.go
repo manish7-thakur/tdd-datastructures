@@ -1,5 +1,7 @@
 package graphs
 
+import "sort"
+
 type Graph struct {
 	adjList map[string][]string
 }
@@ -65,20 +67,33 @@ func (graph Graph) dfs(start string) []string {
 func (g WeightedGraph) dijkstraShortestPath(source Node) []Node {
 	var minQueue []Node
 	var processed []Node
+	var visited = make(map[string]struct{})
+
 	source.dist = 0
 	minQueue = append(minQueue, source)
-	for ;len(minQueue) != 0; {
+	for ; len(minQueue) != 0; {
 		current := minQueue[0]
 		minQueue = minQueue[1:]
 		adjacent := g.adjList[current.vertex]
 		for i, n := range adjacent {
-			if current.dist + n.weight < n.dist {
-				adjacent[i].dist = current.dist + n.weight
+			if _, ok := visited[n.vertex]; !ok {
+				if current.dist+n.weight < n.dist {
+					adjacent[i].dist = current.dist + n.weight
+					minQueue = appendMin(minQueue, adjacent[i])
+				}
 			}
 		}
 		processed = append(processed, current)
-		minQueue = append(minQueue, adjacent ...)
+		visited[current.vertex] = struct{}{}
 	}
 
 	return processed
+}
+
+func appendMin(queue []Node, adjacent ...Node) []Node {
+	queue = append(queue, adjacent...)
+	sort.Slice(queue, func(i, j int) bool {
+		return queue[i].dist < queue[j].dist
+	})
+	return queue
 }

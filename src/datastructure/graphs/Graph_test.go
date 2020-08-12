@@ -154,6 +154,7 @@ func TestDijkstraEmptyGraph(t *testing.T) {
 func TestDijkstraTwoNodes(t *testing.T) {
 	graph := WeightedGraph{map[string][]Node{}}
 	source := Node{vertex: "u"}
+	//Initial distance is INF(MaxInt32) for all nodes except source which has 0
 	graph.insert(source.vertex, []Node{{"v", 8, math.MaxInt32}})
 	res := graph.dijkstraShortestPath(source)
 	var actual [2]Node
@@ -173,6 +174,22 @@ func TestDijkstraThreeNodes(t *testing.T) {
 	var actual [3]Node
 	copy(actual[:], res)
 	expected := [3]Node{{"a", 0, 0}, {"b", 8, 8}, {"c", 5, 13}}
+	if actual != expected {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
+
+func TestDijkstraFourNodesNodes(t *testing.T) {
+	graph := WeightedGraph{map[string][]Node{}}
+	source := Node{vertex: "a"}
+	graph.insert(source.vertex, []Node{{"b", 2, math.MaxInt32}, {"c", 4, math.MaxInt32}, {"d", 1, math.MaxInt32}})
+	graph.insert("b", []Node{{"a", 2, math.MaxInt32}, {"c", 1, math.MaxInt32}})
+	graph.insert("c", []Node{{"a", 4, math.MaxInt32}, {"b", 1, math.MaxInt32}})
+	graph.insert("d", []Node{{"a", 1, math.MaxInt32}})
+	res := graph.dijkstraShortestPath(source)
+	var actual [4]Node
+	copy(actual[:], res)
+	expected := [4]Node{{"a", 0, 0}, {"d", 1, 1}, {"b", 2, 2}, {"c", 1, 3}}
 	if actual != expected {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
