@@ -1,6 +1,8 @@
 package graphs
 
-import "sort"
+import (
+	"sort"
+)
 
 type Graph struct {
 	adjList map[string][]string
@@ -97,3 +99,31 @@ func appendMin(queue []Node, adjacent ...Node) []Node {
 	})
 	return queue
 }
+
+/* Can be done using min heap, reference : https://golang.org/pkg/container/heap/#example__intHeap
+type NodeHeap []Node
+
+func (h NodeHeap) Less(i, j int) bool {
+	return h[i].dist < h[j].dist
+}
+
+func (h NodeHeap) Swap(i, j int) {
+	h[i], h[j] = h[j], h[i]
+}
+
+func (h NodeHeap) Len() int {
+	return len(h)
+}
+
+func (h *NodeHeap) Push(x interface{}) {
+	*h = append(*h, x.(Node))
+}
+
+func (h *NodeHeap) Pop() interface{} {
+	old := *h
+	n := len(old)
+	x := old[n-1]
+	*h = old[0 : n-1]
+	return x
+}
+*/
