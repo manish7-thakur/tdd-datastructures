@@ -1,4 +1,4 @@
-package datastructure
+package linked_lists
 
 type Node struct {
 	data int
