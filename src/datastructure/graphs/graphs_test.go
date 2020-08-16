@@ -213,3 +213,15 @@ func TestGraphDijkstraMultipleVertices(t *testing.T) {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
 }
+
+func TestGraphBellmenEmptyGraph(t *testing.T) {
+	graph := WeightedGraph{map[string][]Node{}}
+	source := Node{vertex: "a"}
+	var elems = graph.bellmenFord(source)
+	var actual [1]Node
+	copy(actual[:], elems)
+	expected := [1]Node{{"", 0, 0}}
+	if actual != expected {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}

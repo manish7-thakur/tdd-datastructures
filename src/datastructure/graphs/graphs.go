@@ -92,6 +92,10 @@ func (g WeightedGraph) dijkstraShortestPath(source Node) []Node {
 	return processed
 }
 
+func (g WeightedGraph) bellmenFord(source Node) []Node {
+	return []Node{}
+}
+
 func appendMin(queue []Node, adjacent ...Node) []Node {
 	queue = append(queue, adjacent...)
 	sort.Slice(queue, func(i, j int) bool {
