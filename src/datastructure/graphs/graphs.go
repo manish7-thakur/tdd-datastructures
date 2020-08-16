@@ -1,6 +1,7 @@
 package graphs
 
 import (
+	"math"
 	"sort"
 )
 
@@ -93,7 +94,27 @@ func (g WeightedGraph) dijkstraShortestPath(source Node) []Node {
 }
 
 func (g WeightedGraph) bellmenFord(source Node) []Node {
-	return []Node{}
+	source.dist = 0
+	var edges []Node
+	v := len(g.adjList)
+	for _, edgeList := range g.adjList {
+		for _, e := range edgeList {
+			if e.vertex == source.vertex {
+				e.dist = 0
+			} else {
+				e.dist = math.MaxInt32
+			}
+			edges = append(edges, e)
+		}
+	}
+	for i := 0; i <= v; i = i + 1 {
+		for _, edge := range edges {
+			if source.dist + edge.weight < edge.dist {
+				edges[i].dist = source.dist + edge.weight
+			}
+		}
+	}
+	return edges
 }
 
 func appendMin(queue []Node, adjacent ...Node) []Node {

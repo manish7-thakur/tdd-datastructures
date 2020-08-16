@@ -225,3 +225,16 @@ func TestGraphBellmenEmptyGraph(t *testing.T) {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
 }
+
+func TestGraphTwoVertices(t *testing.T) {
+	graph := WeightedGraph{map[string][]Node{}}
+	source := Node{vertex: "a"}
+	graph.insert("a", []Node{{"b", -1, math.MaxInt32}})
+	var elems = graph.bellmenFord(source)
+	var actual [1]Node
+	copy(actual[:], elems)
+	expected := [1]Node{{"b", -1, -1}}
+	if actual != expected {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
