@@ -21,6 +21,7 @@ type Node struct {
 	vertex string
 	weight int
 	dist   int
+	source string
 }
 
 type WeightedGraph struct {
@@ -94,23 +95,28 @@ func (g WeightedGraph) dijkstraShortestPath(source Node) []Node {
 }
 
 func (g WeightedGraph) bellmenFord(source Node) []Node {
-	source.dist = 0
 	var edges []Node
+	var dist = make(map[string]int)
 	v := len(g.adjList)
-	for _, edgeList := range g.adjList {
+	for s, edgeList := range g.adjList {
 		for _, e := range edgeList {
 			if e.vertex == source.vertex {
 				e.dist = 0
+				dist[e.vertex] = 0
 			} else {
 				e.dist = math.MaxInt32
+				dist[e.vertex] = math.MaxInt32
 			}
+			e.source = s
 			edges = append(edges, e)
 		}
 	}
+	dist[source.vertex] = 0
 	for i := 0; i <= v; i = i + 1 {
-		for _, edge := range edges {
-			if source.dist + edge.weight < edge.dist {
-				edges[i].dist = source.dist + edge.weight
+		for j, edge := range edges {
+			if dist[edge.source]+edge.weight < edge.dist {
+				edges[j].dist = dist[edge.source] + edge.weight
+				dist[edge.vertex] = edges[j].dist
 			}
 		}
 	}

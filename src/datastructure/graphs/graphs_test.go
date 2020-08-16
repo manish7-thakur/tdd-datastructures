@@ -155,11 +155,11 @@ func TestDijkstraTwoNodes(t *testing.T) {
 	graph := WeightedGraph{map[string][]Node{}}
 	source := Node{vertex: "u"}
 	//Initial distance is INF(MaxInt32) for all nodes except source which has 0
-	graph.insert(source.vertex, []Node{{"v", 8, math.MaxInt32}})
+	graph.insert(source.vertex, []Node{{"v", 8, math.MaxInt32, ""}})
 	res := graph.dijkstraShortestPath(source)
 	var actual [2]Node
 	copy(actual[:], res)
-	expected := [2]Node{{"u", 0, 0}, {"v", 8, 8}}
+	expected := [2]Node{{"u", 0, 0, ""}, {"v", 8, 8, ""}}
 	if actual != expected {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
@@ -168,12 +168,12 @@ func TestDijkstraTwoNodes(t *testing.T) {
 func TestDijkstraThreeNodes(t *testing.T) {
 	graph := WeightedGraph{map[string][]Node{}}
 	source := Node{vertex: "a"}
-	graph.insert(source.vertex, []Node{{"b", 8, math.MaxInt32}})
-	graph.insert("b", []Node{{"c", 5, math.MaxInt32}})
+	graph.insert(source.vertex, []Node{{"b", 8, math.MaxInt32, ""}})
+	graph.insert("b", []Node{{"c", 5, math.MaxInt32, ""}})
 	res := graph.dijkstraShortestPath(source)
 	var actual [3]Node
 	copy(actual[:], res)
-	expected := [3]Node{{"a", 0, 0}, {"b", 8, 8}, {"c", 5, 13}}
+	expected := [3]Node{{"a", 0, 0, ""}, {"b", 8, 8, ""}, {"c", 5, 13, ""}}
 	if actual != expected {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
@@ -182,14 +182,14 @@ func TestDijkstraThreeNodes(t *testing.T) {
 func TestDijkstraFourNodesNodes(t *testing.T) {
 	graph := WeightedGraph{map[string][]Node{}}
 	source := Node{vertex: "a"}
-	graph.insert(source.vertex, []Node{{"b", 2, math.MaxInt32}, {"c", 4, math.MaxInt32}, {"d", 1, math.MaxInt32}})
-	graph.insert("b", []Node{{"a", 2, math.MaxInt32}, {"c", 1, math.MaxInt32}})
-	graph.insert("c", []Node{{"a", 4, math.MaxInt32}, {"b", 1, math.MaxInt32}})
-	graph.insert("d", []Node{{"a", 1, math.MaxInt32}})
+	graph.insert(source.vertex, []Node{{"b", 2, math.MaxInt32, ""}, {"c", 4, math.MaxInt32, ""}, {"d", 1, math.MaxInt32, ""}})
+	graph.insert("b", []Node{{"a", 2, math.MaxInt32, ""}, {"c", 1, math.MaxInt32, ""}})
+	graph.insert("c", []Node{{"a", 4, math.MaxInt32, ""}, {"b", 1, math.MaxInt32, ""}})
+	graph.insert("d", []Node{{"a", 1, math.MaxInt32, ""}})
 	res := graph.dijkstraShortestPath(source)
 	var actual [4]Node
 	copy(actual[:], res)
-	expected := [4]Node{{"a", 0, 0}, {"d", 1, 1}, {"b", 2, 2}, {"c", 1, 3}}
+	expected := [4]Node{{"a", 0, 0, ""}, {"d", 1, 1, ""}, {"b", 2, 2, ""}, {"c", 1, 3, ""}}
 	if actual != expected {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
@@ -198,17 +198,17 @@ func TestDijkstraFourNodesNodes(t *testing.T) {
 func TestGraphDijkstraMultipleVertices(t *testing.T) {
 	graph := WeightedGraph{map[string][]Node{}}
 	source := Node{vertex: "a"}
-	graph.insert("a", []Node{{"b", 3, math.MaxInt32}, {"c", 2, math.MaxInt32}})
-	graph.insert("b", []Node{{"a", 6, math.MaxInt32}, {"c", 7, math.MaxInt32}, {"d", 1, math.MaxInt32}})
-	graph.insert("c", []Node{{"a", 2, math.MaxInt32}, {"b", 4, math.MaxInt32}, {"d", 5, math.MaxInt32}})
-	graph.insert("d", []Node{{"b", 9, math.MaxInt32}, {"c", 4, math.MaxInt32}, {"e", 8, math.MaxInt32}, {"f", 4, math.MaxInt32}})
-	graph.insert("e", []Node{{"d", 4, math.MaxInt32}, {"g", 3, math.MaxInt32}})
-	graph.insert("f", []Node{{"d", 6, math.MaxInt32}})
-	graph.insert("g", []Node{{"e", 3, math.MaxInt32}})
+	graph.insert("a", []Node{{"b", 3, math.MaxInt32, ""}, {"c", 2, math.MaxInt32, ""}})
+	graph.insert("b", []Node{{"a", 6, math.MaxInt32, ""}, {"c", 7, math.MaxInt32, ""}, {"d", 1, math.MaxInt32, ""}})
+	graph.insert("c", []Node{{"a", 2, math.MaxInt32, ""}, {"b", 4, math.MaxInt32, ""}, {"d", 5, math.MaxInt32, ""}})
+	graph.insert("d", []Node{{"b", 9, math.MaxInt32, ""}, {"c", 4, math.MaxInt32, ""}, {"e", 8, math.MaxInt32, ""}, {"f", 4, math.MaxInt32, ""}})
+	graph.insert("e", []Node{{"d", 4, math.MaxInt32, ""}, {"g", 3, math.MaxInt32, ""}})
+	graph.insert("f", []Node{{"d", 6, math.MaxInt32, ""}})
+	graph.insert("g", []Node{{"e", 3, math.MaxInt32, ""}})
 	var elems = graph.dijkstraShortestPath(source)
 	var actual [7]Node
 	copy(actual[:], elems)
-	expected := [7]Node{{"a", 0, 0}, {"c", 2, 2}, {"b", 3, 3}, {"d", 1, 4}, {"f", 4, 8}, {"e", 8, 12}, {"g", 3, 15}}
+	expected := [7]Node{{"a", 0, 0, ""}, {"c", 2, 2, ""}, {"b", 3, 3, ""}, {"d", 1, 4, ""}, {"f", 4, 8, ""}, {"e", 8, 12, ""}, {"g", 3, 15, ""}}
 	if actual != expected {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
@@ -220,7 +220,7 @@ func TestGraphBellmenEmptyGraph(t *testing.T) {
 	var elems = graph.bellmenFord(source)
 	var actual [1]Node
 	copy(actual[:], elems)
-	expected := [1]Node{{"", 0, 0}}
+	expected := [1]Node{{"", 0, 0, ""}}
 	if actual != expected {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
@@ -229,11 +229,26 @@ func TestGraphBellmenEmptyGraph(t *testing.T) {
 func TestGraphTwoVertices(t *testing.T) {
 	graph := WeightedGraph{map[string][]Node{}}
 	source := Node{vertex: "a"}
-	graph.insert("a", []Node{{"b", -1, math.MaxInt32}})
+	graph.insert("a", []Node{{"b", -1, math.MaxInt32, ""}})
 	var elems = graph.bellmenFord(source)
 	var actual [1]Node
 	copy(actual[:], elems)
-	expected := [1]Node{{"b", -1, -1}}
+	expected := [1]Node{{"b", -1, -1, "a"}}
+	if actual != expected {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
+
+func TestGraphThreeVertices(t *testing.T) {
+	graph := WeightedGraph{map[string][]Node{}}
+	source := Node{vertex: "a"}
+	graph.insert("a", []Node{{"b", -1, math.MaxInt32, ""}, {"c", 2, math.MaxInt32, ""}, {"d", 1, math.MaxInt32, ""}})
+	graph.insert("b", []Node{{"d", 3, math.MaxInt32, ""}})
+	graph.insert("c", []Node{{"d", - 1, math.MaxInt32, ""}, {"a", 1, math.MaxInt32, ""}})
+	var elems = graph.bellmenFord(source)
+	var actual [6]Node
+	copy(actual[:], elems)
+	expected := [6]Node{{"b", -1, -1, "a"}, {"c", 2, 2, "a"}, {"d", 1, 1, "a"}, {"d", 3, 2, "b"}, {"d", -1, 1, "c"}, {"a", 1, 0, "c"}}
 	if actual != expected {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
