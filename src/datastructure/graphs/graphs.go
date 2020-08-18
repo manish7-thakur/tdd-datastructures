@@ -94,10 +94,9 @@ func (g WeightedGraph) dijkstraShortestPath(source Node) []Node {
 	return processed
 }
 
-func (g WeightedGraph) bellmenFord(source Node) []Node {
+func (g WeightedGraph) bellmenFord(source Node, v int) []Node {
 	var edges []Node
 	var dist = make(map[string]int)
-	v := len(g.adjList)
 	for s, edgeList := range g.adjList {
 		for _, e := range edgeList {
 			if e.vertex == source.vertex {
@@ -112,11 +111,11 @@ func (g WeightedGraph) bellmenFord(source Node) []Node {
 		}
 	}
 	dist[source.vertex] = 0
-	for i := 0; i <= v; i = i + 1 {
+	for i := 0; i < v; i = i + 1 {
 		for j, edge := range edges {
 			if dist[edge.source]+edge.weight < edge.dist {
 				edges[j].dist = dist[edge.source] + edge.weight
-				dist[edge.vertex] = edges[j].dist
+				dist[edge.vertex] = dist[edge.source] + edge.weight
 			}
 		}
 	}

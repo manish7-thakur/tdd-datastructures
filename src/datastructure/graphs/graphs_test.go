@@ -217,7 +217,7 @@ func TestGraphDijkstraMultipleVertices(t *testing.T) {
 func TestGraphBellmenEmptyGraph(t *testing.T) {
 	graph := WeightedGraph{map[string][]Node{}}
 	source := Node{vertex: "a"}
-	var elems = graph.bellmenFord(source)
+	var elems = graph.bellmenFord(source, 0)
 	var actual [1]Node
 	copy(actual[:], elems)
 	expected := [1]Node{{"", 0, 0, ""}}
@@ -230,7 +230,7 @@ func TestGraphTwoVertices(t *testing.T) {
 	graph := WeightedGraph{map[string][]Node{}}
 	source := Node{vertex: "a"}
 	graph.insert("a", []Node{{"b", -1, math.MaxInt32, ""}})
-	var elems = graph.bellmenFord(source)
+	var elems = graph.bellmenFord(source, 2)
 	var actual [1]Node
 	copy(actual[:], elems)
 	expected := [1]Node{{"b", -1, -1, "a"}}
@@ -241,14 +241,14 @@ func TestGraphTwoVertices(t *testing.T) {
 
 func TestGraphThreeVertices(t *testing.T) {
 	graph := WeightedGraph{map[string][]Node{}}
-	source := Node{vertex: "a"}
+	source := Node{vertex: "c"}
 	graph.insert("a", []Node{{"b", -1, math.MaxInt32, ""}, {"c", 2, math.MaxInt32, ""}, {"d", 1, math.MaxInt32, ""}})
 	graph.insert("b", []Node{{"d", 3, math.MaxInt32, ""}})
 	graph.insert("c", []Node{{"d", - 1, math.MaxInt32, ""}, {"a", 1, math.MaxInt32, ""}})
-	var elems = graph.bellmenFord(source)
+	var elems = graph.bellmenFord(source, 4)
 	var actual [6]Node
 	copy(actual[:], elems)
-	expected := [6]Node{{"b", -1, -1, "a"}, {"c", 2, 2, "a"}, {"d", 1, 1, "a"}, {"d", 3, 2, "b"}, {"d", -1, 1, "c"}, {"a", 1, 0, "c"}}
+	expected := [6]Node{{"b", -1, 0, "a"}, {"c", 2, 0, "a"}, {"d", 1, 2, "a"}, {"d", 3, 3, "b"}, {"d", -1, -1, "c"}, {"a", 1, 1, "c"}}
 	if actual != expected {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
