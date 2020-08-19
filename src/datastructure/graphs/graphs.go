@@ -25,7 +25,8 @@ type Node struct {
 }
 
 type WeightedGraph struct {
-	adjList map[string][]Node
+	adjList  map[string][]Node
+	vertices []string
 }
 
 func (g WeightedGraph) insert(node string, adjacent []Node) {
@@ -94,32 +95,39 @@ func (g WeightedGraph) dijkstraShortestPath(source Node) []Node {
 	return processed
 }
 
-func (g WeightedGraph) bellmenFord(source Node, v int) []Node {
-	var edges []Node
-	var dist = make(map[string]int)
-	for s, edgeList := range g.adjList {
-		for _, e := range edgeList {
-			if e.vertex == source.vertex {
-				e.dist = 0
-				dist[e.vertex] = 0
-			} else {
-				e.dist = math.MaxInt32
-				dist[e.vertex] = math.MaxInt32
-			}
-			e.source = s
-			edges = append(edges, e)
+type Path struct {
+	vertex      string
+	dist        int
+	predecessor string
+}
+
+func (g WeightedGraph) bellmenFord(source string, v int) []Path {
+	pathList := make(map[string]*Path)
+	for _, v := range g.vertices {
+		if v == source {
+			pathList[v] = &Path{v, 0, ""}
+		} else {
+			pathList[v] = &Path{v, math.MaxInt32, ""}
 		}
 	}
-	dist[source.vertex] = 0
-	for i := 0; i < v; i = i + 1 {
-		for j, edge := range edges {
-			if dist[edge.source]+edge.weight < edge.dist {
-				edges[j].dist = dist[edge.source] + edge.weight
-				dist[edge.vertex] = dist[edge.source] + edge.weight
+
+	for _, edges := range g.adjList {
+		for _, edge := range edges {
+			src := edge.source
+			dest := edge.vertex
+			weight := edge.weight
+			path := pathList[dest]
+			if pathList[src].dist +weight < path.dist {
+				path.dist = pathList[src].dist +weight
+				path.predecessor = src
 			}
 		}
 	}
-	return edges
+	var processed []Path
+	for _, path := range pathList {
+		processed = append(processed, *path)
+	}
+	return processed
 }
 
 func appendMin(queue []Node, adjacent ...Node) []Node {
