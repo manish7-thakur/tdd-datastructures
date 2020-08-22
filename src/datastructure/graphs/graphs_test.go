@@ -144,18 +144,18 @@ func TestGraphDFSMultipleVerticesLastNode(t *testing.T) {
 }
 
 func TestDijkstraEmptyGraph(t *testing.T) {
-	graph := WeightedGraph{map[string][]Node{}, []string{}}
-	res := graph.dijkstraShortestPath(Node{})
+	graph := WeightedGraph{map[string][]Edge{}, []string{}}
+	res := graph.dijkstraShortestPath(Edge{})
 	if len(res) != 0 {
 		t.Errorf("Expected empty but found %d", len(res))
 	}
 }
 
 func TestDijkstraTwoNodes(t *testing.T) {
-	graph := WeightedGraph{map[string][]Node{}, []string{"u", "v"}}
-	source := Node{vertex: "u"}
+	graph := WeightedGraph{map[string][]Edge{}, []string{"u", "v"}}
+	source := Edge{vertex: "u"}
 	//Initial distance is INF(MaxInt32) for all nodes except source which has 0
-	graph.insert(source.vertex, []Node{{"v", 8, ""}})
+	graph.insert(source.vertex, []Edge{{"v", 8, ""}})
 	actual := graph.dijkstraShortestPath(source)
 	expected := []Path{{"u", 0, ""}, {"v", 8, "u"}}
 	if !equal(actual, expected) {
@@ -164,10 +164,10 @@ func TestDijkstraTwoNodes(t *testing.T) {
 }
 
 func TestDijkstraThreeNodes(t *testing.T) {
-	graph := WeightedGraph{map[string][]Node{}, []string{"a", "b", "c"}}
-	source := Node{vertex: "a"}
-	graph.insert(source.vertex, []Node{{"b", 8, ""}})
-	graph.insert("b", []Node{{"c", 5, ""}})
+	graph := WeightedGraph{map[string][]Edge{}, []string{"a", "b", "c"}}
+	source := Edge{vertex: "a"}
+	graph.insert(source.vertex, []Edge{{"b", 8, ""}})
+	graph.insert("b", []Edge{{"c", 5, ""}})
 	actual := graph.dijkstraShortestPath(source)
 	expected := []Path{{"a", 0, ""}, {"b", 8, "a"}, {"c", 13, "b"}}
 	if !equal(actual, expected) {
@@ -176,12 +176,12 @@ func TestDijkstraThreeNodes(t *testing.T) {
 }
 
 func TestDijkstraFourNodesNodes(t *testing.T) {
-	graph := WeightedGraph{map[string][]Node{}, []string{"a", "b", "c", "d"}}
-	source := Node{vertex: "a"}
-	graph.insert(source.vertex, []Node{{"b", 2, ""}, {"c", 4, ""}, {"d", 1, ""}})
-	graph.insert("b", []Node{{"a", 2, ""}, {"c", 1, ""}})
-	graph.insert("c", []Node{{"a", 4, ""}, {"b", 1, ""}})
-	graph.insert("d", []Node{{"a", 1, ""}})
+	graph := WeightedGraph{map[string][]Edge{}, []string{"a", "b", "c", "d"}}
+	source := Edge{vertex: "a"}
+	graph.insert(source.vertex, []Edge{{"b", 2, ""}, {"c", 4, ""}, {"d", 1, ""}})
+	graph.insert("b", []Edge{{"a", 2, ""}, {"c", 1, ""}})
+	graph.insert("c", []Edge{{"a", 4, ""}, {"b", 1, ""}})
+	graph.insert("d", []Edge{{"a", 1, ""}})
 	actual := graph.dijkstraShortestPath(source)
 	expected := []Path{{"a", 0, ""}, {"d", 1, "a"}, {"b", 2, "a"}, {"c", 3, "b"}}
 	if !equal(actual, expected) {
@@ -190,15 +190,15 @@ func TestDijkstraFourNodesNodes(t *testing.T) {
 }
 
 func TestGraphDijkstraMultipleVertices(t *testing.T) {
-	graph := WeightedGraph{map[string][]Node{}, []string{"a", "b", "c", "d", "e", "f", "g"}}
-	source := Node{vertex: "a"}
-	graph.insert("a", []Node{{"b", 31, ""}, {"c", 2, ""}})
-	graph.insert("b", []Node{{"a", 6, ""}, {"c", 7, ""}, {"d", 1, ""}})
-	graph.insert("c", []Node{{"a", 2, ""}, {"b", 4, ""}, {"d", 5, ""}})
-	graph.insert("d", []Node{{"b", 3, ""}, {"c", 4, ""}, {"e", 8, ""}, {"f", 4, ""}})
-	graph.insert("e", []Node{{"d", 4, ""}, {"g", 3, ""}})
-	graph.insert("f", []Node{{"d", 2, ""}})
-	graph.insert("g", []Node{{"e", 10, ""}})
+	graph := WeightedGraph{map[string][]Edge{}, []string{"a", "b", "c", "d", "e", "f", "g"}}
+	source := Edge{vertex: "a"}
+	graph.insert("a", []Edge{{"b", 31, ""}, {"c", 2, ""}})
+	graph.insert("b", []Edge{{"a", 6, ""}, {"c", 7, ""}, {"d", 1, ""}})
+	graph.insert("c", []Edge{{"a", 2, ""}, {"b", 4, ""}, {"d", 5, ""}})
+	graph.insert("d", []Edge{{"b", 3, ""}, {"c", 4, ""}, {"e", 8, ""}, {"f", 4, ""}})
+	graph.insert("e", []Edge{{"d", 4, ""}, {"g", 3, ""}})
+	graph.insert("f", []Edge{{"d", 2, ""}})
+	graph.insert("g", []Edge{{"e", 10, ""}})
 	var actual = graph.dijkstraShortestPath(source)
 	expected := []Path{{"f", 11, "d"}, {"g", 18, "e"}, {"a", 0, ""}, {"b", 6, "c"}, {"c", 2, "a"}, {"d", 7, "c"}, {"e", 15, "d"}}
 	if !equal(actual, expected) {
@@ -207,7 +207,7 @@ func TestGraphDijkstraMultipleVertices(t *testing.T) {
 }
 
 func TestGraphBellmenEmptyGraph(t *testing.T) {
-	graph := WeightedGraph{map[string][]Node{}, []string{}}
+	graph := WeightedGraph{map[string][]Edge{}, []string{}}
 	source := "a"
 	var elems, _ = graph.bellmenFord(source)
 	var actual [1]Path
@@ -219,9 +219,9 @@ func TestGraphBellmenEmptyGraph(t *testing.T) {
 }
 
 func TestGraphOneEdgeTwoVertices(t *testing.T) {
-	graph := WeightedGraph{map[string][]Node{}, []string{"a", "b"}}
+	graph := WeightedGraph{map[string][]Edge{}, []string{"a", "b"}}
 	source := "a"
-	graph.insert("a", []Node{{"b", -1, "a"}})
+	graph.insert("a", []Edge{{"b", -1, "a"}})
 	var actual, _ = graph.bellmenFord(source)
 	expected := []Path{{"a", 0, ""}, {"b", -1, "a"}}
 	if !equal(actual, expected) {
@@ -230,12 +230,12 @@ func TestGraphOneEdgeTwoVertices(t *testing.T) {
 }
 
 func TestGraphEightEdgesFiveVerticesNegativeWeights(t *testing.T) {
-	graph := WeightedGraph{map[string][]Node{}, []string{"a", "b", "c", "d", "e"}}
+	graph := WeightedGraph{map[string][]Edge{}, []string{"a", "b", "c", "d", "e"}}
 	source := "a"
-	graph.insert("a", []Node{{"b", -1, "a"}, {"c", 4, "a"}})
-	graph.insert("b", []Node{{"c", 3, "b"}, {"d", 2, "b"}, {"e", 2, "b"}})
-	graph.insert("d", []Node{{"c", 5, "d"}, {"b", 1, "d"}})
-	graph.insert("e", []Node{{"d", -3, "e"}})
+	graph.insert("a", []Edge{{"b", -1, "a"}, {"c", 4, "a"}})
+	graph.insert("b", []Edge{{"c", 3, "b"}, {"d", 2, "b"}, {"e", 2, "b"}})
+	graph.insert("d", []Edge{{"c", 5, "d"}, {"b", 1, "d"}})
+	graph.insert("e", []Edge{{"d", -3, "e"}})
 	var actual, _ = graph.bellmenFord(source)
 	expected := []Path{{"a", 0, ""}, {"b", -1, "a"}, {"c", 2, "b"}, {"d", -2, "e"}, {"e", 1, "b"}}
 	if !equal(actual, expected) {
@@ -244,12 +244,12 @@ func TestGraphEightEdgesFiveVerticesNegativeWeights(t *testing.T) {
 }
 
 func TestGraphNegativeCycles(t *testing.T) {
-	graph := WeightedGraph{map[string][]Node{}, []string{"a", "b", "c", "d", "e"}}
+	graph := WeightedGraph{map[string][]Edge{}, []string{"a", "b", "c", "d", "e"}}
 	source := "a"
-	graph.insert("a", []Node{{"b", 1, "a"}})
-	graph.insert("b", []Node{{"c", 1, "b"}})
-	graph.insert("c", []Node{{"d", -2, "c"}, {"e", 3, "c"}})
-	graph.insert("d", []Node{{"b", -1, "d"}})
+	graph.insert("a", []Edge{{"b", 1, "a"}})
+	graph.insert("b", []Edge{{"c", 1, "b"}})
+	graph.insert("c", []Edge{{"d", -2, "c"}, {"e", 3, "c"}})
+	graph.insert("d", []Edge{{"b", -1, "d"}})
 	var _, err = graph.bellmenFord(source)
 	if err.Error() != "-ve cycle found" {
 		t.Errorf("Expected to result in error")

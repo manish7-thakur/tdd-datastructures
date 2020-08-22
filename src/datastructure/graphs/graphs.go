@@ -18,18 +18,18 @@ func (graph Graph) insertAdj(u string, adjacent []string) {
 	graph.adjList[u] = append(graph.adjList[u], adjacent...)
 }
 
-type Node struct {
+type Edge struct {
 	vertex string
 	weight int
 	source string
 }
 
 type WeightedGraph struct {
-	adjList  map[string][]Node
+	adjList  map[string][]Edge
 	vertices []string
 }
 
-func (g WeightedGraph) insert(node string, adjacent []Node) {
+func (g WeightedGraph) insert(node string, adjacent []Edge) {
 	g.adjList[node] = adjacent
 }
 
@@ -69,7 +69,7 @@ func (graph Graph) dfs(start string) []string {
 	return processed
 }
 
-func (g WeightedGraph) dijkstraShortestPath(source Node) []Path {
+func (g WeightedGraph) dijkstraShortestPath(source Edge) []Path {
 	var minQueue []Path
 	var processed []Path
 	pathList := make(map[string]*Path)
@@ -159,7 +159,7 @@ func appendMin(queue []Path, adjacent ...Path) []Path {
 }
 
 /* Can be done using min heap, reference : https://golang.org/pkg/container/heap/#example__intHeap
-type NodeHeap []Node
+type NodeHeap []Edge
 
 func (h NodeHeap) Less(i, j int) bool {
 	return h[i].dist < h[j].dist
@@ -174,7 +174,7 @@ func (h NodeHeap) Len() int {
 }
 
 func (h *NodeHeap) Push(x interface{}) {
-	*h = append(*h, x.(Node))
+	*h = append(*h, x.(Edge))
 }
 
 func (h *NodeHeap) Pop() interface{} {
