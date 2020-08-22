@@ -143,8 +143,8 @@ func TestGraphDFSMultipleVerticesLastNode(t *testing.T) {
 	}
 }
 
-/*func TestDijkstraEmptyGraph(t *testing.T) {
-	graph := WeightedGraph{map[string][]Node{}}
+func TestDijkstraEmptyGraph(t *testing.T) {
+	graph := WeightedGraph{map[string][]Node{}, []string{}}
 	res := graph.dijkstraShortestPath(Node{})
 	if len(res) != 1 {
 		t.Errorf("Expected empty but found %d", len(res))
@@ -152,7 +152,7 @@ func TestGraphDFSMultipleVerticesLastNode(t *testing.T) {
 }
 
 func TestDijkstraTwoNodes(t *testing.T) {
-	graph := WeightedGraph{map[string][]Node{}}
+	graph := WeightedGraph{map[string][]Node{}, []string{}}
 	source := Node{vertex: "u"}
 	//Initial distance is INF(MaxInt32) for all nodes except source which has 0
 	graph.insert(source.vertex, []Node{{"v", 8, math.MaxInt32, ""}})
@@ -166,7 +166,7 @@ func TestDijkstraTwoNodes(t *testing.T) {
 }
 
 func TestDijkstraThreeNodes(t *testing.T) {
-	graph := WeightedGraph{map[string][]Node{}}
+	graph := WeightedGraph{map[string][]Node{}, []string{}}
 	source := Node{vertex: "a"}
 	graph.insert(source.vertex, []Node{{"b", 8, math.MaxInt32, ""}})
 	graph.insert("b", []Node{{"c", 5, math.MaxInt32, ""}})
@@ -180,7 +180,7 @@ func TestDijkstraThreeNodes(t *testing.T) {
 }
 
 func TestDijkstraFourNodesNodes(t *testing.T) {
-	graph := WeightedGraph{map[string][]Node{}}
+	graph := WeightedGraph{map[string][]Node{}, []string{}}
 	source := Node{vertex: "a"}
 	graph.insert(source.vertex, []Node{{"b", 2, math.MaxInt32, ""}, {"c", 4, math.MaxInt32, ""}, {"d", 1, math.MaxInt32, ""}})
 	graph.insert("b", []Node{{"a", 2, math.MaxInt32, ""}, {"c", 1, math.MaxInt32, ""}})
@@ -196,7 +196,7 @@ func TestDijkstraFourNodesNodes(t *testing.T) {
 }
 
 func TestGraphDijkstraMultipleVertices(t *testing.T) {
-	graph := WeightedGraph{map[string][]Node{}}
+	graph := WeightedGraph{map[string][]Node{}, []string{}}
 	source := Node{vertex: "a"}
 	graph.insert("a", []Node{{"b", 3, math.MaxInt32, ""}, {"c", 2, math.MaxInt32, ""}})
 	graph.insert("b", []Node{{"a", 6, math.MaxInt32, ""}, {"c", 7, math.MaxInt32, ""}, {"d", 1, math.MaxInt32, ""}})
@@ -213,7 +213,6 @@ func TestGraphDijkstraMultipleVertices(t *testing.T) {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
 }
- */
 
 func TestGraphBellmenEmptyGraph(t *testing.T) {
 	graph := WeightedGraph{map[string][]Node{}, []string{}}
