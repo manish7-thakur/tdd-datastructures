@@ -70,11 +70,19 @@ func (graph Graph) dfs(start string) []string {
 	return processed
 }
 
-func (g WeightedGraph) dijkstraShortestPath(source Node) []Node {
+func (g WeightedGraph) dijkstraShortestPath(source Node) []Path {
 	var minQueue []Node
-	var processed []Node
+	var processed []Path
+	pathList := make(map[string]*Path)
+	for _, v := range g.vertices {
+		if v == source.vertex {
+			pathList[v] = &Path{v, 0, ""}
+		} else {
+			pathList[v] = &Path{v, math.MaxInt32, ""}
+		}
+	}
 	var visited = make(map[string]struct{})
-	source.dist = 0
+	//source.dist = 0
 	minQueue = append(minQueue, source)
 	for len(minQueue) != 0 {
 		current := minQueue[0]
@@ -82,16 +90,18 @@ func (g WeightedGraph) dijkstraShortestPath(source Node) []Node {
 		adjacent := g.adjList[current.vertex]
 		for i, n := range adjacent {
 			if _, ok := visited[n.vertex]; !ok {
-				if current.dist+n.weight < n.dist {
+				if pathList[current.vertex].dist+n.weight < pathList[n.vertex].dist {
+					pathList[n.vertex].dist = pathList[current.vertex].dist+n.weight
+					pathList[n.vertex].predecessor = current.vertex
 					adjacent[i].dist = current.dist + n.weight
 					minQueue = appendMin(minQueue, adjacent[i])
 				}
 			}
 		}
-		if _, ok := visited[current.vertex]; !ok {
-			processed = append(processed, current)
-		}
 		visited[current.vertex] = struct{}{}
+	}
+	for _, path := range pathList {
+		processed = append(processed, *path)
 	}
 	return processed
 }
