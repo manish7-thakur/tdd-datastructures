@@ -1,6 +1,7 @@
 package graphs
 
 import (
+	"math"
 	"testing"
 )
 
@@ -211,12 +212,13 @@ func TestGraphDijkstraMultipleVertices(t *testing.T) {
 	if actual != expected {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
-}*/
+}
+ */
 
 func TestGraphBellmenEmptyGraph(t *testing.T) {
 	graph := WeightedGraph{map[string][]Node{}, []string{}}
 	source := "a"
-	var elems = graph.bellmenFord(source, 0)
+	var elems = graph.bellmenFord(source)
 	var actual [1]Path
 	copy(actual[:], elems)
 	expected := [1]Path{}
@@ -225,31 +227,31 @@ func TestGraphBellmenEmptyGraph(t *testing.T) {
 	}
 }
 
-func TestGraphOneEdge(t *testing.T) {
+func TestGraphOneEdgeTwoVertices(t *testing.T) {
 	graph := WeightedGraph{map[string][]Node{}, []string{"a", "b"}}
 	source := "a"
 	graph.insert("a", []Node{{"b", -1, 1, "a"}})
-	var elems = graph.bellmenFord(source, 2)
+	var elems = graph.bellmenFord(source)
 	var actual [2]Path
 	copy(actual[:], elems)
-	expected := [2]Path{{"a", 0, ""},{"b", -1, "a"}}
+	expected := [2]Path{{"a", 0, ""}, {"b", -1, "a"}}
 	if actual != expected {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
 }
 
-/*func TestGraphThreeVertices(t *testing.T) {
-	graph := WeightedGraph{map[string][]Node{}}
-	source := Node{vertex: "c"}
-	graph.insert("a", []Node{{"b", -1, math.MaxInt32, ""}, {"c", 2, math.MaxInt32, ""}, {"d", 1, math.MaxInt32, ""}})
-	graph.insert("b", []Node{{"d", 3, math.MaxInt32, ""}})
-	graph.insert("c", []Node{{"d", - 1, math.MaxInt32, ""}, {"a", 1, math.MaxInt32, ""}})
-	var elems = graph.bellmenFord(source, 4)
-	var actual [6]Node
+func TestGraphTwoEdgesThreeVertices(t *testing.T) {
+	graph := WeightedGraph{map[string][]Node{}, []string{"a", "b", "c", "d", "e"}}
+	source := "a"
+	graph.insert("a", []Node{{"b", -1, math.MaxInt32, "a"}, {"c", 4, math.MaxInt32, "a"}})
+	graph.insert("b", []Node{{"c", 3, math.MaxInt32, "b"}, {"d", 2, math.MaxInt32, "b"}, {"e", 2, math.MaxInt32, "b"}})
+	graph.insert("d", []Node{{"c", 5, math.MaxInt32, "d"}, {"b", 1, math.MaxInt32, "d"}})
+	graph.insert("e", []Node{{"d", -3, math.MaxInt32, "e"}})
+	var elems = graph.bellmenFord(source)
+	var actual [5]Path
 	copy(actual[:], elems)
-	expected := [6]Node{{"b", -1, 0, "a"}, {"c", 2, 0, "a"}, {"d", 1, 2, "a"}, {"d", 3, 3, "b"}, {"d", -1, -1, "c"}, {"a", 1, 1, "c"}}
+	expected := [5]Path{{"a", 0, ""}, {"b", -1, "a"}, {"c", 2, "b"}, {"d", -2, "e"}, {"e", 1, "b"}}
 	if actual != expected {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
 }
-*/

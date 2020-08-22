@@ -101,7 +101,7 @@ type Path struct {
 	predecessor string
 }
 
-func (g WeightedGraph) bellmenFord(source string, v int) []Path {
+func (g WeightedGraph) bellmenFord(source string) []Path {
 	pathList := make(map[string]*Path)
 	for _, v := range g.vertices {
 		if v == source {
@@ -110,16 +110,17 @@ func (g WeightedGraph) bellmenFord(source string, v int) []Path {
 			pathList[v] = &Path{v, math.MaxInt32, ""}
 		}
 	}
-
-	for _, edges := range g.adjList {
-		for _, edge := range edges {
-			src := edge.source
-			dest := edge.vertex
-			weight := edge.weight
-			path := pathList[dest]
-			if pathList[src].dist +weight < path.dist {
-				path.dist = pathList[src].dist +weight
-				path.predecessor = src
+	for i := 0; i < len(g.vertices); i++ {
+		for _, edges := range g.adjList {
+			for _, edge := range edges {
+				src := edge.source
+				dest := edge.vertex
+				weight := edge.weight
+				path := pathList[dest]
+				if pathList[src].dist+weight < path.dist {
+					path.dist = pathList[src].dist + weight
+					path.predecessor = src
+				}
 			}
 		}
 	}
