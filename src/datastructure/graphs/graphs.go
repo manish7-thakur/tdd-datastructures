@@ -21,7 +21,6 @@ func (graph Graph) insertAdj(u string, adjacent []string) {
 type Node struct {
 	vertex string
 	weight int
-	dist   int
 	source string
 }
 
@@ -71,30 +70,28 @@ func (graph Graph) dfs(start string) []string {
 }
 
 func (g WeightedGraph) dijkstraShortestPath(source Node) []Path {
-	var minQueue []Node
+	var minQueue []Path
 	var processed []Path
 	pathList := make(map[string]*Path)
 	for _, v := range g.vertices {
 		if v == source.vertex {
 			pathList[v] = &Path{v, 0, ""}
+			minQueue = append(minQueue, *pathList[v])
 		} else {
 			pathList[v] = &Path{v, math.MaxInt32, ""}
 		}
 	}
 	var visited = make(map[string]struct{})
-	//source.dist = 0
-	minQueue = append(minQueue, source)
 	for len(minQueue) != 0 {
 		current := minQueue[0]
 		minQueue = minQueue[1:]
 		adjacent := g.adjList[current.vertex]
-		for i, n := range adjacent {
+		for _, n := range adjacent {
 			if _, ok := visited[n.vertex]; !ok {
 				if pathList[current.vertex].dist+n.weight < pathList[n.vertex].dist {
 					pathList[n.vertex].dist = pathList[current.vertex].dist+n.weight
 					pathList[n.vertex].predecessor = current.vertex
-					adjacent[i].dist = current.dist + n.weight
-					minQueue = appendMin(minQueue, adjacent[i])
+					minQueue = appendMin(minQueue, *pathList[n.vertex])
 				}
 			}
 		}
@@ -153,7 +150,7 @@ func (g WeightedGraph) bellmenFord(source string) ([]Path, error) {
 	return processed, nil
 }
 
-func appendMin(queue []Node, adjacent ...Node) []Node {
+func appendMin(queue []Path, adjacent ...Path) []Path {
 	queue = append(queue, adjacent...)
 	sort.Slice(queue, func(i, j int) bool {
 		return queue[i].dist < queue[j].dist
