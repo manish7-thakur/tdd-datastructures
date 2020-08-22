@@ -217,7 +217,7 @@ func TestGraphDijkstraMultipleVertices(t *testing.T) {
 func TestGraphBellmenEmptyGraph(t *testing.T) {
 	graph := WeightedGraph{map[string][]Node{}, []string{}}
 	source := "a"
-	var elems = graph.bellmenFord(source)
+	var elems, _ = graph.bellmenFord(source)
 	var actual [1]Path
 	copy(actual[:], elems)
 	expected := [1]Path{}
@@ -230,7 +230,7 @@ func TestGraphOneEdgeTwoVertices(t *testing.T) {
 	graph := WeightedGraph{map[string][]Node{}, []string{"a", "b"}}
 	source := "a"
 	graph.insert("a", []Node{{"b", -1, 1, "a"}})
-	var elems = graph.bellmenFord(source)
+	var elems, _ = graph.bellmenFord(source)
 	var actual [2]Path
 	copy(actual[:], elems)
 	expected := [2]Path{{"a", 0, ""}, {"b", -1, "a"}}
@@ -239,18 +239,31 @@ func TestGraphOneEdgeTwoVertices(t *testing.T) {
 	}
 }
 
-func TestGraphTwoEdgesThreeVertices(t *testing.T) {
+func TestGraphEightEdgesFiveVerticesNegativeWeights(t *testing.T) {
 	graph := WeightedGraph{map[string][]Node{}, []string{"a", "b", "c", "d", "e"}}
 	source := "a"
 	graph.insert("a", []Node{{"b", -1, math.MaxInt32, "a"}, {"c", 4, math.MaxInt32, "a"}})
 	graph.insert("b", []Node{{"c", 3, math.MaxInt32, "b"}, {"d", 2, math.MaxInt32, "b"}, {"e", 2, math.MaxInt32, "b"}})
 	graph.insert("d", []Node{{"c", 5, math.MaxInt32, "d"}, {"b", 1, math.MaxInt32, "d"}})
 	graph.insert("e", []Node{{"d", -3, math.MaxInt32, "e"}})
-	var elems = graph.bellmenFord(source)
+	var elems, _ = graph.bellmenFord(source)
 	var actual [5]Path
 	copy(actual[:], elems)
 	expected := [5]Path{{"a", 0, ""}, {"b", -1, "a"}, {"c", 2, "b"}, {"d", -2, "e"}, {"e", 1, "b"}}
 	if actual != expected {
 		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
+
+func TestGraphNegativeCycles(t *testing.T) {
+	graph := WeightedGraph{map[string][]Node{}, []string{"a", "b", "c", "d", "e"}}
+	source := "a"
+	graph.insert("a", []Node{{"b", 1, math.MaxInt32, "a"}})
+	graph.insert("b", []Node{{"c", 1, math.MaxInt32, "b"}})
+	graph.insert("c", []Node{{"d", -2, math.MaxInt32, "c"}, {"e", 3, math.MaxInt32, "c"}})
+	graph.insert("d", []Node{{"b", -1, math.MaxInt32, "d"}})
+	var _, err = graph.bellmenFord(source)
+	if err.Error() != "-ve cycle found" {
+		t.Errorf("Expected to result in error")
 	}
 }

@@ -1,6 +1,7 @@
 package graphs
 
 import (
+	"fmt"
 	"math"
 	"sort"
 )
@@ -101,7 +102,7 @@ type Path struct {
 	predecessor string
 }
 
-func (g WeightedGraph) bellmenFord(source string) []Path {
+func (g WeightedGraph) bellmenFord(source string) ([]Path, error) {
 	pathList := make(map[string]*Path)
 	for _, v := range g.vertices {
 		if v == source {
@@ -124,11 +125,22 @@ func (g WeightedGraph) bellmenFord(source string) []Path {
 			}
 		}
 	}
+	for _, edges := range g.adjList {
+		for _, edge := range edges {
+			src := edge.source
+			dest := edge.vertex
+			weight := edge.weight
+			path := pathList[dest]
+			if pathList[src].dist+weight < path.dist {
+				return []Path{}, fmt.Errorf("-ve cycle found")
+			}
+		}
+	}
 	var processed []Path
 	for _, path := range pathList {
 		processed = append(processed, *path)
 	}
-	return processed
+	return processed, nil
 }
 
 func appendMin(queue []Node, adjacent ...Node) []Node {
