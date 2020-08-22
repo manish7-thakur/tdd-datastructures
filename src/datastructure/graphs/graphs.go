@@ -87,7 +87,7 @@ func (g WeightedGraph) dijkstraShortestPath(source Edge) []Path {
 		minQueue = minQueue[1:]
 		adjacent := g.adjList[current.vertex]
 		for _, n := range adjacent {
-			if _, ok := visited[n.vertex]; !ok {
+			if _, ok := visited[n.vertex]; !ok { // to optimize a bit
 				if pathList[current.vertex].dist+n.weight < pathList[n.vertex].dist {
 					pathList[n.vertex].dist = pathList[current.vertex].dist+n.weight
 					pathList[n.vertex].predecessor = current.vertex
