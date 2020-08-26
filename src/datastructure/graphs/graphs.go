@@ -154,6 +154,20 @@ func (g WeightedGraph) bellmenFord(source string) ([]Path, error) {
 	return processed, nil
 }
 
+func (g WeightedGraph) floydWarshall() []Path {
+	pathList := make(map[string]*Path)
+	for _, adjacent := range g.adjList {
+		for _, edge := range adjacent {
+			pathList[edge.vertex+edge.source] = &Path{edge.vertex, edge.weight, edge.source}
+		}
+	}
+	var processed []Path
+	for _, path := range pathList {
+		processed = append(processed, *path)
+	}
+	return processed
+}
+
 func appendMin(queue []Path, adjacent ...Path) []Path {
 	queue = append(queue, adjacent...)
 	sort.Slice(queue, func(i, j int) bool {

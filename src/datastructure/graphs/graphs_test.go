@@ -256,6 +256,24 @@ func TestGraphNegativeCycles(t *testing.T) {
 	}
 }
 
+func TestFloydEmptyGraph(t *testing.T) {
+	graph := WeightedGraph{map[string][]Edge{}, []string{}}
+	res := graph.floydWarshall()
+	if len(res) != 0 {
+		t.Errorf("Expected empty result")
+	}
+}
+
+func TestFloydTwoVerticesOneEdge(t *testing.T) {
+	graph := WeightedGraph{map[string][]Edge{}, []string{"a", "b"}}
+	graph.insert("a", []Edge{{"a", 8, "b"}})
+	actual := graph.floydWarshall()
+	expected := []Path{{"a", 8, "b"}}
+	if !equal(actual, expected) {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
+
 func equal(actual []Path, expected []Path) bool {
 	mapActual := make(map[string]Path)
 	mapExpected := make(map[string]Path)
