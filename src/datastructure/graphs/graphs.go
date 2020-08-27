@@ -154,18 +154,42 @@ func (g WeightedGraph) bellmenFord(source string) ([]Path, error) {
 	return processed, nil
 }
 
-func (g WeightedGraph) floydWarshall() []Path {
-	pathList := make(map[string]*Path)
-	for _, adjacent := range g.adjList {
-		for _, edge := range adjacent {
-			pathList[edge.vertex+edge.source] = &Path{edge.vertex, edge.weight, edge.source}
+func (g WeightedGraph) floydWarshall() [][]int {
+	vertexIndex := make(map[string]int)
+	numVertices := len(g.vertices)
+	for i, v := range g.vertices {
+		vertexIndex[v] = i
+	}
+	var distMat = make([][]int, numVertices)
+	for i := range distMat {
+		distMat[i] = make([]int, numVertices)
+	}
+	for i := 0; i < numVertices; i++ {
+		for j := 0; j < numVertices; j++ {
+			if i == j {
+				distMat[i][j] = 0
+			} else {
+				distMat[i][j] = math.MaxInt32
+			}
 		}
 	}
-	var processed []Path
-	for _, path := range pathList {
-		processed = append(processed, *path)
+	for _, adjacent := range g.adjList {
+		for _, edge := range adjacent {
+			u := vertexIndex[edge.source]
+			v := vertexIndex[edge.vertex]
+			distMat[u][v] = edge.weight
+		}
 	}
-	return processed
+	for k := 0; k < numVertices; k++ {
+		for i := 0; i < numVertices; i++ {
+			for j := 0; j < numVertices; j++ {
+				if distMat[i][j] > distMat[i][k]+distMat[k][j] {
+					distMat[i][j] = distMat[i][k] + distMat[k][j]
+				}
+			}
+		}
+	}
+	return distMat
 }
 
 func appendMin(queue []Path, adjacent ...Path) []Path {

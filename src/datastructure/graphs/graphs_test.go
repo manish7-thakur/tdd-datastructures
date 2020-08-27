@@ -1,6 +1,7 @@
 package graphs
 
 import (
+	"math"
 	"reflect"
 	"testing"
 )
@@ -266,10 +267,21 @@ func TestFloydEmptyGraph(t *testing.T) {
 
 func TestFloydTwoVerticesOneEdge(t *testing.T) {
 	graph := WeightedGraph{map[string][]Edge{}, []string{"a", "b"}}
-	graph.insert("a", []Edge{{"a", 8, "b"}})
+	graph.insert("a", []Edge{{"b", 8, "a"}})
 	actual := graph.floydWarshall()
-	expected := []Path{{"a", 8, "b"}}
-	if !equal(actual, expected) {
+	expected := [][]int{{0, 8}, {math.MaxInt32, 0}}
+	if !equalMultiDim(actual, expected) {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
+
+func TestFloydThreeVerticesTwoEdges(t *testing.T) {
+	graph := WeightedGraph{map[string][]Edge{}, []string{"a", "b", "c"}}
+	graph.insert("a", []Edge{{"b", 8, "a"}, {"c", 1, "a"}})
+	graph.insert("b", []Edge{{"c", 4, "b"}})
+	actual := graph.floydWarshall()
+	expected := [][]int{{0, 8, 1}, {math.MaxInt32, 0, 4}, {math.MaxInt32, math.MaxInt32, 0}}
+	if !equalMultiDim(actual, expected) {
 		t.Errorf("Expected %v but found %v", expected, actual)
 	}
 }
@@ -284,4 +296,15 @@ func equal(actual []Path, expected []Path) bool {
 		mapExpected[path.vertex] = path
 	}
 	return reflect.DeepEqual(mapActual, mapExpected)
+}
+
+func equalMultiDim(actual [][]int, expected [][]int) bool {
+	for i := 0; i < len(actual); i++ {
+		for j := 0; j < len(actual); j++ {
+			if actual[i][j] != expected[i][j] {
+				return false
+			}
+		}
+	}
+	return true
 }
