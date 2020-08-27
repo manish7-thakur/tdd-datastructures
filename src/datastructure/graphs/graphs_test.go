@@ -286,6 +286,20 @@ func TestFloydThreeVerticesTwoEdges(t *testing.T) {
 	}
 }
 
+func TestFloydFourVerticesAndEdges(t *testing.T) {
+	graph := WeightedGraph{map[string][]Edge{}, []string{"a", "b", "c", "d"}}
+	graph.insert("a", []Edge{{"c", -2, "a"}})
+	graph.insert("b", []Edge{{"a", 4, "b"}, {"c", 3, "b"}})
+	graph.insert("c", []Edge{{"d", 2, "c"}})
+	graph.insert("d", []Edge{{"b", -1, "d"}})
+	//ref: https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
+	var actual = graph.floydWarshall()
+	expected := [][]int{{0, -1, -2, 0}, {4, 0, 2, 4}, {5, 1, 0, 2}, {3, -1, 1, 0}}
+	if !equalMultiDim(actual, expected) {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
+
 func equal(actual []Path, expected []Path) bool {
 	mapActual := make(map[string]Path)
 	mapExpected := make(map[string]Path)
