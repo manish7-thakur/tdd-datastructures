@@ -25,10 +25,15 @@ func insert(node *AvlNode, value int) *AvlNode {
 	}
 	node.height = Max(height(node.left), height(node.right)) + 1
 	bf := getBalanceFactor(node)
-	if bf == 2 {
+	if bf > 1 && value < node.left.value {
 		node = rotateRight(node)
-	}
-	if bf == -2 {
+	} else if bf > 1 && value > node.left.value {
+		node.left = rotateLeft(node.left)
+		node = rotateRight(node)
+	} else if bf < -1 && value > node.right.value {
+		node = rotateLeft(node)
+	} else if bf < -1 && value < node.right.value {
+		node.right = rotateRight(node.right)
 		node = rotateLeft(node)
 	}
 	return node
