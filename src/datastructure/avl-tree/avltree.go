@@ -1,5 +1,12 @@
 package avl_tree
 
+type AvlNode struct {
+	value  int
+	height int
+	right  *AvlNode
+	left   *AvlNode
+}
+
 type AVlTree struct {
 	root *AvlNode
 }
@@ -21,18 +28,20 @@ func insert(node *AvlNode, value int) *AvlNode {
 	if bf == 2 {
 		node = rotateRight(node)
 	}
+	if bf == -2 {
+		node = rotateLeft(node)
+	}
 	return node
 }
 
-func getBalanceFactor(node *AvlNode) int {
-	return height(node.left) - height(node.right)
-}
+func rotateLeft(pivot *AvlNode) *AvlNode {
+	newTop := pivot.right
+	pivot.right = newTop.left
+	newTop.left = pivot
 
-func height(node *AvlNode) int {
-	if node != nil {
-		return node.height
-	}
-	return -1
+	pivot.height = Max(height(pivot.left), height(pivot.right)) + 1
+	newTop.height = Max(height(newTop.left), height(newTop.right)) + 1
+	return newTop
 }
 
 func rotateRight(pivot *AvlNode) *AvlNode {
@@ -46,16 +55,20 @@ func rotateRight(pivot *AvlNode) *AvlNode {
 	return newTop
 }
 
+func getBalanceFactor(node *AvlNode) int {
+	return height(node.left) - height(node.right)
+}
+
+func height(node *AvlNode) int {
+	if node != nil {
+		return node.height
+	}
+	return -1
+}
+
 func Max(x, y int) int {
 	if x < y {
 		return y
 	}
 	return x
-}
-
-type AvlNode struct {
-	value  int
-	height int
-	right  *AvlNode
-	left   *AvlNode
 }
