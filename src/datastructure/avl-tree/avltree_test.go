@@ -77,3 +77,24 @@ func TestInsertThreeNodesWithRightLeftRotation(t *testing.T) {
 		t.Errorf("Expected height to be %d but found %d", 1, root.height)
 	}
 }
+
+func TestDeleteNonExistentItem(t *testing.T) {
+	tree := AVlTree{}
+	tree.insert(7)
+	tree.delete(5)
+	root := tree.root
+	if root.height != 0 {
+		t.Errorf("Expected height to be %d but found %d", 0, root.height)
+	}
+}
+
+func TestDeleteExistentItemNoChildren(t *testing.T) {
+	tree := AVlTree{}
+	tree.insert(7)
+	tree.insert(5)
+	tree.delete(5)
+	root := tree.root
+	if root.height != 0 {
+		t.Errorf("Expected height to be %d but found %d", 0, root.height)
+	}
+}

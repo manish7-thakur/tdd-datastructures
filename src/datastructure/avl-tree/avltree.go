@@ -15,6 +15,25 @@ func (t *AVlTree) insert(value int) {
 	t.root = insert(t.root, value)
 }
 
+func (t *AVlTree) delete(i int) {
+	deleteItem(t.root, i, nil)
+}
+
+func deleteItem(node *AvlNode, i int, parent *AvlNode) {
+	if node == nil {
+		return
+	} else if node.value > i {
+		deleteItem(node.left, i, node)
+	} else if node.value < i {
+		deleteItem(node.right, i, node)
+	} else {
+		if parent.left == node {
+			parent.left = nil
+		}
+		parent.height = Max(height(parent.left), height(parent.right)) + 1
+	}
+}
+
 func insert(node *AvlNode, value int) *AvlNode {
 	if node == nil {
 		node = &AvlNode{value, 0, nil, nil}
