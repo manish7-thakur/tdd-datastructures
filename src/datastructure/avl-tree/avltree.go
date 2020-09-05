@@ -27,11 +27,18 @@ func deleteItem(node *AvlNode, i int, parent *AvlNode) {
 	} else if node.value < i {
 		deleteItem(node.right, i, node)
 	} else {
-		if parent.left == node {
-			parent.left = nil
-		}
+		parent.left = findReplacement(node)
 		parent.height = Max(height(parent.left), height(parent.right)) + 1
 	}
+}
+
+func findReplacement(node *AvlNode) *AvlNode {
+	if node.left == nil {
+		return node.right
+	} else if node.right == nil {
+		return node.left
+	}
+	return nil
 }
 
 func insert(node *AvlNode, value int) *AvlNode {
