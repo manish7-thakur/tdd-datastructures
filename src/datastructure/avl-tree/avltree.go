@@ -27,7 +27,11 @@ func deleteItem(node *AvlNode, i int, parent *AvlNode) {
 	} else if node.value < i {
 		deleteItem(node.right, i, node)
 	} else {
-		parent.left = findReplacement(node)
+		if parent.left == node {
+			parent.left = findReplacement(node)
+		} else {
+			parent.right = findReplacement(node)
+		}
 		parent.height = Max(height(parent.left), height(parent.right)) + 1
 	}
 }
