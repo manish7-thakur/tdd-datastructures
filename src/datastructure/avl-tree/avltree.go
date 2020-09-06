@@ -53,27 +53,13 @@ func deleteItem(node *AvlNode, i int, parent *AvlNode) {
 			}
 			node.value = succ.value
 			succPar.left = nil
+			succPar.height = Max(height(succPar.left), height(succPar.right)) + 1
 			if succPar == succ {
-				node.right = nil
+				node.right = succPar.right
 			}
+			node.height = Max(height(node.left), height(node.right)) + 1
 		}
 		parent.height = Max(height(parent.left), height(parent.right)) + 1
-	}
-}
-
-func findReplacement(node *AvlNode) *AvlNode {
-	if node.left == nil {
-		return node.right
-	} else if node.right == nil {
-		return node.left
-	} else {
-		succPar := node.right
-		succ := succPar
-		for ; succ.left != nil; succ = succ.left {
-			succPar = succ
-		}
-		succPar.left = nil
-		return succ
 	}
 }
 

@@ -138,3 +138,19 @@ func TestDeleteExistentItemWithTwoChildren(t *testing.T) {
 		t.Errorf("Expected height to be %d but found %d", 2, root.height)
 	}
 }
+
+func TestDeleteExistentItemWithTwoChildrenHavingChildren(t *testing.T) {
+	tree := AVlTree{}
+	tree.insert(7)
+	tree.insert(8)
+	tree.insert(4)
+	tree.insert(6)
+	tree.insert(3)
+	tree.insert(2)
+	tree.insert(10)
+	tree.delete(7)
+	root := tree.root
+	if root.height != 2 || root.right.value != 8 {
+		t.Errorf("Expected height to be %d but found %d", 2, root.height)
+	}
+}
