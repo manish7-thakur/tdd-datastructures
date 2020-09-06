@@ -64,6 +64,9 @@ func deleteItem(node *AvlNode, i int, parent *AvlNode) *AvlNode {
 		if bf < -1 && parent.left == nil {
 			parent = rotateLeft(parent)
 		}
+		if bf > 1 && parent.right == nil {
+			parent = rotateRight(parent)
+		}
 	}
 	return parent
 }

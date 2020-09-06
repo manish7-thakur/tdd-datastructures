@@ -155,7 +155,7 @@ func TestDeleteExistentItemWithTwoChildrenHavingChildren(t *testing.T) {
 	}
 }
 
-func TestDeleteExistentItemWithRotation(t *testing.T) {
+func TestDeleteExistentItemWithLeftRotation(t *testing.T) {
 	tree := AVlTree{}
 	tree.insert(4)
 	tree.insert(5)
@@ -164,6 +164,19 @@ func TestDeleteExistentItemWithRotation(t *testing.T) {
 	tree.delete(3)
 	root := tree.root
 	if root.height != 1 || root.right.value != 7 {
-		t.Errorf("Expected height to be %d but found %d", 2, root.height)
+		t.Errorf("Expected height to be %d but found %d", 1, root.height)
+	}
+}
+
+func TestDeleteExistentItemWithRightRotation(t *testing.T) {
+	tree := AVlTree{}
+	tree.insert(4)
+	tree.insert(5)
+	tree.insert(3)
+	tree.insert(2)
+	tree.delete(5)
+	root := tree.root
+	if root.height != 1 || root.right.value != 4 {
+		t.Errorf("Expected height to be %d but found %d", 1, root.height)
 	}
 }
