@@ -180,3 +180,16 @@ func TestDeleteExistentItemWithRightRotation(t *testing.T) {
 		t.Errorf("Expected height to be %d but found %d", 1, root.height)
 	}
 }
+
+func TestDeleteExistentItemWithLeftRightRotation(t *testing.T) {
+	tree := AVlTree{}
+	tree.insert(4)
+	tree.insert(5)
+	tree.insert(2)
+	tree.insert(3)
+	tree.delete(5)
+	root := tree.root
+	if root.height != 1 || root.right.value != 4 {
+		t.Errorf("Expected height to be %d but found %d", 1, root.height)
+	}
+}

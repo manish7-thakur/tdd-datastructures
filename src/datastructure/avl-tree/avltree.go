@@ -61,10 +61,14 @@ func deleteItem(node *AvlNode, i int, parent *AvlNode) *AvlNode {
 		}
 		parent.height = Max(height(parent.left), height(parent.right)) + 1
 		bf := getBalanceFactor(parent)
-		if bf < -1 && parent.left == nil {
+		if bf < -1 && getBalanceFactor(parent.right) == -1 {
 			parent = rotateLeft(parent)
 		}
-		if bf > 1 && parent.right == nil {
+		if bf > 1 && getBalanceFactor(parent.left) == 1 {
+			parent = rotateRight(parent)
+		}
+		if bf > 1 && getBalanceFactor(parent.left) == -1 {
+			parent.left = rotateLeft(parent.left)
 			parent = rotateRight(parent)
 		}
 	}
