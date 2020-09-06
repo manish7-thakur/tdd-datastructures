@@ -160,10 +160,10 @@ func TestDeleteExistentItemWithLeftRotation(t *testing.T) {
 	tree.insert(4)
 	tree.insert(5)
 	tree.insert(3)
-	tree.insert(7)
+	tree.insert(6)
 	tree.delete(3)
 	root := tree.root
-	if root.height != 1 || root.right.value != 7 {
+	if root.height != 1 || root.right.value != 6 {
 		t.Errorf("Expected height to be %d but found %d", 1, root.height)
 	}
 }
