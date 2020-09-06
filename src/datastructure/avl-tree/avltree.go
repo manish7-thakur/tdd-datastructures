@@ -16,16 +16,16 @@ func (t *AVlTree) insert(value int) {
 }
 
 func (t *AVlTree) delete(i int) {
-	deleteItem(t.root, i, nil)
+	t.root = deleteItem(t.root, i, t.root)
 }
 
-func deleteItem(node *AvlNode, i int, parent *AvlNode) {
+func deleteItem(node *AvlNode, i int, parent *AvlNode) *AvlNode {
 	if node == nil {
-		return
+		return parent
 	} else if node.value > i {
-		deleteItem(node.left, i, node)
+		parent = deleteItem(node.left, i, node)
 	} else if node.value < i {
-		deleteItem(node.right, i, node)
+		parent = deleteItem(node.right, i, node)
 	} else {
 		if node.left == nil && node.right == nil {
 			if parent.left == node {
@@ -60,7 +60,12 @@ func deleteItem(node *AvlNode, i int, parent *AvlNode) {
 			node.height = Max(height(node.left), height(node.right)) + 1
 		}
 		parent.height = Max(height(parent.left), height(parent.right)) + 1
+		bf := getBalanceFactor(parent)
+		if bf < -1 && parent.left == nil {
+			parent = rotateLeft(parent)
+		}
 	}
+	return parent
 }
 
 func insert(node *AvlNode, value int) *AvlNode {
