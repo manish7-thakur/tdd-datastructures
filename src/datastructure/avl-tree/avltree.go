@@ -71,6 +71,10 @@ func deleteItem(node *AvlNode, i int, parent *AvlNode) *AvlNode {
 			parent.left = rotateLeft(parent.left)
 			parent = rotateRight(parent)
 		}
+		if bf < -1 && getBalanceFactor(parent.right) > 0 {
+			parent.right = rotateRight(parent.right)
+			parent = rotateLeft(parent)
+		}
 	}
 	return parent
 }
