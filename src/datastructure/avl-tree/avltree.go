@@ -23,9 +23,9 @@ func deleteItem(node *AvlNode, i int, parent *AvlNode) *AvlNode {
 	if node == nil {
 		return parent
 	} else if node.value > i {
-		parent = deleteItem(node.left, i, node)
+		return deleteItem(node.left, i, node)
 	} else if node.value < i {
-		parent = deleteItem(node.right, i, node)
+		return deleteItem(node.right, i, node)
 	} else {
 		if node.left == nil && node.right == nil {
 			if parent.left == node {
@@ -62,15 +62,15 @@ func deleteItem(node *AvlNode, i int, parent *AvlNode) *AvlNode {
 		parent.height = Max(height(parent.left), height(parent.right)) + 1
 		bf := getBalanceFactor(parent)
 		if bf < -1 && getBalanceFactor(parent.right) <= 0 {
-			parent = rotateLeft(parent)
+			return rotateLeft(parent)
 		} else if bf > 1 && getBalanceFactor(parent.left) >= 0 {
-			parent = rotateRight(parent)
+			return rotateRight(parent)
 		} else if bf > 1 && getBalanceFactor(parent.left) < 0 { // ==0 is included above
 			parent.left = rotateLeft(parent.left)
-			parent = rotateRight(parent)
+			return rotateRight(parent)
 		} else if bf < -1 && getBalanceFactor(parent.right) > 0 {
 			parent.right = rotateRight(parent.right)
-			parent = rotateLeft(parent)
+			return rotateLeft(parent)
 		}
 	}
 	return parent
