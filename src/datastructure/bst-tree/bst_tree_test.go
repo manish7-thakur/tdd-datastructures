@@ -123,7 +123,7 @@ func TestPostorderTraversalMulti(t *testing.T) {
 
 func TestDeleteEmpty(t *testing.T) {
 	var root *Node
-	root = deleteNode(root, 4, &Node{right: root})
+	deleteNode(root, 4)
 	var actual []int
 	postorder(root, &actual)
 	if len(actual) != 0 {
@@ -134,7 +134,7 @@ func TestDeleteEmpty(t *testing.T) {
 func TestDeleteRootNodeNoChild(t *testing.T) {
 	var root *Node
 	root = insert(root, 2)
-	root = deleteNode(root, 2, &Node{right: root, value: -2635}) // special value to delete node
+	root = deleteNode(root, 2) // special value to delete node
 	if root != nil {
 		t.Errorf("Root was not deleted, found %v", root)
 	}
@@ -143,7 +143,7 @@ func TestDeleteRootNodeNoChild(t *testing.T) {
 func TestDeleteRootLeftLeafNoChild(t *testing.T) {
 	var root *Node
 	root = insertM(root, &[]int{3, 28, 2})
-	root = deleteNode(root, 2, &Node{right: root})
+	root = deleteNode(root, 2)
 	var res []int
 	inorder(root, &res)
 	var actual [2]int
@@ -157,7 +157,7 @@ func TestDeleteRootLeftLeafNoChild(t *testing.T) {
 func TestDeleteRootRightLeafNoChild(t *testing.T) {
 	var root *Node
 	root = insertM(root, &[]int{3, 28, 2})
-	root = deleteNode(root, 28, &Node{right: root})
+	root = deleteNode(root, 28)
 	var res []int
 	postorder(root, &res)
 	var actual [2]int
@@ -171,7 +171,7 @@ func TestDeleteRootRightLeafNoChild(t *testing.T) {
 func TestDeleteLeftLeafNoChild(t *testing.T) {
 	var root *Node
 	root = insertM(root, &[]int{3, 28, 2, 37, 26, 1})
-	root = deleteNode(root, 1, &Node{right: root})
+	root = deleteNode(root, 1)
 	var res []int
 	inorder(root, &res)
 	var actual [5]int
@@ -185,7 +185,7 @@ func TestDeleteLeftLeafNoChild(t *testing.T) {
 func TestDeleteRightLeafNoChild(t *testing.T) {
 	var root *Node
 	root = insertM(root, &[]int{3, 1, 2, 28, 29, 27})
-	root = deleteNode(root, 29, &Node{right: root})
+	root = deleteNode(root, 29)
 	var res []int
 	postorder(root, &res)
 	var actual [5]int
@@ -199,7 +199,7 @@ func TestDeleteRightLeafNoChild(t *testing.T) {
 func TestDeleteLeftNodeWithLeftChild(t *testing.T) {
 	var root *Node
 	root = insertM(root, &[]int{3, 2, 1, 28, 29, 27})
-	root = deleteNode(root, 2, &Node{right: root})
+	root = deleteNode(root, 2)
 	var res []int
 	inorder(root, &res)
 	var actual [5]int
@@ -213,7 +213,7 @@ func TestDeleteLeftNodeWithLeftChild(t *testing.T) {
 func TestDeleteLeftNodeWithRightChild(t *testing.T) {
 	var root *Node
 	root = insertM(root, &[]int{3, 2, 1, 30, 25, 27})
-	root = deleteNode(root, 25, &Node{right: root})
+	root = deleteNode(root, 25)
 	var res []int
 	inorder(root, &res)
 	var actual [5]int
@@ -227,7 +227,7 @@ func TestDeleteLeftNodeWithRightChild(t *testing.T) {
 func TestDeleteRightNodeWithLeftChild(t *testing.T) {
 	var root *Node
 	root = insertM(root, &[]int{3, 2, 1, 25, 30, 27})
-	root = deleteNode(root, 30, &Node{right: root})
+	root = deleteNode(root, 30)
 	var res []int
 	inorder(root, &res)
 	var actual [5]int
@@ -241,7 +241,7 @@ func TestDeleteRightNodeWithLeftChild(t *testing.T) {
 func TestDeleteRightNodeWithRightChild(t *testing.T) {
 	var root *Node
 	root = insertM(root, &[]int{3, 2, 1, 25, 30, 31})
-	root = deleteNode(root, 30, &Node{right: root})
+	root = deleteNode(root, 30)
 	var res []int
 	inorder(root, &res)
 	var actual [5]int
@@ -255,7 +255,7 @@ func TestDeleteRightNodeWithRightChild(t *testing.T) {
 func TestDeleteLeftNodeWithTwoChildren(t *testing.T) {
 	var root *Node
 	root = insertM(root, &[]int{20, 2, 8, 3, 21, 36, 1})
-	root = deleteNode(root, 2, &Node{right: root})
+	root = deleteNode(root, 2)
 	var res []int
 	inorder(root, &res)
 	var actual [6]int
@@ -269,7 +269,7 @@ func TestDeleteLeftNodeWithTwoChildren(t *testing.T) {
 func TestDeleteLeftNodeWithTwoChildrenNoSucc(t *testing.T) {
 	var root *Node
 	root = insertM(root, &[]int{20, 2, 8, 21, 36, 1})
-	root = deleteNode(root, 2, &Node{right: root})
+	root = deleteNode(root, 2)
 	var res []int
 	inorder(root, &res)
 	var actual [5]int
@@ -283,7 +283,7 @@ func TestDeleteLeftNodeWithTwoChildrenNoSucc(t *testing.T) {
 func TestDeleteRootNodeWithTwoChildren(t *testing.T) {
 	var root *Node
 	root = insertM(root, &[]int{20, 2, 8, 21, 36, 1})
-	root = deleteNode(root, 20, &Node{right: root})
+	root = deleteNode(root, 20)
 	var res []int
 	inorder(root, &res)
 	var actual [5]int
@@ -297,7 +297,7 @@ func TestDeleteRootNodeWithTwoChildren(t *testing.T) {
 func TestDeleteLeftNodeWithTwoChildrenSuccWithRightChild(t *testing.T) {
 	var root *Node
 	root = insertM(root, &[]int{20, 2, 8, 3, 5, 9, 21, 36, 1})
-	root = deleteNode(root, 2, &Node{right: root})
+	root = deleteNode(root, 2)
 	var res []int
 	inorder(root, &res)
 	var actual [8]int
