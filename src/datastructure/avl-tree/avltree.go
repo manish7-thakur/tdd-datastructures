@@ -16,64 +16,51 @@ func (t *AVlTree) insert(value int) {
 }
 
 func (t *AVlTree) delete(i int) {
-	t.root = deleteItem(t.root, i, t.root)
+	t.root = deleteItem(t.root, i)
 }
 
-func deleteItem(node *AvlNode, i int, parent *AvlNode) *AvlNode {
+func deleteItem(node *AvlNode, i int) *AvlNode {
 	if node == nil {
-		return parent
+		return nil
 	} else if node.value > i {
-		return deleteItem(node.left, i, node)
+		node.left = deleteItem(node.left, i)
 	} else if node.value < i {
-		return deleteItem(node.right, i, node)
+		node.right = deleteItem(node.right, i)
 	} else {
-		if node.left == nil && node.right == nil {
-			if parent.left == node {
-				parent.left = nil
-			} else {
-				parent.right = nil
-			}
-		} else if node.left == nil {
-			if parent.left == node {
-				parent.left = node.right
-			} else {
-				parent.right = node.right
-			}
+		if node.left == nil {
+			node = node.right
 		} else if node.right == nil {
-			if parent.left == node {
-				parent.left = node.left
-			} else {
-				parent.right = node.left
-			}
+			node = node.left
 		} else {
-			succPar := node.right
-			succ := succPar
-			for ; succ.left != nil; succ = succ.left {
-				succPar = succ
-			}
+			succ := findSucc(node.right)
 			node.value = succ.value
-			succPar.left = nil
-			succPar.height = Max(height(succPar.left), height(succPar.right)) + 1
-			if succPar == succ {
-				node.right = succPar.right
-			}
-			node.height = Max(height(node.left), height(node.right)) + 1
+			node.right = deleteItem(node.right, succ.value)
 		}
-		parent.height = Max(height(parent.left), height(parent.right)) + 1
-		bf := getBalanceFactor(parent)
-		if bf < -1 && getBalanceFactor(parent.right) <= 0 {
-			return rotateLeft(parent)
-		} else if bf > 1 && getBalanceFactor(parent.left) >= 0 {
-			return rotateRight(parent)
-		} else if bf > 1 && getBalanceFactor(parent.left) < 0 { // ==0 is included above
-			parent.left = rotateLeft(parent.left)
-			return rotateRight(parent)
-		} else if bf < -1 && getBalanceFactor(parent.right) > 0 {
-			parent.right = rotateRight(parent.right)
-			return rotateLeft(parent)
+		if node == nil {
+			return node
 		}
 	}
-	return parent
+	node.height = Max(height(node.left), height(node.right)) + 1
+	bf := getBalanceFactor(node)
+	if bf < -1 && getBalanceFactor(node.right) <= 0 {
+		return rotateLeft(node)
+	} else if bf > 1 && getBalanceFactor(node.left) >= 0 {
+		return rotateRight(node)
+	} else if bf > 1 && getBalanceFactor(node.left) < 0 { // ==0 is included above
+		node.left = rotateLeft(node.left)
+		return rotateRight(node)
+	} else if bf < -1 && getBalanceFactor(node.right) > 0 {
+		node.right = rotateRight(node.right)
+		return rotateLeft(node)
+	}
+	return node
+}
+
+func findSucc(start *AvlNode) *AvlNode {
+	for ; start.left != nil; start = start.left {
+
+	}
+	return start
 }
 
 func insert(node *AvlNode, value int) *AvlNode {
