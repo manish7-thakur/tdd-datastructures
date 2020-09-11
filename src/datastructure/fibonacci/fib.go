@@ -8,10 +8,8 @@ func New(capacity int) Fib {
 	return Fib{make([]int, capacity)}
 }
 func (f Fib) generate(n int) int {
-	if n == 1 {
-		return 1
-	} else if n == 0 {
-		return 0
+	if n <= 1 {
+		return n
 	} else {
 		f1 := f.mem[n-1]
 		f2 := f.mem[n-2]
