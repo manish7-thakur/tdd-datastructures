@@ -46,3 +46,11 @@ func TestFibonacciFiftiethNum(t *testing.T) {
 		t.Errorf("Expected %d but found %d", expected, n)
 	}
 }
+
+func BenchmarkFibonacciHundredthSum(b *testing.B) {
+	n := 100
+	gen := New(n)
+	for i := 0; i < b.N; i++ {
+		gen.generate(n)
+	}
+}
