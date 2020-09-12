@@ -2,7 +2,7 @@ package power
 
 import "testing"
 
-func TestPowZero(t *testing.T) {
+func TestPow0(t *testing.T) {
 	res := pow(4, 0)
 	expected := 1
 	if res != expected {
@@ -10,7 +10,7 @@ func TestPowZero(t *testing.T) {
 	}
 }
 
-func TestPowOneOfZero(t *testing.T) {
+func TestPow1Of0(t *testing.T) {
 	res := pow(0, 1)
 	expected := 0
 	if res != expected {
@@ -18,7 +18,7 @@ func TestPowOneOfZero(t *testing.T) {
 	}
 }
 
-func TestPowOneOfOne(t *testing.T) {
+func TestPow1Of1(t *testing.T) {
 	res := pow(1, 1)
 	expected := 1
 	if res != expected {
@@ -26,7 +26,7 @@ func TestPowOneOfOne(t *testing.T) {
 	}
 }
 
-func TestPowOneOfTwo(t *testing.T) {
+func TestPow1Of2(t *testing.T) {
 	res := pow(2, 1)
 	expected := 2
 	if res != expected {
@@ -34,7 +34,7 @@ func TestPowOneOfTwo(t *testing.T) {
 	}
 }
 
-func TestPowTwoOfTwo(t *testing.T) {
+func TestPow2Of2(t *testing.T) {
 	res := pow(2, 2)
 	expected := 4
 	if res != expected {
@@ -42,10 +42,90 @@ func TestPowTwoOfTwo(t *testing.T) {
 	}
 }
 
-func TestPowTwoOfFour(t *testing.T) {
+func TestPow4Of2(t *testing.T) {
 	res := pow(2, 4)
 	expected := 16
 	if res != expected {
 		t.Errorf("Expected %d but found %d", expected, res)
 	}
+}
+
+//func TestPow3Of2(t *testing.T) {
+//	res := pow(2, 3)
+//	expected := 8
+//	if res != expected {
+//		t.Errorf("Expected %d but found %d", expected, res)
+//	}
+//}
+
+func TestNearestPow2For3(t *testing.T) {
+	res := nearestPow2(3)
+	expected := 2
+	if res != expected {
+		t.Errorf("Expected %d but found %d", expected, res)
+	}
+}
+
+func TestNearestPow2For5(t *testing.T) {
+	res := nearestPow2(5)
+	expected := 4
+	if res != expected {
+		t.Errorf("Expected %d but found %d", expected, res)
+	}
+}
+
+func TestNearestPow2For6(t *testing.T) {
+	res := nearestPow2(6)
+	expected := 4
+	if res != expected {
+		t.Errorf("Expected %d but found %d", expected, res)
+	}
+}
+
+func TestNearestPow2For7(t *testing.T) {
+	res := nearestPow2(7)
+	expected := 4
+	if res != expected {
+		t.Errorf("Expected %d but found %d", expected, res)
+	}
+}
+
+func TestNearestPow2For8(t *testing.T) {
+	res := nearestPow2(8)
+	expected := 8
+	if res != expected {
+		t.Errorf("Expected %d but found %d", expected, res)
+	}
+}
+
+func TestNearestPow2For9(t *testing.T) {
+	res := nearestPow2(9)
+	expected := 8
+	if res != expected {
+		t.Errorf("Expected %d but found %d", expected, res)
+	}
+}
+
+func TestNearestPow2For15(t *testing.T) {
+	res := nearestPow2(15)
+	expected := 8
+	if res != expected {
+		t.Errorf("Expected %d but found %d", expected, res)
+	}
+}
+
+func TestNearestPow2For17(t *testing.T) {
+	res := nearestPow2(17)
+	expected := 16
+	if res != expected {
+		t.Errorf("Expected %d but found %d", expected, res)
+	}
+}
+
+func nearestPow2(n int) int {
+	nearest := 2
+	for ; nearest*2 <= n; {
+		nearest *= 2
+	}
+	return nearest
 }
