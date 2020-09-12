@@ -24,3 +24,15 @@ func (f Fib) generateRec(n int) int {
 		return f1 + f2
 	}
 }
+
+func (f Fib) generateIter(n int) int {
+	pre := 0
+	curr := 1
+	sum := 0
+	for i := 0; i < n; i++ {
+		pre = curr
+		curr = sum
+		sum = curr + pre
+	}
+	return sum
+}
