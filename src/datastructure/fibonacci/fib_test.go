@@ -110,10 +110,18 @@ func TestFibonacciFiftiethNumIter(t *testing.T) {
 	}
 }
 
-func BenchmarkFibonacciHundredthSum(b *testing.B) {
+func BenchmarkFibonacciRecHundredthSum(b *testing.B) {
 	n := 100
 	gen := New(n)
 	for i := 0; i < b.N; i++ {
 		gen.generateRec(n)
+	}
+}
+
+func BenchmarkFibonacciIterHundredthSum(b *testing.B) {
+	n := 100
+	gen := New(0)
+	for i := 0; i < b.N; i++ {
+		gen.generateIter(n)
 	}
 }
