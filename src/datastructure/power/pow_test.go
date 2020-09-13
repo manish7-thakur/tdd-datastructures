@@ -129,3 +129,9 @@ func TestNearestPow2For17(t *testing.T) {
 		t.Errorf("Expected %d but found %d", expected, res)
 	}
 }
+
+func BenchmarkPower266Of5(b *testing.B) {
+	for i := 0; i <= b.N; i++ {
+		pow(5, 255)
+	}
+}
