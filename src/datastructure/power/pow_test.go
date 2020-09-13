@@ -50,13 +50,21 @@ func TestPow4Of2(t *testing.T) {
 	}
 }
 
-//func TestPow3Of2(t *testing.T) {
-//	res := pow(2, 3)
-//	expected := 8
-//	if res != expected {
-//		t.Errorf("Expected %d but found %d", expected, res)
-//	}
-//}
+func TestPow3Of2(t *testing.T) {
+	res := pow(2, 3)
+	expected := 8
+	if res != expected {
+		t.Errorf("Expected %d but found %d", expected, res)
+	}
+}
+
+func TestPow5Of3(t *testing.T) {
+	res := pow(3, 5)
+	expected := 243
+	if res != expected {
+		t.Errorf("Expected %d but found %d", expected, res)
+	}
+}
 
 func TestNearestPow2For3(t *testing.T) {
 	res := nearestPow2(3)

@@ -6,7 +6,9 @@ func pow(a int, n int) int {
 	} else if n == 1 {
 		return a
 	} else {
-		return pow(a, n/2) * pow(a, n/2)
+		nearest := nearestPow2(n)
+		rest := n - nearest
+		return pow(a, nearest/2) * pow(a, nearest/2) * pow(a, rest)
 	}
 }
 
