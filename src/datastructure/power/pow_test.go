@@ -121,11 +121,3 @@ func TestNearestPow2For17(t *testing.T) {
 		t.Errorf("Expected %d but found %d", expected, res)
 	}
 }
-
-func nearestPow2(n int) int {
-	nearest := 2
-	for ; nearest*2 <= n; {
-		nearest *= 2
-	}
-	return nearest
-}
