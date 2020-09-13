@@ -1,9 +1,13 @@
 package power
 
-import "testing"
+import (
+	"math"
+	"testing"
+)
 
 func TestPow0(t *testing.T) {
-	res := pow(4, 0)
+	pow := New(0)
+	res := pow.calc(4, 0)
 	expected := 1
 	if res != expected {
 		t.Errorf("Expected %d but found %d", expected, res)
@@ -11,7 +15,8 @@ func TestPow0(t *testing.T) {
 }
 
 func TestPow1Of0(t *testing.T) {
-	res := pow(0, 1)
+	pow := New(0)
+	res := pow.calc(0, 1)
 	expected := 0
 	if res != expected {
 		t.Errorf("Expected %d but found %d", expected, res)
@@ -19,7 +24,8 @@ func TestPow1Of0(t *testing.T) {
 }
 
 func TestPow1Of1(t *testing.T) {
-	res := pow(1, 1)
+	pow := New(0)
+	res := pow.calc(1, 1)
 	expected := 1
 	if res != expected {
 		t.Errorf("Expected %d but found %d", expected, res)
@@ -27,7 +33,8 @@ func TestPow1Of1(t *testing.T) {
 }
 
 func TestPow1Of2(t *testing.T) {
-	res := pow(2, 1)
+	pow := New(0)
+	res := pow.calc(2, 1)
 	expected := 2
 	if res != expected {
 		t.Errorf("Expected %d but found %d", expected, res)
@@ -35,7 +42,8 @@ func TestPow1Of2(t *testing.T) {
 }
 
 func TestPow2Of2(t *testing.T) {
-	res := pow(2, 2)
+	pow := New(3)
+	res := pow.calc(2, 2)
 	expected := 4
 	if res != expected {
 		t.Errorf("Expected %d but found %d", expected, res)
@@ -43,7 +51,8 @@ func TestPow2Of2(t *testing.T) {
 }
 
 func TestPow4Of2(t *testing.T) {
-	res := pow(2, 4)
+	pow := New(5)
+	res := pow.calc(2, 4)
 	expected := 16
 	if res != expected {
 		t.Errorf("Expected %d but found %d", expected, res)
@@ -51,7 +60,8 @@ func TestPow4Of2(t *testing.T) {
 }
 
 func TestPow3Of2(t *testing.T) {
-	res := pow(2, 3)
+	pow := New(4)
+	res := pow.calc(2, 3)
 	expected := 8
 	if res != expected {
 		t.Errorf("Expected %d but found %d", expected, res)
@@ -59,7 +69,8 @@ func TestPow3Of2(t *testing.T) {
 }
 
 func TestPow5Of3(t *testing.T) {
-	res := pow(3, 5)
+	pow := New(6)
+	res := pow.calc(3, 5)
 	expected := 243
 	if res != expected {
 		t.Errorf("Expected %d but found %d", expected, res)
@@ -131,7 +142,14 @@ func TestNearestPow2For17(t *testing.T) {
 }
 
 func BenchmarkPower266Of5(b *testing.B) {
+	pow := New(256)
 	for i := 0; i <= b.N; i++ {
-		pow(5, 255)
+		pow.calc(5, 255)
+	}
+}
+
+func BenchmarkPower266Of5Lib(b *testing.B) {
+	for i := 0; i <= b.N; i++ {
+		math.Pow(5, 255)
 	}
 }
