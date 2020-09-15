@@ -112,8 +112,8 @@ func TestFibonacciFiftiethNumIter(t *testing.T) {
 
 func BenchmarkFibonacciRecHundredthSum(b *testing.B) {
 	n := 100
-	gen := New(n)
 	for i := 0; i < b.N; i++ {
+		gen := New(n)
 		gen.generateRec(n)
 	}
 }
