@@ -39,3 +39,30 @@ func TestMaxCost2X1Matrix(t *testing.T) {
 		t.Errorf("Expected %f but found %f", expected, actual)
 	}
 }
+
+func TestMaxCost2X2Matrix(t *testing.T) {
+	mat := [][]float64{{1, 4}, {5, 2}}
+	actual := computeMaxCost(mat, 1, 1)
+	expected := 8.0
+	if actual != expected {
+		t.Errorf("Expected %f but found %f", expected, actual)
+	}
+}
+
+func TestMaxCost2X3Matrix(t *testing.T) {
+	mat := [][]float64{{1, 4}, {5, 2}, {3, 1}}
+	actual := computeMaxCost(mat, 2, 1)
+	expected := 10.0
+	if actual != expected {
+		t.Errorf("Expected %f but found %f", expected, actual)
+	}
+}
+
+func TestMaxCost3X3Matrix(t *testing.T) {
+	mat := [][]float64{{1, 4, 6}, {3, 5, 2}, {8, 3, 1}}
+	actual := computeMaxCost(mat, 2, 2)
+	expected := 16.0
+	if actual != expected {
+		t.Errorf("Expected %f but found %f", expected, actual)
+	}
+}
