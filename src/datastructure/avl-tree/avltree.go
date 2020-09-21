@@ -42,25 +42,7 @@ func deleteItem(node *AvlNode, i int) *AvlNode {
 	}
 	node.height = Max(height(node.left), height(node.right)) + 1
 	bf := getBalanceFactor(node)
-	if bf < -1 && getBalanceFactor(node.right) <= 0 {
-		return rotateLeft(node)
-	} else if bf > 1 && getBalanceFactor(node.left) >= 0 {
-		return rotateRight(node)
-	} else if bf > 1 && getBalanceFactor(node.left) < 0 { // ==0 is included above
-		node.left = rotateLeft(node.left)
-		return rotateRight(node)
-	} else if bf < -1 && getBalanceFactor(node.right) > 0 {
-		node.right = rotateRight(node.right)
-		return rotateLeft(node)
-	}
-	return node
-}
-
-func findSucc(start *AvlNode) *AvlNode {
-	for ; start.left != nil; start = start.left {
-
-	}
-	return start
+	return rotate(node, bf)
 }
 
 func insert(node *AvlNode, value int) *AvlNode {
@@ -73,18 +55,30 @@ func insert(node *AvlNode, value int) *AvlNode {
 	}
 	node.height = Max(height(node.left), height(node.right)) + 1
 	bf := getBalanceFactor(node)
-	if bf > 1 && getBalanceFactor(node.left) == 1 {
+	return rotate(node, bf)
+}
+
+func rotate(node *AvlNode, bf int) *AvlNode {
+	if bf < -1 && getBalanceFactor(node.right) <= 0 {
+		return rotateLeft(node)
+	} else if bf > 1 && getBalanceFactor(node.left) >= 0 { // can check value < node.left.value for insertion
 		return rotateRight(node)
-	} else if bf > 1 && getBalanceFactor(node.left) == -1 {
+	} else if bf > 1 && getBalanceFactor(node.left) < 0 {
 		node.left = rotateLeft(node.left)
 		return rotateRight(node)
-	} else if bf < -1 && getBalanceFactor(node.right) == -1 {
-		return rotateLeft(node)
-	} else if bf < -1 && getBalanceFactor(node.right) == 1 {
+	} else if bf < -1 && getBalanceFactor(node.right) > 0 {
 		node.right = rotateRight(node.right)
 		return rotateLeft(node)
+	} else {
+		return node
 	}
-	return node
+}
+
+func findSucc(start *AvlNode) *AvlNode {
+	for ; start.left != nil; start = start.left {
+
+	}
+	return start
 }
 
 func rotateLeft(pivot *AvlNode) *AvlNode {
