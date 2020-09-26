@@ -48,12 +48,28 @@ func TestSuffixArrayThreeChar(t *testing.T) {
 }
 
 func TestSuffixArrayThreeCharIndx(t *testing.T) {
-	str := "bea"
-	sa := New(str)
-	actual := [30]int{}
-	copy(actual[:], sa.suffixSorted)
-	expected := [30]int{2, 0, 1}
-	if actual != expected {
-		t.Errorf("expected %v but found %v", expected, actual)
+	str := "erywuemnbzcsadhihwueiuqwyeiqwyezskzjdksjhfsdjkfhsdgfhsgdfjhsdgfjsgfshdfgsjhfgsdwiuewfxaLKDJA"
+	s1 := New(str)
+	s2 := sortedSuffixArray(str)
+	s1res := [92]int{}
+	s2res := [92]int{}
+	copy(s1res[:], s1.suffixSorted)
+	copy(s2res[:], s2)
+	if s1res != s2res {
+		t.Errorf("expected %v but found %v", s1res, s2res)
+	}
+}
+
+func BenchmarkIndex_New(b *testing.B) {
+	str := "erywuemnbzcsadhihwueiuqwyeiqwyezskzjdksjhfsdjkfhsdgfhsgdfjhsdgfjsgfshdfgsjhfgsdwiuewfxaLKDJA"
+	for i := 0; i < b.N; i++ {
+		New(str)
+	}
+}
+
+func BenchmarkIndex_SortedNaive(b *testing.B) {
+	str := "erywuemnbzcsadhihwueiuqwyeiqwyezskzjdksjhfsdjkfhsdgfhsgdfjhsdgfjsgfshdfgsjhfgsdwiuewfxaLKDJA"
+	for i := 0; i < b.N; i++ {
+		sortedSuffixArray(str)
 	}
 }
