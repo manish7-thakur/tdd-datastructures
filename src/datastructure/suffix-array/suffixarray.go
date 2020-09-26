@@ -4,7 +4,7 @@ import (
 	"sort"
 )
 
-func sortedSuffixArray(str string) []int {
+func SortedSuffixArray(str string) []int {
 	stringLen := len(str)
 	suffixArr := make([]int, stringLen)
 	suffixArrStr := make([]string, stringLen)

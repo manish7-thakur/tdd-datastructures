@@ -47,10 +47,10 @@ func TestSuffixArrayThreeChar(t *testing.T) {
 	}
 }
 
-func TestSuffixArrayThreeCharIndx(t *testing.T) {
+func TestSuffixArrayMultiChar(t *testing.T) {
 	str := "erywuemnbzcsadhihwueiuqwyeiqwyezskzjdksjhfsdjkfhsdgfhsgdfjhsdgfjsgfshdfgsjhfgsdwiuewfxaLKDJA"
 	s1 := New(str)
-	s2 := sortedSuffixArray(str)
+	s2 := SortedSuffixArray(str)
 	s1res := [92]int{}
 	s2res := [92]int{}
 	copy(s1res[:], s1.suffixSorted)
@@ -67,9 +67,9 @@ func BenchmarkIndex_New(b *testing.B) {
 	}
 }
 
-func BenchmarkIndex_SortedNaive(b *testing.B) {
+func BenchmarkIndex_SortedSuffixArray(b *testing.B) {
 	str := "erywuemnbzcsadhihwueiuqwyeiqwyezskzjdksjhfsdjkfhsdgfhsgdfjhsdgfjsgfshdfgsjhfgsdwiuewfxaLKDJA"
 	for i := 0; i < b.N; i++ {
-		sortedSuffixArray(str)
+		SortedSuffixArray(str)
 	}
 }
