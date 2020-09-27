@@ -54,3 +54,22 @@ func (idx Index) Less(i, j int) bool {
 func (idx Index) Swap(i, j int) {
 	idx.suffixSorted[i], idx.suffixSorted[j] = idx.suffixSorted[j], idx.suffixSorted[i]
 }
+
+func LCP(str1 string, str2 string) int {
+	lcpLenth := 0
+	strlen := 0
+	if len(str1) < len(str2) {
+		strlen = len(str1)
+	} else {
+		strlen = len(str2)
+	}
+	for i := 0; i < strlen; i++ {
+		if str1[i] == str2[i] {
+			lcpLenth++
+		} else {
+			return lcpLenth
+		}
+	}
+	return lcpLenth
+}
+

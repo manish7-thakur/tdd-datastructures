@@ -60,6 +60,35 @@ func TestSuffixArrayMultiChar(t *testing.T) {
 	}
 }
 
+func TestCountLCPEmptyString(t *testing.T) {
+	str1 := ""
+	str2 := ""
+	actual := LCP(str1, str2)
+	if actual != 0 {
+		t.Errorf("Expected %d but found %d", 0, actual)
+	}
+}
+
+func TestCountLCPSingleCharString(t *testing.T) {
+	str1 := "a"
+	str2 := "a"
+	actual := LCP(str1, str2)
+	expected := 1
+	if actual != expected {
+		t.Errorf("Expected %d but found %d", expected, actual)
+	}
+}
+
+func TestCountLCPSingleAndDoubleCharString(t *testing.T) {
+	str1 := "bcn"
+	str2 := "bc"
+	actual := LCP(str1, str2)
+	expected := 2
+	if actual != expected {
+		t.Errorf("Expected %d but found %d", expected, actual)
+	}
+}
+
 func TestLCPArrayEmptyString(t *testing.T) {
 	str := ""
 	idx := New(str)
