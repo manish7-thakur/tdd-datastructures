@@ -60,6 +60,37 @@ func TestSuffixArrayMultiChar(t *testing.T) {
 	}
 }
 
+func TestLCPArrayEmptyString(t *testing.T) {
+	str := ""
+	idx := New(str)
+	lcp := idx.lcp
+	if len(lcp) != 0 {
+		t.Errorf("expected empty but found %v", lcp)
+	}
+}
+
+func TestLCPArraySingleChar(t *testing.T) {
+	str := "a"
+	idx := New(str)
+	actual := [1]int{}
+	copy(actual[:], idx.lcp)
+	expected := [1]int{0}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestLCPArrayDoubleCharWithCommonChar(t *testing.T) {
+	str := "ab"
+	idx := New(str)
+	actual := [2]int{}
+	copy(actual[:], idx.lcp)
+	expected := [2]int{0, 0}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func BenchmarkIndex_New(b *testing.B) {
 	str := "erywuemnbzcsadhihwueiuqwyeiqwyezskzjdksjhfsdjkfhsdgfhsgdfjhsdgfjsgfshdfgsjhfgsdwiuewfxaLKDJA"
 	for i := 0; i < b.N; i++ {

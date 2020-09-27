@@ -24,15 +24,20 @@ func SortedSuffixArray(str string) []int {
 type Index struct {
 	str          string
 	suffixSorted []int
+	lcp          []int
 }
 
 func New(str string) Index {
 	suffixSorted := make([]int, len(str))
+	lcp := make([]int, len(str))
 	for i := 0; i < len(str); i++ {
 		suffixSorted[i] = i
 	}
-	index := Index{str, suffixSorted}
+	index := Index{str, suffixSorted, lcp}
 	sort.Sort(index)
+	for i := 1; i < len(lcp); i++ {
+		lcp[i] = 0
+	}
 	return index
 }
 
