@@ -109,12 +109,45 @@ func TestLCPArraySingleChar(t *testing.T) {
 	}
 }
 
-func TestLCPArrayDoubleCharWithCommonChar(t *testing.T) {
+func TestLCPArrayDoubleCharNoCommonPrefix(t *testing.T) {
 	str := "ab"
 	idx := New(str)
 	actual := [2]int{}
 	copy(actual[:], idx.lcp)
 	expected := [2]int{0, 0}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestLCPArrayDoubleCharWithCommonPrefix(t *testing.T) {
+	str := "aa"
+	idx := New(str)
+	actual := [2]int{}
+	copy(actual[:], idx.lcp)
+	expected := [2]int{0, 1}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestLCPArrayTripleCharWithCommonPrefix(t *testing.T) {
+	str := "aaa"
+	idx := New(str)
+	actual := [3]int{}
+	copy(actual[:], idx.lcp)
+	expected := [3]int{0, 1, 2}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestLCPArrayMultiCharWithCommonPrefix(t *testing.T) {
+	str := "abracadabra"
+	idx := New(str)
+	actual := [11]int{}
+	copy(actual[:], idx.lcp)
+	expected := [11]int{0, 1, 4, 1, 1, 0, 3, 0, 0, 0, 2}
 	if actual != expected {
 		t.Errorf("expected %v but found %v", expected, actual)
 	}

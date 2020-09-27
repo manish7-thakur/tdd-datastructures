@@ -36,7 +36,9 @@ func New(str string) Index {
 	index := Index{str, suffixSorted, lcp}
 	sort.Sort(index)
 	for i := 1; i < len(lcp); i++ {
-		lcp[i] = 0
+		str1 := str[suffixSorted[i-1]:]
+		str2 := str[suffixSorted[i]:]
+		lcp[i] = LCP(str1, str2)
 	}
 	return index
 }
@@ -72,4 +74,3 @@ func LCP(str1 string, str2 string) int {
 	}
 	return lcpLenth
 }
-
