@@ -57,6 +57,16 @@ func (idx Index) Swap(i, j int) {
 	idx.suffixSorted[i], idx.suffixSorted[j] = idx.suffixSorted[j], idx.suffixSorted[i]
 }
 
+func (idx Index) UniqueSubstringCount() interface{} {
+	strlen := len(idx.str)
+	duplicateSubstring := 0
+	totalSubstrings := (strlen * (strlen + 1)) / 2
+	for _, v := range idx.lcp {
+		duplicateSubstring += v
+	}
+	return totalSubstrings - duplicateSubstring
+}
+
 func LCP(str1 string, str2 string) int {
 	lcpLenth := 0
 	strlen := 0

@@ -153,6 +153,46 @@ func TestLCPArrayMultiCharWithCommonPrefix(t *testing.T) {
 	}
 }
 
+func TestUniqueSubstringCountEmptyString(t *testing.T) {
+	str := ""
+	idx := New(str)
+	actual := idx.UniqueSubstringCount()
+	expected := 0
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestUniqueSubstringCountSingleChar(t *testing.T) {
+	str := "A"
+	idx := New(str)
+	actual := idx.UniqueSubstringCount()
+	expected := 1
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestUniqueSubstringCountDoubleChar(t *testing.T) {
+	str := "AB"
+	idx := New(str)
+	actual := idx.UniqueSubstringCount()
+	expected := 3
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestUniqueSubstringCountMulticharChar(t *testing.T) {
+	str := "AZAZA"
+	idx := New(str)
+	actual := idx.UniqueSubstringCount()
+	expected := 9
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
 func BenchmarkIndex_New(b *testing.B) {
 	str := "erywuemnbzcsadhihwueiuqwyeiqwyezskzjdksjhfsdjkfhsdgfhsgdfjhsdgfjsgfshdfgsjhfgsdwiuewfxaLKDJA"
 	for i := 0; i < b.N; i++ {
