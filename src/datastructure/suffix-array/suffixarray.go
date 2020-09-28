@@ -57,7 +57,7 @@ func (idx Index) Swap(i, j int) {
 	idx.suffixSorted[i], idx.suffixSorted[j] = idx.suffixSorted[j], idx.suffixSorted[i]
 }
 
-func (idx Index) UniqueSubstringCount() interface{} {
+func (idx Index) UniqueSubstringCount() int {
 	strlen := len(idx.str)
 	duplicateSubstring := 0
 	totalSubstrings := (strlen * (strlen + 1)) >> 1 // divide by 2
