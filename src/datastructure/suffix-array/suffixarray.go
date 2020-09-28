@@ -60,7 +60,7 @@ func (idx Index) Swap(i, j int) {
 func (idx Index) UniqueSubstringCount() interface{} {
 	strlen := len(idx.str)
 	duplicateSubstring := 0
-	totalSubstrings := (strlen * (strlen + 1)) / 2
+	totalSubstrings := (strlen * (strlen + 1)) >> 1 // divide by 2
 	for _, v := range idx.lcp {
 		duplicateSubstring += v
 	}
