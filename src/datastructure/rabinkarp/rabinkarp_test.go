@@ -55,11 +55,3 @@ func TestHashLargeSting(t *testing.T) {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
 }
-
-func hash(str string) int {
-	var hash int32 = 0
-	for _, v := range str {
-		hash = 31*hash + v
-	}
-	return int(hash)
-}
