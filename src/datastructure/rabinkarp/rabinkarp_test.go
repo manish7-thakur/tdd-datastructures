@@ -58,10 +58,10 @@ func TestHashLargeSting(t *testing.T) {
 
 func TestHashUsingPriorHashEmptyString(t *testing.T) {
 	str := ""
-	priorHash := hash(str)
+	hashGen := New(str)
 	var next rune = 0
 	actual := hash("")
-	expected := newHash(priorHash, next, 0, 0)
+	expected := hashGen.RollHash(next, 0)
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}
@@ -69,10 +69,10 @@ func TestHashUsingPriorHashEmptyString(t *testing.T) {
 
 func TestHashUsingPriorHashZeroSingleChar(t *testing.T) {
 	str := ""
-	priorHash := hash(str)
+	hashGen := New(str)
 	next := 'a'
 	actual := hash("a")
-	expected := newHash(priorHash, next, 0, 1)
+	expected := hashGen.RollHash(next, 0)
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}
@@ -80,10 +80,10 @@ func TestHashUsingPriorHashZeroSingleChar(t *testing.T) {
 
 func TestHashUsingPriorHashNonZeroSingleChar(t *testing.T) {
 	str := "b"
-	priorHash := hash(str)
+	hashGen := New(str)
 	next := 'a'
 	actual := hash("a")
-	expected := newHash(priorHash, next, 'b', 1)
+	expected := hashGen.RollHash(next, 'b')
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}
@@ -91,10 +91,10 @@ func TestHashUsingPriorHashNonZeroSingleChar(t *testing.T) {
 
 func TestHashUsingPriorHashNonZeroDoubleChar(t *testing.T) {
 	str := "bc"
-	priorHash := hash(str)
+	hashGen := New(str)
 	next := 'a'
 	actual := hash("ca")
-	expected := newHash(priorHash, next, 'b', 2)
+	expected := hashGen.RollHash(next, 'b')
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}
