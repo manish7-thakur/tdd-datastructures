@@ -1,6 +1,9 @@
 package rabinkarp
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 func TestHashEmptyString(t *testing.T) {
 	str := ""
@@ -63,7 +66,7 @@ func TestHashUsingPriorHashEmptyString(t *testing.T) {
 	actual := Hash("")
 	expected := hashGen.RollHash(next, 0)
 	if actual != expected {
-		t.Errorf("expected %d but found %d", actual, expected)
+		t.Errorf("expected %d but found %d", expected, actual)
 	}
 }
 
@@ -74,7 +77,7 @@ func TestHashUsingPriorHashZeroSingleChar(t *testing.T) {
 	actual := Hash("a")
 	expected := hashGen.RollHash(next, 0)
 	if actual != expected {
-		t.Errorf("expected %d but found %d", actual, expected)
+		t.Errorf("expected %d but found %d", expected, actual)
 	}
 }
 
@@ -85,7 +88,7 @@ func TestHashUsingPriorHashNonZeroSingleChar(t *testing.T) {
 	actual := Hash("a")
 	expected := hashGen.RollHash(next, 'b')
 	if actual != expected {
-		t.Errorf("expected %d but found %d", actual, expected)
+		t.Errorf("expected %d but found %d", expected, actual)
 	}
 }
 
@@ -96,7 +99,7 @@ func TestHashUsingPriorHashNonZeroDoubleChar(t *testing.T) {
 	actual := Hash("ca")
 	expected := hashGen.RollHash(next, 'b')
 	if actual != expected {
-		t.Errorf("expected %d but found %d", actual, expected)
+		t.Errorf("expected %d but found %d", expected, actual)
 	}
 }
 
@@ -107,6 +110,53 @@ func TestHashUsingPriorHashNonZeroTripleChar(t *testing.T) {
 	actual := Hash("cda")
 	expected := hashGen.RollHash(next, 'b')
 	if actual != expected {
-		t.Errorf("expected %d but found %d", actual, expected)
+		t.Errorf("expected %d but found %d", expected, actual)
 	}
+}
+
+func TestIndexRabinKarpEmptyString(t *testing.T) {
+	actual := IndexRabinKarp("", "a")
+	expected := -1
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestIndexRabinKarpEmptySubString(t *testing.T) {
+	actual := IndexRabinKarp("a", "")
+	expected := 0
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestIndexRabinKarpSingleCharString(t *testing.T) {
+	actual := IndexRabinKarp("a", "a")
+	expected := 0
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func IndexRabinKarp(s string, substr string) int {
+	substrlen := len(substr)
+	slen := len(s)
+	if substrlen == 0 {
+		return 0
+	} else if substrlen > slen {
+		return -1
+	} else {
+		//compute hash substring
+		//match with hash from string s part
+		//if matches compare string else slide
+		//if char matches return current idx
+		hash := Hash(substr)
+		hashGen := New(s[0:substrlen])
+		if hashGen.hash == hash {
+			if strings.Compare(substr, s[0:substrlen]) == 0 {
+				return 0
+			}
+		}
+	}
+	return -1
 }
