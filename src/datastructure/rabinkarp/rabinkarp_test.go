@@ -55,3 +55,36 @@ func TestHashLargeSting(t *testing.T) {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
 }
+
+func TestHashUsingPriorHashEmptyString(t *testing.T) {
+	str := ""
+	priorHash := hash(str)
+	next := ""
+	actual := hash(next)
+	expected := NewHash(priorHash, next, str)
+	if actual != expected {
+		t.Errorf("expected %d but found %d", actual, expected)
+	}
+}
+
+func TestHashUsingPriorHashZeroSingleChar(t *testing.T) {
+	str := ""
+	priorHash := hash(str)
+	next := "a"
+	actual := hash(next)
+	expected := NewHash(priorHash, next, str)
+	if actual != expected {
+		t.Errorf("expected %d but found %d", actual, expected)
+	}
+}
+
+func TestHashUsingPriorHashNonZeroSingleChar(t *testing.T) {
+	str := "b"
+	priorHash := hash(str)
+	next := "a"
+	actual := hash(next)
+	expected := NewHash(priorHash, next, str)
+	if actual != expected {
+		t.Errorf("expected %d but found %d", actual, expected)
+	}
+}
