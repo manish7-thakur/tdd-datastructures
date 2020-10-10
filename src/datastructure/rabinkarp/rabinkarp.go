@@ -3,7 +3,7 @@ package rabinkarp
 import "math"
 
 func New(str string) HashGen {
-	priorHash := hash(str)
+	priorHash := Hash(str)
 	return HashGen{priorHash, len(str)}
 }
 
@@ -17,7 +17,7 @@ func (g HashGen) RollHash(next int32, old int32) int {
 	return g.hash
 }
 
-func hash(str string) int {
+func Hash(str string) int {
 	var hash int32 = 0
 	for _, v := range str {
 		hash = 31*hash + v
