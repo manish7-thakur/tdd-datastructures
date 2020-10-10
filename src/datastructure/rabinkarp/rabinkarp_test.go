@@ -61,7 +61,7 @@ func TestHashUsingPriorHashEmptyString(t *testing.T) {
 	priorHash := hash(str)
 	var next rune = 0
 	actual := hash("")
-	expected := NewHash(priorHash, next, 0, 0)
+	expected := newHash(priorHash, next, 0, 0)
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}
@@ -72,7 +72,7 @@ func TestHashUsingPriorHashZeroSingleChar(t *testing.T) {
 	priorHash := hash(str)
 	next := 'a'
 	actual := hash("a")
-	expected := NewHash(priorHash, next, 0, 1)
+	expected := newHash(priorHash, next, 0, 1)
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}
@@ -83,7 +83,7 @@ func TestHashUsingPriorHashNonZeroSingleChar(t *testing.T) {
 	priorHash := hash(str)
 	next := 'a'
 	actual := hash("a")
-	expected := NewHash(priorHash, next, 'b', 1)
+	expected := newHash(priorHash, next, 'b', 1)
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}
@@ -94,7 +94,7 @@ func TestHashUsingPriorHashNonZeroDoubleChar(t *testing.T) {
 	priorHash := hash(str)
 	next := 'a'
 	actual := hash("ca")
-	expected := NewHash(priorHash, next, 'b', 2)
+	expected := newHash(priorHash, next, 'b', 2)
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}
@@ -102,10 +102,10 @@ func TestHashUsingPriorHashNonZeroDoubleChar(t *testing.T) {
 
 func TestHashUsingPriorHashNonZeroTripleChar(t *testing.T) {
 	str := "bcd"
-	priorHash := hash(str)
+	hashGen := New(str)
 	next := 'a'
 	actual := hash("cda")
-	expected := NewHash(priorHash, next, 'b', 3)
+	expected := hashGen.RollHash(next, 'b')
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}
