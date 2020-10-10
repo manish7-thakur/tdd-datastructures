@@ -59,9 +59,9 @@ func TestHashLargeSting(t *testing.T) {
 func TestHashUsingPriorHashEmptyString(t *testing.T) {
 	str := ""
 	priorHash := hash(str)
-	next := ""
-	actual := hash(next)
-	expected := NewHash(priorHash, next, str,0)
+	var next rune = 0
+	actual := hash("")
+	expected := NewHash(priorHash, next, 0, 0)
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}
@@ -70,9 +70,9 @@ func TestHashUsingPriorHashEmptyString(t *testing.T) {
 func TestHashUsingPriorHashZeroSingleChar(t *testing.T) {
 	str := ""
 	priorHash := hash(str)
-	next := "a"
-	actual := hash(next)
-	expected := NewHash(priorHash, next, str,1)
+	next := 'a'
+	actual := hash("a")
+	expected := NewHash(priorHash, next, 0, 1)
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}
@@ -81,9 +81,9 @@ func TestHashUsingPriorHashZeroSingleChar(t *testing.T) {
 func TestHashUsingPriorHashNonZeroSingleChar(t *testing.T) {
 	str := "b"
 	priorHash := hash(str)
-	next := "a"
-	actual := hash(next)
-	expected := NewHash(priorHash, next, str, 1)
+	next := 'a'
+	actual := hash("a")
+	expected := NewHash(priorHash, next, 'b', 1)
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}
@@ -92,9 +92,20 @@ func TestHashUsingPriorHashNonZeroSingleChar(t *testing.T) {
 func TestHashUsingPriorHashNonZeroDoubleChar(t *testing.T) {
 	str := "bc"
 	priorHash := hash(str)
-	next := "a"
+	next := 'a'
 	actual := hash("ca")
-	expected := NewHash(priorHash, next, "b", 2)
+	expected := NewHash(priorHash, next, 'b', 2)
+	if actual != expected {
+		t.Errorf("expected %d but found %d", actual, expected)
+	}
+}
+
+func TestHashUsingPriorHashNonZeroTripleChar(t *testing.T) {
+	str := "bcd"
+	priorHash := hash(str)
+	next := 'a'
+	actual := hash("cda")
+	expected := NewHash(priorHash, next, 'b', 3)
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}

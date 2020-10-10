@@ -10,7 +10,7 @@ func hash(str string) int {
 	return int(hash)
 }
 
-func NewHash(priorHash int, nextChar string, oldChar string, strlen float64) int {
-	hash := (31*priorHash + int(nextChar[0])) - (int(math.Pow(31, strlen)) * int(oldChar[0]))
+func NewHash(priorHash int, nextChar rune, oldChar rune, strlen float64) int {
+	hash := (31*priorHash + int(nextChar)) - (int(math.Pow(31, strlen)) * int(oldChar))
 	return hash
 }
