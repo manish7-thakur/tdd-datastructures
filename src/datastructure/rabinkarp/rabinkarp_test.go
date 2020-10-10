@@ -61,7 +61,7 @@ func TestHashUsingPriorHashEmptyString(t *testing.T) {
 	priorHash := hash(str)
 	next := ""
 	actual := hash(next)
-	expected := NewHash(priorHash, next, str)
+	expected := NewHash(priorHash, next, str,0)
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}
@@ -72,7 +72,7 @@ func TestHashUsingPriorHashZeroSingleChar(t *testing.T) {
 	priorHash := hash(str)
 	next := "a"
 	actual := hash(next)
-	expected := NewHash(priorHash, next, str)
+	expected := NewHash(priorHash, next, str,1)
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}
@@ -83,7 +83,18 @@ func TestHashUsingPriorHashNonZeroSingleChar(t *testing.T) {
 	priorHash := hash(str)
 	next := "a"
 	actual := hash(next)
-	expected := NewHash(priorHash, next, str)
+	expected := NewHash(priorHash, next, str, 1)
+	if actual != expected {
+		t.Errorf("expected %d but found %d", actual, expected)
+	}
+}
+
+func TestHashUsingPriorHashNonZeroDoubleChar(t *testing.T) {
+	str := "bc"
+	priorHash := hash(str)
+	next := "a"
+	actual := hash("ca")
+	expected := NewHash(priorHash, next, "b", 2)
 	if actual != expected {
 		t.Errorf("expected %d but found %d", actual, expected)
 	}

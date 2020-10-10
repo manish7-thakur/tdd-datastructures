@@ -1,5 +1,7 @@
 package rabinkarp
 
+import "math"
+
 func hash(str string) int {
 	var hash int32 = 0
 	for _, v := range str {
@@ -8,7 +10,7 @@ func hash(str string) int {
 	return int(hash)
 }
 
-func NewHash(priorHash int, nextChar string, oldChar string) int {
-	hash := ((31*priorHash + int(nextChar[0])) - int(oldChar[0])) / 31
+func NewHash(priorHash int, nextChar string, oldChar string, strlen float64) int {
+	hash := (31*priorHash + int(nextChar[0])) - (int(math.Pow(31, strlen)) * int(oldChar[0]))
 	return hash
 }
