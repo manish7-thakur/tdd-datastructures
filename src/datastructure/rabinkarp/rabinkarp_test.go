@@ -149,3 +149,35 @@ func TestIndexRabinKarpDoubleCharString(t *testing.T) {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
 }
+
+func TestIndexRabinKarpTripleCharString(t *testing.T) {
+	actual := IndexRabinKarp("abc", "c")
+	expected := 2
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestIndexRabinKarpFourCharStringDoubleCharSubstring(t *testing.T) {
+	actual := IndexRabinKarp("abec", "be")
+	expected := 1
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestIndexRabinKarpFiveCharStringDoubleCharSubstring(t *testing.T) {
+	actual := IndexRabinKarp("dawec", "we")
+	expected := 2
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestIndexRabinKarpMulticharStringMultiCharSubstring(t *testing.T) {
+	actual := IndexRabinKarp("dawj389a/;,A$9AD2#903Md0-2@#JH2nx@xjhs02maOD#IXW30jwyKAsec.,:>:%#hjwilshwo#^&#@_+sjfEh", "#^&#@")
+	expected := 74
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
