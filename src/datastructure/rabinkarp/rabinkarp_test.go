@@ -1,7 +1,6 @@
 package rabinkarp
 
 import (
-	"strings"
 	"testing"
 )
 
@@ -143,6 +142,14 @@ func TestIndexRabinKarpSingleCharString(t *testing.T) {
 	}
 }
 
+func TestIndexRabinKarpDoubleCharString(t *testing.T) {
+	actual := IndexRabinKarp("ab", "b")
+	expected := 1
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
 func IndexRabinKarp(s string, substr string) int {
 	substrlen := len(substr)
 	slen := len(s)
@@ -157,9 +164,14 @@ func IndexRabinKarp(s string, substr string) int {
 		//if char matches return current idx
 		hash := Hash(substr)
 		hashGen := New(s[0:substrlen])
-		if hashGen.hash == hash {
-			if strings.Compare(substr, s[0:substrlen]) == 0 {
-				return 0
+		for i := 0; i <= slen-substrlen; i++ {
+			if hashGen.hash == hash {
+				if substr == s[i:i+substrlen] {
+					return i
+				}
+			}
+			if i+substrlen < slen {
+				hashGen.RollHash(rune(s[i+substrlen]), rune(s[i]))
 			}
 		}
 	}
