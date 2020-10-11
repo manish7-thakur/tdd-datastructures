@@ -63,9 +63,10 @@ func TestHashUsingPriorHashEmptyString(t *testing.T) {
 	str := ""
 	hashGen := New(str)
 	var next rune = 0
-	actual := Hash("")
-	expected := hashGen.RollHash(next, 0)
-	if actual != expected {
+	expected := Hash("")
+	hashGen.RollHash(next, 0)
+	actual := hashGen.hash
+	if expected != actual {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
 }
@@ -74,9 +75,10 @@ func TestHashUsingPriorHashZeroSingleChar(t *testing.T) {
 	str := ""
 	hashGen := New(str)
 	next := 'a'
-	actual := Hash("a")
-	expected := hashGen.RollHash(next, 0)
-	if actual != expected {
+	expected := Hash("a")
+	hashGen.RollHash(next, 0)
+	actual := hashGen.hash
+	if expected != actual {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
 }
@@ -85,9 +87,10 @@ func TestHashUsingPriorHashNonZeroSingleChar(t *testing.T) {
 	str := "b"
 	hashGen := New(str)
 	next := 'a'
-	actual := Hash("a")
-	expected := hashGen.RollHash(next, 'b')
-	if actual != expected {
+	expected := Hash("a")
+	hashGen.RollHash(next, 'b')
+	actual := hashGen.hash
+	if expected != actual {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
 }
@@ -96,9 +99,10 @@ func TestHashUsingPriorHashNonZeroDoubleChar(t *testing.T) {
 	str := "bc"
 	hashGen := New(str)
 	next := 'a'
-	actual := Hash("ca")
-	expected := hashGen.RollHash(next, 'b')
-	if actual != expected {
+	expected := Hash("ca")
+	hashGen.RollHash(next, 'b')
+	actual := hashGen.hash
+	if expected != actual {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
 }
@@ -107,10 +111,11 @@ func TestHashUsingPriorHashNonZeroTripleChar(t *testing.T) {
 	str := "bcd"
 	hashGen := New(str)
 	next := 'a'
-	actual := Hash("cda")
-	expected := hashGen.RollHash(next, 'b')
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
+	expected := Hash("cda")
+	hashGen.RollHash(next, 'b')
+	actual := hashGen.hash
+	if expected != actual {
+		t.Errorf("expected %d but found %d", actual, expected)
 	}
 }
 
