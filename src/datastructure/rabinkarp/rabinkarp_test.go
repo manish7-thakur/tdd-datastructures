@@ -149,31 +149,3 @@ func TestIndexRabinKarpDoubleCharString(t *testing.T) {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
 }
-
-func IndexRabinKarp(s string, substr string) int {
-	substrlen := len(substr)
-	slen := len(s)
-	if substrlen == 0 {
-		return 0
-	} else if substrlen > slen {
-		return -1
-	} else {
-		//compute hash substring
-		//match with hash from string s part
-		//if matches compare string else slide
-		//if char matches return current idx
-		hash := Hash(substr)
-		hashGen := New(s[0:substrlen])
-		for i := 0; i <= slen-substrlen; i++ {
-			if hashGen.hash == hash {
-				if substr == s[i:i+substrlen] {
-					return i
-				}
-			}
-			if i+substrlen < slen {
-				hashGen.RollHash(rune(s[i+substrlen]), rune(s[i]))
-			}
-		}
-	}
-	return -1
-}
