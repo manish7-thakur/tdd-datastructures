@@ -1,6 +1,7 @@
 package rabinkarp
 
 import (
+	"math/rand"
 	"testing"
 )
 
@@ -179,5 +180,17 @@ func TestIndexRabinKarpMulticharStringMultiCharSubstring(t *testing.T) {
 	expected := 74
 	if actual != expected {
 		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func BenchmarkIndexRabinKarp(b *testing.B) {
+	runes := make([]rune, 10000)
+	for i := 0; i < 10000; i++ {
+		runes[i] = rune(rand.Intn(0x1000))
+	}
+	str := string(runes)
+	//println(str)
+	for i := 0; i < b.N; i++ {
+		IndexRabinKarp(str, "3829#%")
 	}
 }
