@@ -12,7 +12,7 @@ type HashGen struct {
 	strlen int
 }
 
-func (g *HashGen) RollHash(next int32, old int32) int {
+func (g *HashGen) RollHash(next rune, old rune) int {
 	g.hash = newHash(g.hash, next, old, float64(g.strlen))
 	return g.hash
 }
