@@ -62,7 +62,7 @@ func TestHashLargeSting(t *testing.T) {
 func TestHashUsingPriorHashEmptyString(t *testing.T) {
 	str := ""
 	hashGen := New(str)
-	var next rune = 0
+	var next byte = 0
 	expected := Hash("")
 	hashGen.RollHash(next, 0)
 	actual := hashGen.hash
@@ -74,7 +74,7 @@ func TestHashUsingPriorHashEmptyString(t *testing.T) {
 func TestHashUsingPriorHashZeroSingleChar(t *testing.T) {
 	str := ""
 	hashGen := New(str)
-	next := 'a'
+	next := byte('a')
 	expected := Hash("a")
 	hashGen.RollHash(next, 0)
 	actual := hashGen.hash
@@ -86,7 +86,7 @@ func TestHashUsingPriorHashZeroSingleChar(t *testing.T) {
 func TestHashUsingPriorHashNonZeroSingleChar(t *testing.T) {
 	str := "b"
 	hashGen := New(str)
-	next := 'a'
+	next := byte('a')
 	expected := Hash("a")
 	hashGen.RollHash(next, 'b')
 	actual := hashGen.hash
@@ -98,7 +98,7 @@ func TestHashUsingPriorHashNonZeroSingleChar(t *testing.T) {
 func TestHashUsingPriorHashNonZeroDoubleChar(t *testing.T) {
 	str := "bc"
 	hashGen := New(str)
-	next := 'a'
+	next := byte('a')
 	expected := Hash("ca")
 	hashGen.RollHash(next, 'b')
 	actual := hashGen.hash
@@ -110,7 +110,7 @@ func TestHashUsingPriorHashNonZeroDoubleChar(t *testing.T) {
 func TestHashUsingPriorHashNonZeroTripleChar(t *testing.T) {
 	str := "bcd"
 	hashGen := New(str)
-	next := 'a'
+	next := byte('a')
 	expected := Hash("cda")
 	hashGen.RollHash(next, 'b')
 	actual := hashGen.hash

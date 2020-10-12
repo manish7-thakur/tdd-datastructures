@@ -8,14 +8,13 @@ func New(str string) HashGen {
 }
 
 type HashGen struct {
-	hash   int
-	strlen int
+	hash           int
+	strlen         int
 	multiplicative float64
 }
 
-func (g *HashGen) RollHash(next rune, old rune) int {
+func (g *HashGen) RollHash(next, old byte) {
 	g.hash = newHash(g.hash, next, old, int(g.multiplicative))
-	return g.hash
 }
 
 func Hash(str string) int {
@@ -26,12 +25,12 @@ func Hash(str string) int {
 	return int(hash)
 }
 
-func newHash(priorHash int, nextChar rune, oldChar rune, multiplicative int) int {
+func newHash(priorHash int, nextChar byte, oldChar byte, multiplicative int) int {
 	hash := (31*priorHash + int(nextChar)) - (multiplicative * int(oldChar))
 	return hash
 }
 
-func IndexRabinKarp(s string, substr string) int {
+func IndexRabinKarp(s, substr string) int {
 	substrlen := len(substr)
 	slen := len(s)
 	if substrlen == 0 {
@@ -44,7 +43,7 @@ func IndexRabinKarp(s string, substr string) int {
 		//if matches compare string else slide
 		//if char matches return current idx
 		hash := Hash(substr)
-		hashGen := New(s[0:substrlen])
+		hashGen := New(s[:substrlen])
 		for i := 0; i <= slen-substrlen; i++ {
 			if hashGen.hash == hash {
 				if substr == s[i:i+substrlen] {
@@ -52,7 +51,7 @@ func IndexRabinKarp(s string, substr string) int {
 				}
 			}
 			if i+substrlen < slen {
-				hashGen.RollHash(rune(s[i+substrlen]), rune(s[i]))
+				hashGen.RollHash(s[i+substrlen], s[i])
 			}
 		}
 	}
