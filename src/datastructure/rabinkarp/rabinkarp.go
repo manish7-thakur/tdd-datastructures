@@ -57,3 +57,48 @@ func IndexRabinKarp(s, substr string) int {
 	}
 	return -1
 }
+
+func IndexOfJava(source string, sourceOffset int, sourceCount int, target string, targetOffset int, targetCount int, fromIndex int) int {
+	if fromIndex >= sourceCount {
+		if targetCount == 0 {
+			return sourceCount
+		} else
+		{
+			return -1
+		}
+	}
+	if fromIndex < 0 {
+		fromIndex = 0
+	}
+	if targetCount == 0 {
+		return fromIndex
+	}
+
+	first := target[targetOffset]
+	max := sourceOffset + (sourceCount - targetCount)
+
+	for i := sourceOffset + fromIndex; i <= max; i++ {
+		/* Look for first character. */
+		if source[i] != first {
+			for ; i <= max && source[i] != first; {
+				i = i + 1
+			}
+		}
+
+		/* Found first character, now look at the rest of v2 */
+		if i <= max {
+			j := i + 1
+			end := j + targetCount - 1
+			for k := targetOffset + 1; j < end && source[j] == target[k];
+			{
+				j++
+				k++
+			}
+			if j == end {
+				/* Found whole string. */
+				return i - sourceOffset
+			}
+		}
+	}
+	return -1
+}

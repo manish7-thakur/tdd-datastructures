@@ -2,6 +2,7 @@ package rabinkarp
 
 import (
 	"math/rand"
+	"strings"
 	"testing"
 )
 
@@ -183,6 +184,16 @@ func TestIndexRabinKarpMulticharStringMultiCharSubstring(t *testing.T) {
 	}
 }
 
+func TestIndexOfJavaMulticharStringMultiCharSubstring(t *testing.T) {
+	source := "dawj389a/;,A$9AD2#903Md0-2@#JH2nx@xjhs02maOD#IXW30jwyKAsec.,:>:%#hjwilshwo#^&#@_+sjfEh"
+	actual := IndexOfJava(source, 0, len(source), "#^&#@",
+		0, len("#^&#@"), 0)
+	expected := 74
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
 func BenchmarkIndexRabinKarp(b *testing.B) {
 	runes := make([]rune, 1000000)
 	for i := 0; i < 1000000; i++ {
@@ -191,5 +202,29 @@ func BenchmarkIndexRabinKarp(b *testing.B) {
 	str := string(runes)
 	for i := 0; i < b.N; i++ {
 		IndexRabinKarp(str, "3829#%")
+	}
+}
+
+func BenchmarkIndexOfJava(b *testing.B) {
+	size := 1000000
+	runes := make([]rune, size)
+	for i := 0; i < size; i++ {
+		runes[i] = rune(rand.Intn(0x1000))
+	}
+	str := string(runes)
+	for i := 0; i < b.N; i++ {
+		IndexOfJava(str, 0, size, "3829#%", 0, len("3829#%"), 0)
+	}
+}
+
+func BenchmarkStringsContains(b *testing.B) {
+	size := 1000000
+	runes := make([]rune, size)
+	for i := 0; i < size; i++ {
+		runes[i] = rune(rand.Intn(0x1000))
+	}
+	str := string(runes)
+	for i := 0; i < b.N; i++ {
+		strings.Contains(str, "3829#%")
 	}
 }
