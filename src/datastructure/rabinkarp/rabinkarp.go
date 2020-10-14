@@ -102,3 +102,18 @@ func IndexOfJava(source string, sourceOffset int, sourceCount int, target string
 	}
 	return -1
 }
+
+func IndexBruteForce(text string, pattern string) int {
+	patlen := len(pattern)
+	switch patlen {
+	case 0:
+		return 0
+	}
+	textlen := len(text)
+	for i := 0; i <= textlen-patlen; i++ {
+		if text[i:i+patlen] == pattern {
+			return i
+		}
+	}
+	return -1
+}

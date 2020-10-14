@@ -194,6 +194,51 @@ func TestIndexOfJavaMulticharStringMultiCharSubstring(t *testing.T) {
 	}
 }
 
+func TestIndexBruteForceEmptyPattern(t *testing.T) {
+	str := ""
+	actual := IndexBruteForce("", str)
+	expected := 0
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestIndexBruteForceEmptyTextSingleCharPattern(t *testing.T) {
+	str := "a"
+	actual := IndexBruteForce("", str)
+	expected := -1
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestIndexBruteForceSingleCharTextSingleCharPattern(t *testing.T) {
+	str := "a"
+	actual := IndexBruteForce("a", str)
+	expected := 0
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestIndexBruteForceDoubleCharTextSingleCharPattern(t *testing.T) {
+	str := "b"
+	actual := IndexBruteForce("ab", str)
+	expected := 1
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestIndexBruteForceMultiCharTextMultiCharPattern(t *testing.T) {
+	str := "#^&#@"
+	actual := IndexBruteForce("dawj389a/;,A$9AD2#903Md0-2@#JH2nx@xjhs02maOD#IXW30jwyKAsec.,:>:%#hjwilshwo#^&#@_+sjfEh", str)
+	expected := 74
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
 func BenchmarkIndexRabinKarp(b *testing.B) {
 	runes := make([]rune, 1000000)
 	for i := 0; i < 1000000; i++ {
