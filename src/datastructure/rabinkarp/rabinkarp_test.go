@@ -169,7 +169,7 @@ func TestIndexRabinKarpFourCharStringDoubleCharSubstring(t *testing.T) {
 }
 
 func TestIndexRabinKarpFiveCharStringDoubleCharSubstring(t *testing.T) {
-	actual := IndexOfJava("dawec", 0, len("dawec") ,"we", 0, len("we"),0)
+	actual := IndexRabinKarp("dawec", "we")
 	expected := 2
 	if actual != expected {
 		t.Errorf("expected %d but found %d", expected, actual)
@@ -195,8 +195,8 @@ func TestIndexOfJavaMulticharStringMultiCharSubstring(t *testing.T) {
 }
 
 func TestIndexBruteForceEmptyPattern(t *testing.T) {
-	str := "we"
-	actual := IndexBruteForce("dawec", str)
+	str := ""
+	actual := IndexBruteForce("", str)
 	expected := 0
 	if actual != expected {
 		t.Errorf("expected %d but found %d", expected, actual)
@@ -259,7 +259,7 @@ func BenchmarkIndexBruteForce(b *testing.B) {
 	}
 	str := string(runes)
 	for i := 0; i < b.N; i++ {
-		IndexBruteForce(str, "%")
+		IndexBruteForce(str, "3829#%")
 	}
 }
 
