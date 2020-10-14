@@ -109,9 +109,10 @@ func IndexBruteForce(text string, pattern string) int {
 	case 0:
 		return 0
 	}
+	c0 := pattern[0]
 	textlen := len(text)
 	for i := 0; i <= textlen-patlen; i++ {
-		if text[i:i+patlen] == pattern {
+		if text[i] == c0 && text[i:i+patlen] == pattern {
 			return i
 		}
 	}
