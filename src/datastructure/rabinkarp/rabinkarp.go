@@ -58,7 +58,9 @@ func IndexRabinKarp(s, substr string) int {
 	return -1
 }
 
-func IndexOfJava(source string, sourceOffset int, sourceCount int, target string, targetOffset int, targetCount int, fromIndex int) int {
+func IndexOfJava(source string, sourceOffset int, target string, targetOffset int, fromIndex int) int {
+	sourceCount := len(source)
+	targetCount := len(target)
 	if fromIndex >= sourceCount {
 		if targetCount == 0 {
 			return sourceCount

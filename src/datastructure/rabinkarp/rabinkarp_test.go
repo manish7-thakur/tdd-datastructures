@@ -186,8 +186,8 @@ func TestIndexRabinKarpMulticharStringMultiCharSubstring(t *testing.T) {
 
 func TestIndexOfJavaMulticharStringMultiCharSubstring(t *testing.T) {
 	source := "dawj389a/;,A$9AD2#903Md0-2@#JH2nx@xjhs02maOD#IXW30jwyKAsec.,:>:%#hjwilshwo#^&#@_+sjfEh"
-	actual := IndexOfJava(source, 0, len(source), "#^&#@",
-		0, len("#^&#@"), 0)
+	actual := IndexOfJava(source, 0, "#^&#@",
+		0, 0)
 	expected := 74
 	if actual != expected {
 		t.Errorf("expected %d but found %d", expected, actual)
@@ -271,7 +271,7 @@ func BenchmarkIndexOfJava(b *testing.B) {
 	}
 	str := string(runes)
 	for i := 0; i < b.N; i++ {
-		IndexOfJava(str, 0, size, "3829#%", 0, len("3829#%"), 0)
+		IndexOfJava(str, 0, "3829#%", 0, 0)
 	}
 }
 
