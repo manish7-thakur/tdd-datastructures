@@ -59,6 +59,16 @@ func TestLPSFourCharDiffValue(t *testing.T) {
 	}
 }
 
+func TestLPSFiveCharDiffValue(t *testing.T) {
+	res := LPS("abaab")
+	actual := [5]int{}
+	copy(actual[:], res)
+	expected := [5]int{0, 0, 1, 1, 2}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func LPS(str string) []int {
 	strlen := len(str)
 	if strlen == 0 {
@@ -71,9 +81,12 @@ func LPS(str string) []int {
 			lpsarr[i] = j + 1
 			j++
 		} else {
-			j = 0
+			for ; j > 0 && str[i] != str[j]; {
+				j = lpsarr[j-1]
+			}
 			if str[i] == str[j] {
 				lpsarr[i] = j + 1
+				j++
 			}
 		}
 	}
