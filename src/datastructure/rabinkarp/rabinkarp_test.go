@@ -240,49 +240,39 @@ func TestIndexBruteForceMultiCharTextMultiCharPattern(t *testing.T) {
 }
 
 func BenchmarkIndexRabinKarp(b *testing.B) {
-	size := 1000000
-	runes := make([]rune, size)
-	for i := 0; i < size; i++ {
-		runes[i] = rune(rand.Intn(0x1000))
-	}
-	str := string(runes)
+	str := randomStr()
 	for i := 0; i < b.N; i++ {
 		IndexRabinKarp(str, "3829#%")
 	}
 }
 
 func BenchmarkIndexBruteForce(b *testing.B) {
-	size := 1000000
-	runes := make([]rune, size)
-	for i := 0; i < size; i++ {
-		runes[i] = rune(rand.Intn(0x1000))
-	}
-	str := string(runes)
+	str := randomStr()
 	for i := 0; i < b.N; i++ {
 		IndexBruteForce(str, "3829#%")
 	}
 }
 
 func BenchmarkIndexOfJava(b *testing.B) {
-	size := 1000000
-	runes := make([]rune, size)
-	for i := 0; i < size; i++ {
-		runes[i] = rune(rand.Intn(0x1000))
-	}
-	str := string(runes)
+	str := randomStr()
 	for i := 0; i < b.N; i++ {
 		IndexOfJava(str, 0, "3829#%", 0, 0)
 	}
 }
 
 func BenchmarkStringsContains(b *testing.B) {
+	str := randomStr()
+	for i := 0; i < b.N; i++ {
+		strings.Contains(str, "3829#%")
+	}
+}
+
+func randomStr() string {
 	size := 1000000
 	runes := make([]rune, size)
 	for i := 0; i < size; i++ {
 		runes[i] = rune(rand.Intn(0x1000))
 	}
 	str := string(runes)
-	for i := 0; i < b.N; i++ {
-		strings.Contains(str, "3829#%")
-	}
+	return str
 }
