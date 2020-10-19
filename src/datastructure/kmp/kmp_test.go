@@ -69,10 +69,20 @@ func TestLPSFiveCharDiffValue(t *testing.T) {
 	}
 }
 func TestLPSSixCharDiffValue(t *testing.T) {
-	res := LPS("abaaba")
+	res := LPS("bbabbb")
 	actual := [6]int{}
 	copy(actual[:], res)
-	expected := [6]int{0, 0, 1, 1, 2, 3}
+	expected := [6]int{0, 1, 0, 1, 2, 2}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestLPSSevenCharDiffValue(t *testing.T) {
+	res := LPS("bbbabb")
+	actual := [6]int{}
+	copy(actual[:], res)
+	expected := [6]int{0, 1, 2, 0, 1, 2}
 	if actual != expected {
 		t.Errorf("expected %v but found %v", expected, actual)
 	}
