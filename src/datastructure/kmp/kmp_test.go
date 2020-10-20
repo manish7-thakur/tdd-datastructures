@@ -97,3 +97,34 @@ func TestLPSMultiCharDiffValue(t *testing.T) {
 		t.Errorf("expected %v but found %v", expected, actual)
 	}
 }
+
+func TestKMPSearchEmptyString(t *testing.T) {
+	actual := KMPSearch("", "")
+	expected := 0
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestKMPSearchSingleCharString(t *testing.T) {
+	actual := KMPSearch("a", "b")
+	expected := -1
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func KMPSearch(text string, pattern string) int {
+	patlen := len(pattern)
+	if patlen == 0 {
+		return 0
+	}
+	j := 0
+	textlen := len(text)
+	for i := 0; i < textlen; i++ {
+		if pattern[j] == text[i] {
+			return i
+		}
+	}
+	return -1
+}
