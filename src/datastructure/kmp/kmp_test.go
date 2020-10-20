@@ -178,6 +178,14 @@ func TestKMPSearchTextMultiCharPatternMultiCharExisting(t *testing.T) {
 	}
 }
 
+func TestKMPSearchLargeTextLargePatternExisting(t *testing.T) {
+	actual := KMPSearch("acaiwcabacwoacasewcacweuacosabacawecueacbacydacacauiwybacaacacabacacabacacaccacbawsacacac", "acacabacacabacacac")
+	expected := 58
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
 func KMPSearch(text string, pattern string) int {
 	patlen := len(pattern)
 	textlen := len(text)
