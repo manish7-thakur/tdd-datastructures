@@ -114,16 +114,45 @@ func TestKMPSearchSingleCharString(t *testing.T) {
 	}
 }
 
+func TestKMPSearchPatternLargerThanText(t *testing.T) {
+	actual := KMPSearch("a", "bb")
+	expected := -1
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestKMPSearchPatternDoubleCharNonExisting(t *testing.T) {
+	actual := KMPSearch("abb", "bc")
+	expected := -1
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestKMPSearchPatternDoubleCharExisting(t *testing.T) {
+	actual := KMPSearch("abb", "bb")
+	expected := 1
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
 func KMPSearch(text string, pattern string) int {
 	patlen := len(pattern)
+	textlen := len(text)
 	if patlen == 0 {
 		return 0
+	} else if patlen > textlen {
+		return -1
 	}
 	j := 0
-	textlen := len(text)
 	for i := 0; i < textlen; i++ {
 		if pattern[j] == text[i] {
-			return i
+			j++
+		}
+		if j == patlen {
+			return i - patlen + 1
 		}
 	}
 	return -1
