@@ -138,6 +138,46 @@ func TestKMPSearchPatternDoubleCharExisting(t *testing.T) {
 	}
 }
 
+func TestKMPSearchTextMultiCharPatternDoubleCharExisting(t *testing.T) {
+	actual := KMPSearch("babb", "bb")
+	expected := 2
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestKMPSearchTextMultiCharPatternTripleCharExisting(t *testing.T) {
+	actual := KMPSearch("babb", "bab")
+	expected := 0
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestKMPSearchTextMultiCharPatternThreeCharExisting(t *testing.T) {
+	actual := KMPSearch("bcbbab", "bab")
+	expected := 3
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestKMPSearchTextMultiCharDiffValuesPatternThreeCharExisting(t *testing.T) {
+	actual := KMPSearch("bacbbab", "bab")
+	expected := 4
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestKMPSearchTextMultiCharPatternMultiCharExisting(t *testing.T) {
+	actual := KMPSearch("abxabcabcaby", "abcaby")
+	expected := 6
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
 func KMPSearch(text string, pattern string) int {
 	patlen := len(pattern)
 	textlen := len(text)
@@ -147,9 +187,17 @@ func KMPSearch(text string, pattern string) int {
 		return -1
 	}
 	j := 0
+	lps := LPS(pattern)
 	for i := 0; i < textlen; i++ {
 		if pattern[j] == text[i] {
 			j++
+		} else {
+			for ; j > 0 && pattern[j] != text[i]; {
+				j = lps[j-1]
+			}
+			if pattern[j] == text[i] {
+				j++
+			}
 		}
 		if j == patlen {
 			return i - patlen + 1
