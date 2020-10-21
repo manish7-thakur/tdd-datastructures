@@ -41,6 +41,36 @@ func TestMergeOneItemArrayEach(t *testing.T) {
 	}
 }
 
+func TestMergeOneItemArrayEachRandom(t *testing.T) {
+	res := merge([]int{2}, []int{1})
+	actual := [2]int{}
+	copy(actual[:], res)
+	expected := [2]int{1, 2}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestMergeTwoItemArrayEachRandom(t *testing.T) {
+	res := merge([]int{2, 3}, []int{1, 4})
+	actual := [4]int{}
+	copy(actual[:], res)
+	expected := [4]int{1, 2, 3, 4}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestMergeDiffItemArrayEachRandom(t *testing.T) {
+	res := merge([]int{2, 3, 5, 7}, []int{1, 4})
+	actual := [6]int{}
+	copy(actual[:], res)
+	expected := [6]int{1, 2, 3, 4, 5, 7}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func merge(first []int, second []int) []int {
 	flen := len(first)
 	if flen == 0 {
@@ -52,12 +82,21 @@ func merge(first []int, second []int) []int {
 	}
 	j := 0
 	k := 0
-	res := make([]int, flen+slen)
-	for i := 0; i < len(res); i++ {
-		if j < flen {
+	reslen := flen + slen
+	res := make([]int, reslen)
+	for i := 0; i < reslen; i++ {
+		if j < flen && k < slen {
+			if first[j] < second[k] {
+				res[i] = first[j]
+				j++
+			} else {
+				res[i] = second[k]
+				k++
+			}
+		} else if j < flen {
 			res[i] = first[j]
 			j++
-		} else if k < slen {
+		} else {
 			res[i] = second[k]
 			k++
 		}
