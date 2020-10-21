@@ -71,6 +71,74 @@ func TestMergeDiffItemArrayEachRandom(t *testing.T) {
 	}
 }
 
+func TestMergeSortEmptyArray(t *testing.T) {
+	res := MergeSort([]int{})
+	if len(res) != 0 {
+		t.Errorf("expected empty but found %v", res)
+	}
+}
+
+func TestMergeSortOneItemArray(t *testing.T) {
+	res := MergeSort([]int{1})
+	actual := [1]int{}
+	copy(actual[:], res)
+	expected := [1]int{1}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestMergeSortTwoItemArray(t *testing.T) {
+	res := MergeSort([]int{2, 1})
+	actual := [2]int{}
+	copy(actual[:], res)
+	expected := [2]int{1, 2}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestMergeSortThreeItemArray(t *testing.T) {
+	res := MergeSort([]int{2, 0, 1})
+	actual := [3]int{}
+	copy(actual[:], res)
+	expected := [3]int{0, 1, 2}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestMergeSortFourItemArray(t *testing.T) {
+	res := MergeSort([]int{-1, 3, 0, 1})
+	actual := [4]int{}
+	copy(actual[:], res)
+	expected := [4]int{-1, 0, 1, 3}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestMergeSortMultiItemArray(t *testing.T) {
+	res := MergeSort([]int{-33, -1, 321, -1, 23, 30, 1, 48, -263, 83, 0, 27, 26, 183, 171, 2362})
+	actual := [16]int{}
+	copy(actual[:], res)
+	expected := [16]int{-263, -33, -1, -1, 0, 1, 23, 26, 27, 30, 48, 83, 171, 183, 321, 2362}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func MergeSort(arr []int) []int {
+	arrlen := len(arr)
+	if arrlen < 2 {
+		return arr
+	}
+	mid := arrlen / 2
+	arr1 := MergeSort(arr[:mid])
+	arr2 := MergeSort(arr[mid:])
+	return merge(arr1, arr2)
+}
+
 func merge(first []int, second []int) []int {
 	flen := len(first)
 	if flen == 0 {
