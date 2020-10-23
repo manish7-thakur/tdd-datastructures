@@ -47,17 +47,17 @@ func partition(arr []int) []int {
 	i := 1
 	pivot := arr[0]
 	for ; i < j; {
-		for ; arr[i] < pivot; {
+		for ; i < len(arr) && arr[i] < pivot; {
 			i++
 		}
-		for ; arr[j] >= pivot; {
+		for ; j > 0 && arr[j] >= pivot; {
 			j--
 		}
 		swap(&arr[i], &arr[j])
 		i++
 		j--
 	}
-	swap(&arr[0], &arr[i-1])
+	swap(&arr[0], &arr[j])
 
 	return arr
 }
