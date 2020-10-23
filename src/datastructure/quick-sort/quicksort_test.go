@@ -59,6 +59,16 @@ func TestPartitionArrayThreeElemOrdered(t *testing.T) {
 	}
 }
 
+func TestPartitionArrayThreeElemTwoEqual(t *testing.T) {
+	res := partition([]int{2, 1, 2})
+	actual := [3]int{}
+	copy(actual[:], res)
+	expected := [3]int{1, 2, 2}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func TestPartitionArrayFourElem(t *testing.T) {
 	res := partition([]int{2, 4, 3, 1})
 	actual := [4]int{}
@@ -87,10 +97,10 @@ func partition(arr []int) []int {
 	i := 0
 	pivot := arr[0]
 	for ; i < j; {
-		for ; i < j && arr[i] <= pivot; i++ {
+		for ; i < len(arr)-1 && arr[i] <= pivot; i++ {
 
 		}
-		for ; j >= i && arr[j] > pivot; j-- {
+		for ; j > 0 && arr[j] >= pivot; j-- {
 
 		}
 		if i < j {
