@@ -188,11 +188,11 @@ func TestPartitionIndexFourElem(t *testing.T) {
 }
 
 func TestPartitionIndexFourElemOrdered(t *testing.T) {
-	idx, res := partitionIndex([]int{2, 4, 3, 1})
+	idx, res := partitionIndex([]int{4, 3, 2, 1})
 	actual := [4]int{}
 	copy(actual[:], res)
-	expected := [4]int{1, 2, 3, 4}
-	if idx != 1 || expected != actual {
+	expected := [4]int{1, 3, 2, 4}
+	if idx != 3 || expected != actual {
 		t.Errorf("expected %v but found %v", expected, actual)
 	}
 }
