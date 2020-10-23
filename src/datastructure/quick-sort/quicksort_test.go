@@ -29,8 +29,28 @@ func TestPartitionArrayTwoElem(t *testing.T) {
 	}
 }
 
+func TestPartitionArrayTwoElemOrdered(t *testing.T) {
+	res := partition([]int{1, 2})
+	actual := [2]int{}
+	copy(actual[:], res)
+	expected := [2]int{1, 2}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func TestPartitionArrayThreeElem(t *testing.T) {
 	res := partition([]int{2, 3, 1})
+	actual := [3]int{}
+	copy(actual[:], res)
+	expected := [3]int{1, 2, 3}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestPartitionArrayThreeElemOrdered(t *testing.T) {
+	res := partition([]int{1, 2, 3})
 	actual := [3]int{}
 	copy(actual[:], res)
 	expected := [3]int{1, 2, 3}
@@ -49,18 +69,28 @@ func TestPartitionArrayFourElem(t *testing.T) {
 	}
 }
 
+func TestPartitionArrayFourElemOrdered(t *testing.T) {
+	res := partition([]int{1, 2, 3, 4})
+	actual := [4]int{}
+	copy(actual[:], res)
+	expected := [4]int{1, 2, 3, 4}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func partition(arr []int) []int {
 	if len(arr) < 2 {
 		return arr
 	}
 	j := len(arr) - 1
-	i := 1
+	i := 0
 	pivot := arr[0]
 	for ; i < j; {
-		for ; i < j && arr[i] < pivot; i++ {
+		for ; i < j && arr[i] <= pivot; i++ {
 
 		}
-		for ; j >= i && arr[j] >= pivot; j-- {
+		for ; j >= i && arr[j] > pivot; j-- {
 
 		}
 		if i < j {
