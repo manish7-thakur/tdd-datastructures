@@ -151,7 +151,7 @@ func TestPartitionIndexThreeElem(t *testing.T) {
 	idx, res := partitionIndex([]int{3, 1, 2})
 	actual := [3]int{}
 	copy(actual[:], res)
-	expected := [3]int{1, 2, 3}
+	expected := [3]int{2, 1, 3}
 	if idx != 2 || expected != actual {
 		t.Errorf("expected %v but found %v", expected, actual)
 	}
@@ -171,7 +171,7 @@ func TestPartitionIndexThreeElemOrderedReversed(t *testing.T) {
 	idx, res := partitionIndex([]int{3, 2, 1})
 	actual := [3]int{}
 	copy(actual[:], res)
-	expected := [3]int{2, 1, 3}
+	expected := [3]int{1, 2, 3}
 	if idx != 2 || expected != actual {
 		t.Errorf("expected %v but found %v", expected, actual)
 	}
@@ -204,13 +204,12 @@ func partitionIndex(arr []int) (int, []int) {
 	}
 	pivot := arr[0]
 	i := 0
-	j := 0
-	for ; j < arrlen; j++ {
+	for j := 0; j < arrlen; j++ {
 		if arr[j] < pivot {
-			arr[i], arr[j] = arr[j], arr[i]
 			i++
+			arr[i], arr[j] = arr[j], arr[i]
 		}
 	}
-	//arr[i], arr[j-1] = arr[j-1], arr[i]
+	arr[i], arr[0] = arr[0], arr[i]
 	return i, arr
 }
