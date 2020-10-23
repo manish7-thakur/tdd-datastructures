@@ -89,6 +89,26 @@ func TestPartitionArrayFourElemOrdered(t *testing.T) {
 	}
 }
 
+func TestPartitionArrayFiveElem(t *testing.T) {
+	res := partition([]int{3, 1, 2, 5, 4})
+	actual := [5]int{}
+	copy(actual[:], res)
+	expected := [5]int{2, 1, 3, 5, 4}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestPartitionArrayFiveElemOrdered(t *testing.T) {
+	res := partition([]int{5, 4, 3, 2, 1})
+	actual := [5]int{}
+	copy(actual[:], res)
+	expected := [5]int{1, 4, 3, 2, 5}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func partition(arr []int) []int {
 	if len(arr) < 2 {
 		return arr
