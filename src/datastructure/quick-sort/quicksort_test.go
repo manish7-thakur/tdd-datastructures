@@ -197,6 +197,26 @@ func TestPartitionIndexFourElemOrdered(t *testing.T) {
 	}
 }
 
+func TestPartitionIndexFiveElem(t *testing.T) {
+	idx, res := partitionIndex([]int{3, 1, 2, 5, 4})
+	actual := [5]int{}
+	copy(actual[:], res)
+	expected := [5]int{2, 1, 3, 5, 4}
+	if idx != 2 || expected != actual {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestPartitionIndexFiveElemOrdered(t *testing.T) {
+	idx, res := partitionIndex([]int{5, 4, 3, 2, 1})
+	actual := [5]int{}
+	copy(actual[:], res)
+	expected := [5]int{1, 4, 3, 2, 5}
+	if idx != 4 || expected != actual {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func partitionIndex(arr []int) (int, []int) {
 	arrlen := len(arr)
 	if arrlen < 2 {
