@@ -108,3 +108,109 @@ func TestPartitionArrayFiveElemOrdered(t *testing.T) {
 		t.Errorf("expected %v but found %v", expected, actual)
 	}
 }
+
+func TestPartitionIndexEmptyArray(t *testing.T) {
+	idx, res := partitionIndex([]int{})
+	expected := 0
+	if idx != expected || len(res) != 0 {
+		t.Errorf("expected %d but found %d", expected, idx)
+	}
+}
+
+func TestPartitionIndexOneElem(t *testing.T) {
+	idx, res := partitionIndex([]int{1})
+	actual := [1]int{}
+	copy(actual[:], res)
+	expected := [1]int{1}
+	if idx != 0 || expected != actual {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestPartitionIndexTwoElem(t *testing.T) {
+	idx, res := partitionIndex([]int{2, 1})
+	actual := [2]int{}
+	copy(actual[:], res)
+	expected := [2]int{1, 2}
+	if idx != 1 || expected != actual {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestPartitionIndexTwoElemRepeated(t *testing.T) {
+	idx, res := partitionIndex([]int{2, 1, 2})
+	actual := [3]int{}
+	copy(actual[:], res)
+	expected := [3]int{1, 2, 2}
+	if idx != 1 || expected != actual {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestPartitionIndexThreeElem(t *testing.T) {
+	idx, res := partitionIndex([]int{3, 1, 2})
+	actual := [3]int{}
+	copy(actual[:], res)
+	expected := [3]int{1, 2, 3}
+	if idx != 2 || expected != actual {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestPartitionIndexThreeElemOrdered(t *testing.T) {
+	idx, res := partitionIndex([]int{1, 2, 3})
+	actual := [3]int{}
+	copy(actual[:], res)
+	expected := [3]int{1, 2, 3}
+	if idx != 0 || expected != actual {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestPartitionIndexThreeElemOrderedReversed(t *testing.T) {
+	idx, res := partitionIndex([]int{3, 2, 1})
+	actual := [3]int{}
+	copy(actual[:], res)
+	expected := [3]int{2, 1, 3}
+	if idx != 2 || expected != actual {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestPartitionIndexFourElem(t *testing.T) {
+	idx, res := partitionIndex([]int{2, 4, 3, 1})
+	actual := [4]int{}
+	copy(actual[:], res)
+	expected := [4]int{1, 2, 3, 4}
+	if idx != 1 || expected != actual {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestPartitionIndexFourElemOrdered(t *testing.T) {
+	idx, res := partitionIndex([]int{2, 4, 3, 1})
+	actual := [4]int{}
+	copy(actual[:], res)
+	expected := [4]int{1, 2, 3, 4}
+	if idx != 1 || expected != actual {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func partitionIndex(arr []int) (int, []int) {
+	arrlen := len(arr)
+	if arrlen < 2 {
+		return 0, arr
+	}
+	pivot := arr[0]
+	i := 0
+	j := 0
+	for ; j < arrlen; j++ {
+		if arr[j] < pivot {
+			arr[i], arr[j] = arr[j], arr[i]
+			i++
+		}
+	}
+	//arr[i], arr[j-1] = arr[j-1], arr[i]
+	return i, arr
+}
