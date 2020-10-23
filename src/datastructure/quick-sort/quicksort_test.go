@@ -97,11 +97,9 @@ func partition(arr []int) []int {
 	i := 0
 	pivot := arr[0]
 	for ; i < j; {
-		for ; i < len(arr)-1 && arr[i] <= pivot; i++ {
-
+		for ; i < len(arr) && arr[i] <= pivot; i++ {
 		}
 		for ; j > 0 && arr[j] >= pivot; j-- {
-
 		}
 		if i < j {
 			swap(&arr[i], &arr[j])
