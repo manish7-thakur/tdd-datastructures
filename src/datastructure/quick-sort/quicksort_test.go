@@ -35,10 +35,14 @@ func partition(arr []int) []int {
 	}
 	for i := 0; i < len(arr)-1; i++ {
 		if arr[i] > arr[i+1] {
-			temp := arr[i]
-			arr[i] = arr[i+1]
-			arr[i+1] = temp
+			swap(&arr[i], &arr[i+1])
 		}
 	}
 	return arr
+}
+
+func swap(i *int, j *int) {
+	temp := *i
+	*i = *j
+	*j = temp
 }
