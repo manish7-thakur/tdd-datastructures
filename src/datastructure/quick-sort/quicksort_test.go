@@ -29,15 +29,36 @@ func TestPartitionArrayTwoElem(t *testing.T) {
 	}
 }
 
+func TestPartitionArrayThreeElem(t *testing.T) {
+	res := partition([]int{2, 3, 1})
+	actual := [3]int{}
+	copy(actual[:], res)
+	expected := [3]int{1, 2, 3}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func partition(arr []int) []int {
 	if len(arr) < 2 {
 		return arr
 	}
-	for i := 0; i < len(arr)-1; i++ {
-		if arr[i] > arr[i+1] {
-			swap(&arr[i], &arr[i+1])
+	j := len(arr) - 1
+	i := 1
+	pivot := arr[0]
+	for ; i < j; {
+		for ; arr[i] < pivot; {
+			i++
 		}
+		for ; arr[j] >= pivot; {
+			j--
+		}
+		swap(&arr[i], &arr[j])
+		i++
+		j--
 	}
+	swap(&arr[0], &arr[i-1])
+
 	return arr
 }
 
