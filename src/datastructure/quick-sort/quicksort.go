@@ -26,3 +26,20 @@ func swap(i *int, j *int) {
 	*i = *j
 	*j = temp
 }
+
+func partitionIndex(arr []int) (int, []int) {
+	arrlen := len(arr)
+	if arrlen < 2 {
+		return 0, arr
+	}
+	pivot := arr[0]
+	i := 0
+	for j := 0; j < arrlen; j++ {
+		if arr[j] < pivot {
+			i++
+			arr[i], arr[j] = arr[j], arr[i]
+		}
+	}
+	arr[i], arr[0] = arr[0], arr[i]
+	return i, arr
+}
