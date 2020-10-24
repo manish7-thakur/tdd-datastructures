@@ -43,3 +43,13 @@ func partitionIndex(arr []int) (int, []int) {
 	arr[i], arr[0] = arr[0], arr[i]
 	return i, arr
 }
+
+func QuickSort(arr []int) []int {
+	if len(arr) < 2 {
+		return arr
+	}
+	i, _ := partitionIndex(arr)
+	QuickSort(arr[:i])
+	QuickSort(arr[i+1:])
+	return arr
+}

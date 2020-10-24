@@ -216,3 +216,70 @@ func TestPartitionIndexFiveElemOrdered(t *testing.T) {
 		t.Errorf("expected %v but found %v", expected, actual)
 	}
 }
+
+func TestQuickSortEmptyArray(t *testing.T) {
+	res := QuickSort([]int{})
+	if len(res) != 0 {
+		t.Errorf("expected empty but found %d", res)
+	}
+}
+
+func TestQuickSortOneElem(t *testing.T) {
+	res := QuickSort([]int{2})
+	actual := [1]int{}
+	copy(actual[:], res)
+	expected := [1]int{2}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestQuickSortTwoElem(t *testing.T) {
+	res := QuickSort([]int{2, 1})
+	actual := [2]int{}
+	copy(actual[:], res)
+	expected := [2]int{1, 2}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestQuickSortThreeElem(t *testing.T) {
+	res := QuickSort([]int{2, 1, 3})
+	actual := [3]int{}
+	copy(actual[:], res)
+	expected := [3]int{1, 2, 3}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestQuickSortThreeElemRepeated(t *testing.T) {
+	res := QuickSort([]int{3, 1, 3})
+	actual := [3]int{}
+	copy(actual[:], res)
+	expected := [3]int{1, 3, 3}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestQuickSortFourElem(t *testing.T) {
+	res := QuickSort([]int{4, 3, 1, 2})
+	actual := [4]int{}
+	copy(actual[:], res)
+	expected := [4]int{1, 2, 3, 4}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestQuickSortMultiElem(t *testing.T) {
+	res := QuickSort([]int{4, 3, 1, 2, 7, 1, 3, 9, 2, 1, 2, 4, 7, 4, 26, 9, 3, 3, 6, 3, 2, 5})
+	actual := [22]int{}
+	copy(actual[:], res)
+	expected := [22]int{1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 5, 6, 7, 7, 9, 9, 26}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
