@@ -74,3 +74,30 @@ func TestInsertDoubleCharString(t *testing.T) {
 		t.Errorf("expected true  but found %t", actual.endOfWord)
 	}
 }
+
+func TestInsertTripleCharString(t *testing.T) {
+	trie := Trie{}
+	str := "abc"
+	trie.insert(str)
+	actual, ok := trie.first.chars['a']
+	if !ok {
+		t.Errorf("expected true  but found %t", ok)
+	}
+	if actual.endOfWord != false {
+		t.Errorf("expected false  but found %t", actual.endOfWord)
+	}
+	actual, ok = actual.chars['b']
+	if !ok {
+		t.Errorf("expected true  but found %t", ok)
+	}
+	if actual.endOfWord != false {
+		t.Errorf("expected false  but found %t", actual.endOfWord)
+	}
+	actual, ok = actual.chars['c']
+	if !ok {
+		t.Errorf("expected true  but found %t", ok)
+	}
+	if actual.endOfWord != true {
+		t.Errorf("expected true  but found %t", actual.endOfWord)
+	}
+}
