@@ -5,7 +5,7 @@ import (
 )
 
 type TrieNode struct {
-	chars     map[rune]TrieNode
+	chars     map[rune]*TrieNode
 	endOfWord bool
 }
 
@@ -14,11 +14,21 @@ type Trie struct {
 }
 
 func (t *Trie) insert(s string) {
-	for _, r := range s {
-		char := r
-		m := make(map[rune]TrieNode)
-		m[char] = TrieNode{endOfWord: true}
-		t.first = TrieNode{m, true}
+	var next = &t.first
+	endOfWord := false
+	for i, r := range s {
+		if next.chars == nil {
+			next.chars = make(map[rune]*TrieNode)
+		}
+		if i == len(s)-1 {
+			endOfWord = true
+		}
+		if _, ok := next.chars[r]; !ok {
+			//insert into current node
+			node := TrieNode{endOfWord: endOfWord}
+			next.chars[r] = &node
+			next = &node
+		}
 	}
 }
 
@@ -27,7 +37,7 @@ func TestInsertEmptyString(t *testing.T) {
 	str := ""
 	trie.insert(str)
 	actual, ok := trie.first.chars['\000']
-	if ok || actual.endOfWord {
+	if ok {
 		t.Errorf("expected empty but found %v", actual)
 	}
 }
@@ -37,6 +47,26 @@ func TestInsertSingleCharString(t *testing.T) {
 	str := "a"
 	trie.insert(str)
 	actual, ok := trie.first.chars['a']
+	if !ok {
+		t.Errorf("expected true  but found %t", ok)
+	}
+	if actual.endOfWord != true {
+		t.Errorf("expected true  but found %t", actual.endOfWord)
+	}
+}
+
+func TestInsertDoubleCharString(t *testing.T) {
+	trie := Trie{}
+	str := "ab"
+	trie.insert(str)
+	actual, ok := trie.first.chars['a']
+	if !ok {
+		t.Errorf("expected true  but found %t", ok)
+	}
+	if actual.endOfWord != false {
+		t.Errorf("expected false  but found %t", actual.endOfWord)
+	}
+	actual, ok = actual.chars['b']
 	if !ok {
 		t.Errorf("expected true  but found %t", ok)
 	}
