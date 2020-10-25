@@ -27,8 +27,8 @@ func (t *Trie) insert(s string) {
 			//insert into current node
 			node := TrieNode{endOfWord: endOfWord}
 			next.chars[r] = &node
-			next = &node
 		}
+		next = next.chars[r]
 	}
 }
 
@@ -99,5 +99,27 @@ func TestInsertTripleCharString(t *testing.T) {
 	}
 	if actual.endOfWord != true {
 		t.Errorf("expected true  but found %t", actual.endOfWord)
+	}
+}
+
+func TestInsertMultipleStrings(t *testing.T) {
+	trie := Trie{}
+	str1 := "a"
+	str2 := "ab"
+	trie.insert(str1)
+	trie.insert(str2)
+	actual, ok := trie.first.chars['a']
+	if !ok {
+		t.Errorf("expected true  but found %t", ok)
+	}
+	if actual.endOfWord != true {
+		t.Errorf("expected true  but found %t", actual.endOfWord)
+	}
+	actual, ok = actual.chars['b']
+	if !ok {
+		t.Errorf("expected true  but found %t", ok)
+	}
+	if actual.endOfWord != true {
+		t.Errorf("expected false  but found %t", actual.endOfWord)
 	}
 }
