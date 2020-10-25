@@ -14,8 +14,8 @@ type Trie struct {
 }
 
 func (t *Trie) insert(s string) {
-	if len(s) != 0 {
-		char := rune(s[0])
+	for _, r := range s {
+		char := r
 		m := make(map[rune]TrieNode)
 		m[char] = TrieNode{endOfWord: true}
 		t.first = TrieNode{m, true}
