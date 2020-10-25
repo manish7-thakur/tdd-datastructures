@@ -37,7 +37,10 @@ func TestInsertSingleCharString(t *testing.T) {
 	str := "a"
 	trie.insert(str)
 	actual, ok := trie.first.chars['a']
-	if !ok || !actual.endOfWord {
-		t.Errorf("expected %v but found %v", true, actual)
+	if !ok {
+		t.Errorf("expected true  but found %t", ok)
+	}
+	if actual.endOfWord != true {
+		t.Errorf("expected true  but found %t", actual.endOfWord)
 	}
 }
