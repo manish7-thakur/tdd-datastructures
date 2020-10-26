@@ -29,9 +29,6 @@ func (t *Trie) Insert(s string) {
 }
 
 func (t *Trie) Contains(str string) bool {
-	if len(str) == 0 {
-		return false
-	}
 	next := &t.first
 	for i := 0; i < len(str); i++ {
 		node, ok := next.chars[rune(str[i])]
