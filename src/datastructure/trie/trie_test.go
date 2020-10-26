@@ -158,3 +158,14 @@ func TestSearchTripleCharString(t *testing.T) {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}
 }
+
+func TestSearchMultiplePrefixedStrings(t *testing.T) {
+	str1 := "a"
+	trie := Trie{}
+	trie.Insert(str1)
+	actual := trie.Contains("aa")
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
