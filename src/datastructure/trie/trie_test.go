@@ -104,3 +104,24 @@ func TestInsertMultipleStrings(t *testing.T) {
 		t.Errorf("expected false  but found %t", actual.endOfWord)
 	}
 }
+
+func TestSearchEmptyString(t *testing.T) {
+	str := ""
+	trie := Trie{}
+	actual := trie.Contains(str)
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
+func TestSearchSingleCharString(t *testing.T) {
+	str := "a"
+	trie := Trie{}
+	trie.Insert(str)
+	actual := trie.Contains(str)
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}

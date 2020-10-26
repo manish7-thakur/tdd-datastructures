@@ -27,3 +27,11 @@ func (t *Trie) Insert(s string) {
 		next = next.chars[r]
 	}
 }
+
+func (t *Trie) Contains(str string) bool {
+	if len(str) == 0 {
+		return false
+	}
+	node, ok := t.first.chars[rune(str[0])]
+	return node.endOfWord && ok
+}
