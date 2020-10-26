@@ -169,3 +169,31 @@ func TestSearchMultiplePrefixedStrings(t *testing.T) {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}
 }
+
+func TestSearchMultipleNonExistentStrings(t *testing.T) {
+	str1 := "a"
+	str2 := "aaa"
+	trie := Trie{}
+	trie.Insert(str1)
+	trie.Insert(str2)
+	actual := trie.Contains(str1)
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+	actual = trie.Contains(str2)
+	expected = true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+	actual = trie.Contains("aa")
+	expected = false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+	actual = trie.Contains("aaaa")
+	expected = false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
