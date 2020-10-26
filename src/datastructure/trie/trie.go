@@ -30,9 +30,10 @@ func (t *Trie) Insert(s string) {
 
 func (t *Trie) Contains(str string) bool {
 	next := &t.first
-	for i := 0; i < len(str); i++ {
+	strlen := len(str)
+	for i := 0; i < strlen; i++ {
 		node, ok := next.chars[rune(str[i])]
-		if ok && i+1 == len(str) && node.endOfWord {
+		if ok && i+1 == strlen && node.endOfWord {
 			return true
 		}
 		next = node
