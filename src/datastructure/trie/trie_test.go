@@ -106,8 +106,10 @@ func TestInsertMultipleStrings(t *testing.T) {
 	trie := Trie{}
 	str1 := "a"
 	str2 := "ab"
+	str3 := "abc"
 	trie.insert(str1)
 	trie.insert(str2)
+	trie.insert(str3)
 	actual, ok := trie.first.chars['a']
 	if !ok {
 		t.Errorf("expected true  but found %t", ok)
@@ -116,6 +118,13 @@ func TestInsertMultipleStrings(t *testing.T) {
 		t.Errorf("expected true  but found %t", actual.endOfWord)
 	}
 	actual, ok = actual.chars['b']
+	if !ok {
+		t.Errorf("expected true  but found %t", ok)
+	}
+	if actual.endOfWord != true {
+		t.Errorf("expected false  but found %t", actual.endOfWord)
+	}
+	actual, ok = actual.chars['c']
 	if !ok {
 		t.Errorf("expected true  but found %t", ok)
 	}
