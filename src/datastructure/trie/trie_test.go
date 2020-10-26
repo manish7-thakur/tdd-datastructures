@@ -136,3 +136,25 @@ func TestSearchDoubleCharString(t *testing.T) {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}
 }
+
+func TestSearchSingleCharNonExistentString(t *testing.T) {
+	str := "ab"
+	trie := Trie{}
+	trie.Insert(str)
+	actual := trie.Contains("a")
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
+func TestSearchTripleCharString(t *testing.T) {
+	str := "aaaa"
+	trie := Trie{}
+	trie.Insert(str)
+	actual := trie.Contains(str)
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
