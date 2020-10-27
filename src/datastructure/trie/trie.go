@@ -35,10 +35,8 @@ func (t *Trie) Contains(str string, prefixSearch bool) bool {
 		node, ok := next.chars[rune(str[i])]
 		if !ok {
 			return false
-		} else if prefixSearch && ok && i+1 == strlen {
-			return true
-		} else if ok && i+1 == strlen && node.endOfWord {
-			return true
+		} else if ok && i+1 == strlen {
+			return prefixSearch || node.endOfWord
 		}
 		next = node
 	}
