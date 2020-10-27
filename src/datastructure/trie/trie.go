@@ -33,7 +33,9 @@ func (t *Trie) Contains(str string) bool {
 	strlen := len(str)
 	for i := 0; i < strlen; i++ {
 		node, ok := next.chars[rune(str[i])]
-		if ok && i+1 == strlen && node.endOfWord {
+		if !ok {
+			return false
+		} else if ok && i+1 == strlen && node.endOfWord {
 			return true
 		}
 		next = node

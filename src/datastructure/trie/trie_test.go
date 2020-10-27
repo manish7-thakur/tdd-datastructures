@@ -138,10 +138,8 @@ func TestSearchDoubleCharString(t *testing.T) {
 }
 
 func TestSearchSingleCharNonExistentString(t *testing.T) {
-	str := "ab"
 	trie := Trie{}
-	trie.Insert(str)
-	actual := trie.Contains("a")
+	actual := trie.Contains("aa")
 	expected := false
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
