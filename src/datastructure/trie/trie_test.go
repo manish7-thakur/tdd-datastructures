@@ -108,7 +108,7 @@ func TestInsertMultipleStrings(t *testing.T) {
 func TestSearchEmptyString(t *testing.T) {
 	str := ""
 	trie := Trie{}
-	actual := trie.Contains(str)
+	actual := trie.Contains(str, false)
 	expected := false
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -119,7 +119,7 @@ func TestSearchSingleCharString(t *testing.T) {
 	str := "a"
 	trie := Trie{}
 	trie.Insert(str)
-	actual := trie.Contains(str)
+	actual := trie.Contains(str, false)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -130,7 +130,7 @@ func TestSearchDoubleCharString(t *testing.T) {
 	str := "ab"
 	trie := Trie{}
 	trie.Insert(str)
-	actual := trie.Contains(str)
+	actual := trie.Contains(str, false)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -139,7 +139,7 @@ func TestSearchDoubleCharString(t *testing.T) {
 
 func TestSearchSingleCharNonExistentString(t *testing.T) {
 	trie := Trie{}
-	actual := trie.Contains("aa")
+	actual := trie.Contains("aa", false)
 	expected := false
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -150,7 +150,7 @@ func TestSearchTripleCharString(t *testing.T) {
 	str := "aaaa"
 	trie := Trie{}
 	trie.Insert(str)
-	actual := trie.Contains(str)
+	actual := trie.Contains(str, false)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -161,7 +161,7 @@ func TestSearchMultiplePrefixedStrings(t *testing.T) {
 	str1 := "a"
 	trie := Trie{}
 	trie.Insert(str1)
-	actual := trie.Contains("aa")
+	actual := trie.Contains("aa", false)
 	expected := false
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -174,23 +174,77 @@ func TestSearchMultipleNonExistentStrings(t *testing.T) {
 	trie := Trie{}
 	trie.Insert(str1)
 	trie.Insert(str2)
-	actual := trie.Contains(str1)
+	actual := trie.Contains(str1, false)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}
-	actual = trie.Contains(str2)
+	actual = trie.Contains(str2, false)
 	expected = true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}
-	actual = trie.Contains("aa")
+	actual = trie.Contains("aa", false)
 	expected = false
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}
-	actual = trie.Contains("aaaa")
+	actual = trie.Contains("aaaa", false)
 	expected = false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
+func TestSearchEmptyPrefix(t *testing.T) {
+	str := ""
+	trie := Trie{}
+	actual := trie.Contains(str, true)
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
+func TestSearchSingleCharPrefix(t *testing.T) {
+	str := "ab"
+	trie := Trie{}
+	trie.Insert(str)
+	actual := trie.Contains("a", true)
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
+func TestSearchSingleCharPrefixNonExistent(t *testing.T) {
+	str := "ab"
+	trie := Trie{}
+	trie.Insert(str)
+	actual := trie.Contains("b", true)
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
+func TestSearchDoubleCharPrefix(t *testing.T) {
+	str := "abcd"
+	trie := Trie{}
+	trie.Insert(str)
+	actual := trie.Contains("ab", true)
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
+func TestSearchDoubleCharPrefixNonExistent(t *testing.T) {
+	str := "abcd"
+	trie := Trie{}
+	trie.Insert(str)
+	actual := trie.Contains("ac", true)
+	expected := false
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}

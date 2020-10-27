@@ -28,13 +28,15 @@ func (t *Trie) Insert(s string) {
 	}
 }
 
-func (t *Trie) Contains(str string) bool {
+func (t *Trie) Contains(str string, prefixSearch bool) bool {
 	next := &t.first
 	strlen := len(str)
 	for i := 0; i < strlen; i++ {
 		node, ok := next.chars[rune(str[i])]
 		if !ok {
 			return false
+		} else if prefixSearch && ok && i+1 == strlen {
+			return true
 		} else if ok && i+1 == strlen && node.endOfWord {
 			return true
 		}
