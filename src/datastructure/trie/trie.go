@@ -42,3 +42,10 @@ func (t *Trie) Contains(str string, prefixSearch bool) bool {
 	}
 	return false
 }
+
+func (t *Trie) Delete(str string) {
+	if len(str) == 0 {
+		return
+	}
+	delete(t.first.chars, rune(str[0]))
+}

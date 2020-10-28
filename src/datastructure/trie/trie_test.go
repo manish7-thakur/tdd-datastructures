@@ -249,3 +249,27 @@ func TestSearchDoubleCharPrefixNonExistent(t *testing.T) {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}
 }
+
+func TestDeleteEmptyString(t *testing.T) {
+	str := ""
+	trie := Trie{}
+	trie.Insert(str)
+	trie.Delete(str)
+	actual := trie.Contains(str, false)
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
+func TestDeleteSingleCharString(t *testing.T) {
+	str := "a"
+	trie := Trie{}
+	trie.Insert(str)
+	trie.Delete(str)
+	actual := trie.Contains(str, false)
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
