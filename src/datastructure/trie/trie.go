@@ -47,5 +47,12 @@ func (t *Trie) Delete(str string) {
 	if len(str) == 0 {
 		return
 	}
-	delete(t.first.chars, rune(str[0]))
+	for _, r := range str {
+		node, _ := t.first.chars[r]
+		if len(t.first.chars) == 1 {
+			node.endOfWord = false
+		} else {
+			delete(t.first.chars, r)
+		}
+	}
 }
