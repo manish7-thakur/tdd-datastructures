@@ -15,17 +15,14 @@ func (t *Trie) Insert(s string) {
 		if next.chars == nil {
 			next.chars = make(map[rune]*TrieNode)
 		}
-		if node, ok := next.chars[r]; !ok {
+		node, ok := next.chars[r]
+		if !ok {
 			//Insert into current node
 			node = &TrieNode{}
-			if i == len(s)-1 {
-				node.endOfWord = true
-			}
 			next.chars[r] = node
-		} else {
-			if i == len(s)-1 {
-				node.endOfWord = true
-			}
+		}
+		if i == len(s)-1 {
+			node.endOfWord = true
 		}
 		next = next.chars[r]
 	}
