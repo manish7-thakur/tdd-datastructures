@@ -105,6 +105,28 @@ func TestInsertMultipleStrings(t *testing.T) {
 	}
 }
 
+func TestInsertMultipleStringsPrefix(t *testing.T) {
+	trie := Trie{}
+	str1 := "ab"
+	str2 := "a"
+	trie.Insert(str1)
+	trie.Insert(str2)
+	actual, ok := trie.first.chars['a']
+	if !ok {
+		t.Errorf("expected true  but found %t", ok)
+	}
+	if actual.endOfWord != true {
+		t.Errorf("expected true  but found %t", actual.endOfWord)
+	}
+	actual, ok = actual.chars['b']
+	if !ok {
+		t.Errorf("expected true  but found %t", ok)
+	}
+	if actual.endOfWord != true {
+		t.Errorf("expected true  but found %t", actual.endOfWord)
+	}
+}
+
 func TestSearchEmptyString(t *testing.T) {
 	str := ""
 	trie := Trie{}
