@@ -294,6 +294,10 @@ func TestDeleteSingleCharString(t *testing.T) {
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}
+	_, ok := trie.first.chars['a']
+	if ok {
+		t.Errorf("expected empty but found %t", ok)
+	}
 }
 
 func TestDeleteMultiplePrefixedTwoString(t *testing.T) {

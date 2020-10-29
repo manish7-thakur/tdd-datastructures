@@ -50,10 +50,10 @@ func (t *Trie) Delete(str string) {
 	next := &t.first
 	for _, r := range str {
 		node, _ := next.chars[r]
-		if len(next.chars) == 1 {
-			node.endOfWord = false
-		} else {
+		if len(node.chars) == 0 {
 			delete(next.chars, r)
+		} else {
+			node.endOfWord = false
 		}
 		next = node
 	}
