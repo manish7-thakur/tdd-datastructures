@@ -47,12 +47,14 @@ func (t *Trie) Delete(str string) {
 	if len(str) == 0 {
 		return
 	}
+	next := &t.first
 	for _, r := range str {
-		node, _ := t.first.chars[r]
-		if len(t.first.chars) == 1 {
+		node, _ := next.chars[r]
+		if len(next.chars) == 1 {
 			node.endOfWord = false
 		} else {
-			delete(t.first.chars, r)
+			delete(next.chars, r)
 		}
+		next = node
 	}
 }
