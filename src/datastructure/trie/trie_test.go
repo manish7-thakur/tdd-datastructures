@@ -299,31 +299,3 @@ func TestDeleteSingleCharString(t *testing.T) {
 		t.Errorf("expected empty but found %t", ok)
 	}
 }
-
-func TestDeleteMultiplePrefixedTwoString(t *testing.T) {
-	str1 := "ab"
-	str2 := "a"
-	trie := Trie{}
-	trie.Insert(str1)
-	trie.Insert(str2)
-	trie.Delete(str2)
-	actual := trie.Contains(str1, false)
-	expected := true
-	if actual != expected {
-		t.Errorf("expected %t but found %t", expected, actual)
-	}
-}
-
-func TestDeleteMultiplePrefixedThreeString(t *testing.T) {
-	str1 := "abc"
-	str2 := "ab"
-	trie := Trie{}
-	trie.Insert(str1)
-	trie.Insert(str2)
-	trie.Delete(str2)
-	actual := trie.Contains(str1, false)
-	expected := true
-	if actual != expected {
-		t.Errorf("expected %t but found %t", expected, actual)
-	}
-}

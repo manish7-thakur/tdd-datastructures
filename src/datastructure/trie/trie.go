@@ -52,9 +52,6 @@ func (t *Trie) Delete(str string) {
 		node, _ := next.chars[r]
 		if len(node.chars) == 0 {
 			delete(next.chars, r)
-		} else {
-			node.endOfWord = false
 		}
-		next = node
 	}
 }
