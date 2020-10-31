@@ -299,3 +299,19 @@ func TestDeleteSingleCharString(t *testing.T) {
 		t.Errorf("expected empty but found %t", ok)
 	}
 }
+
+func TestDeleteDoubleCharString(t *testing.T) {
+	str := "ab"
+	trie := Trie{}
+	trie.Insert(str)
+	trie.Delete(str)
+	actual := trie.Contains(str, false)
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+	_, ok := trie.first.chars['a']
+	if ok {
+		t.Errorf("expected empty but found %t", ok)
+	}
+}

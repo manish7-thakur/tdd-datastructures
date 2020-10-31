@@ -47,11 +47,26 @@ func (t *Trie) Delete(str string) {
 	if len(str) == 0 {
 		return
 	}
-	next := &t.first
+	stack := []*TrieNode{}
+	charStack := []rune{}
+	curr := &t.first
 	for _, r := range str {
-		node, _ := next.chars[r]
+		node, _ := curr.chars[r]
 		if len(node.chars) == 0 {
-			delete(next.chars, r)
+			delete(curr.chars, r)
 		}
+		stack = append(stack, curr)
+		charStack = append(charStack, r)
+		curr = node
+	}
+	for ; len(stack) != 0; {
+		node := stack[len(stack)-1]
+		r := charStack[len(stack)-1]
+
+		delete(node.chars, r)
+		if len(node.chars) == 0 {
+			node = nil
+		}
+		stack = stack[:len(stack)-1]
 	}
 }
