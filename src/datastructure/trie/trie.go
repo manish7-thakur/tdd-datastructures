@@ -65,7 +65,8 @@ func (t *Trie) Delete(str string) {
 		node := stack[stacklen-1]
 		r := charStack[stacklen-1]
 
-		if !node.chars[r].endOfWord {
+		child := node.chars[r]
+		if len(child.chars) == 0 && !child.endOfWord {
 			delete(node.chars, r)
 		}
 		if len(node.chars) == 0 {
