@@ -61,8 +61,9 @@ func (t *Trie) Delete(str string) {
 		curr = node
 	}
 	for ; len(stack) != 0; {
-		node := stack[len(stack)-1]
-		r := charStack[len(stack)-1]
+		stacklen := len(stack)
+		node := stack[stacklen-1]
+		r := charStack[stacklen-1]
 
 		if !node.chars[r].endOfWord {
 			delete(node.chars, r)
@@ -70,6 +71,6 @@ func (t *Trie) Delete(str string) {
 		if len(node.chars) == 0 {
 			node = nil
 		}
-		stack = stack[:len(stack)-1]
+		stack = stack[:stacklen-1]
 	}
 }
