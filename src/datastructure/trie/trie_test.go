@@ -381,3 +381,51 @@ func TestDeleteMultiplePrefixedStringsReversed(t *testing.T) {
 		t.Errorf("expected %t but found %t", expected, ok)
 	}
 }
+
+func TestDeleteMultiplePrefixedThreeCharStrings(t *testing.T) {
+	str1 := "abc"
+	str2 := "ab"
+	str3 := "a"
+	trie := Trie{}
+	trie.Insert(str1)
+	trie.Insert(str2)
+	trie.Insert(str3)
+	trie.Delete(str1)
+	actual := trie.Contains(str1, false)
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+	actual = trie.Contains(str2, false)
+	expected = true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+	actual = trie.Contains(str3, false)
+	expected = true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+	trie.Delete(str2)
+	actual = trie.Contains(str2, false)
+	expected = false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+	actual = trie.Contains(str3, false)
+	expected = true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+	trie.Delete(str3)
+	actual = trie.Contains(str3, false)
+	expected = false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+	_, ok := trie.first.chars['a']
+	expected = false
+	if ok {
+		t.Errorf("expected %t but found %t", expected, ok)
+	}
+}
