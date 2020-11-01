@@ -50,10 +50,10 @@ func (t *Trie) Delete(str string) {
 	stack := []*TrieNode{}
 	charStack := []rune{}
 	curr := &t.first
-	for _, r := range str {
+	for i, r := range str {
 		node, _ := curr.chars[r]
-		if len(node.chars) == 0 {
-			delete(curr.chars, r)
+		if i+1 == len(str) {
+			node.endOfWord = false
 		}
 		stack = append(stack, curr)
 		charStack = append(charStack, r)
@@ -63,7 +63,9 @@ func (t *Trie) Delete(str string) {
 		node := stack[len(stack)-1]
 		r := charStack[len(stack)-1]
 
-		delete(node.chars, r)
+		if !node.chars[r].endOfWord {
+			delete(node.chars, r)
+		}
 		if len(node.chars) == 0 {
 			node = nil
 		}
