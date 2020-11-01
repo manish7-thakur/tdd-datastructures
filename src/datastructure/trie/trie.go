@@ -44,15 +44,16 @@ func (t *Trie) Contains(str string, prefixSearch bool) bool {
 }
 
 func (t *Trie) Delete(str string) {
-	if len(str) == 0 {
+	strlen := len(str)
+	if strlen == 0 {
 		return
 	}
-	stack := []*TrieNode{}
-	charStack := []rune{}
+	stack := make([]*TrieNode, 0, strlen)
+	charStack := make([]rune, 0, strlen)
 	curr := &t.first
 	for i, r := range str {
 		node, _ := curr.chars[r]
-		if i+1 == len(str) {
+		if i+1 == strlen {
 			node.endOfWord = false
 		}
 		stack = append(stack, curr)
