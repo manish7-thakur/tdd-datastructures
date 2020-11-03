@@ -222,7 +222,7 @@ func TestSearchEmptyPrefix(t *testing.T) {
 	str := ""
 	trie := Trie{}
 	actual := trie.Contains(str, true)
-	expected := false
+	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}
@@ -278,7 +278,7 @@ func TestDeleteEmptyString(t *testing.T) {
 	trie.Insert(str)
 	trie.Delete(str)
 	actual := trie.Contains(str, false)
-	expected := false
+	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}
