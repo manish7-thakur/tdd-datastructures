@@ -26,6 +26,12 @@ func (t *Trie) Insert(s string) {
 	curr.endOfWord = true
 }
 
+func (t *Trie) InsertAll(strarr []string) {
+	for _, str := range strarr {
+		t.Insert(str)
+	}
+}
+
 func (t *Trie) Contains(str string, prefixSearch bool) bool {
 	next := &t.first
 	for _, r := range str {
@@ -67,4 +73,8 @@ func (t *Trie) Delete(str string) {
 		}
 		stack = stack[:stacklen-1]
 	}
+}
+
+func (t *Trie) getSortedStrings() []string {
+	return []string{}
 }
