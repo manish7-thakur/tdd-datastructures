@@ -10,22 +10,20 @@ type Trie struct {
 }
 
 func (t *Trie) Insert(s string) {
-	var next = &t.first
-	for i, r := range s {
-		if next.chars == nil {
-			next.chars = make(map[rune]*TrieNode)
+	var curr = &t.first
+	for _, r := range s {
+		if curr.chars == nil {
+			curr.chars = make(map[rune]*TrieNode)
 		}
-		node, ok := next.chars[r]
+		node, ok := curr.chars[r]
 		if !ok {
 			//Insert into current node
 			node = &TrieNode{}
-			next.chars[r] = node
+			curr.chars[r] = node
 		}
-		if i == len(s)-1 {
-			node.endOfWord = true
-		}
-		next = next.chars[r]
+		curr = curr.chars[r]
 	}
+	curr.endOfWord = true
 }
 
 func (t *Trie) Contains(str string, prefixSearch bool) bool {
