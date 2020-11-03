@@ -28,9 +28,8 @@ func (t *Trie) Insert(s string) {
 
 func (t *Trie) Contains(str string, prefixSearch bool) bool {
 	next := &t.first
-	strlen := len(str)
-	for i := 0; i < strlen; i++ {
-		node, ok := next.chars[rune(str[i])]
+	for _, r := range str {
+		node, ok := next.chars[r]
 		if !ok {
 			return false
 		}
