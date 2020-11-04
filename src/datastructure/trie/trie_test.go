@@ -477,29 +477,3 @@ func TestDeleteMultiplePrefixedThreeCharStringsReversed(t *testing.T) {
 		t.Errorf("expected %t but found %t", expected, ok)
 	}
 }
-
-func TestSortStringsEmptyArray(t *testing.T) {
-	trie := Trie{}
-	strarr := []string{}
-	trie.InsertAll(strarr)
-	res := trie.getSortedStrings()
-	actual := [0]string{}
-	copy(actual[:], res)
-	expected := [0]string{}
-	if actual != expected {
-		t.Errorf("expected %v but found %v", expected, actual)
-	}
-}
-
-func TestSortStringsEmptyStringArray(t *testing.T) {
-	trie := Trie{}
-	strarr := []string{"a"}
-	trie.InsertAll(strarr)
-	res := trie.getSortedStrings()
-	actual := [1]string{""}
-	copy(actual[:], res)
-	expected := [1]string{}
-	if actual != expected {
-		t.Errorf("expected %v but found %v", expected, actual)
-	}
-}

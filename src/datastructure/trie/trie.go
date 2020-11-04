@@ -1,7 +1,7 @@
 package trie
 
 type TrieNode struct {
-	chars     map[rune]*TrieNode
+	chars     map[rune]*TrieNode //using map you cant sort, use array with alphabets stored in sorted order at each node
 	endOfWord bool
 }
 
@@ -73,8 +73,4 @@ func (t *Trie) Delete(str string) {
 		}
 		stack = stack[:stacklen-1]
 	}
-}
-
-func (t *Trie) getSortedStrings() []string {
-	return []string{}
 }
