@@ -31,19 +31,10 @@ func TestTwoVertexShortestPath(t *testing.T) {
 }
 
 func TestThreeVertexShortestPath(t *testing.T) {
-	paths := make([][]float64, 3)
-	for i := range paths {
-		paths[i] = make([]float64, 3)
-	}
-	paths[0][0] = 0
-	paths[0][1] = 2
-	paths[0][2] = 4
-	paths[1][0] = 3
-	paths[1][1] = 0
-	paths[1][2] = 4
-	paths[2][0] = 5
-	paths[2][1] = 3
-	paths[2][2] = 0
+	paths := [][]float64{
+		{0, 2, 4},
+		{3, 0, 4},
+		{5, 3, 0}}
 	res := tsp(paths, 0, 0, []int{1, 2})
 	expected := 10.0
 	if res != expected {
@@ -52,26 +43,11 @@ func TestThreeVertexShortestPath(t *testing.T) {
 }
 
 func TestFourVertexShortestPath(t *testing.T) {
-	paths := make([][]float64, 4)
-	for i := range paths {
-		paths[i] = make([]float64, 4)
-	}
-	paths[0][0] = 0
-	paths[0][1] = 2
-	paths[0][2] = 4
-	paths[0][3] = 1
-	paths[1][0] = 3
-	paths[1][1] = 0
-	paths[1][2] = 2
-	paths[1][3] = 3
-	paths[2][0] = 1
-	paths[2][1] = 3
-	paths[2][2] = 0
-	paths[2][3] = 2
-	paths[3][0] = 5
-	paths[3][1] = 3
-	paths[3][2] = 1
-	paths[3][3] = 0
+	paths := [][]float64{
+		{0, 2, 4, 1},
+		{3, 0, 2, 3},
+		{1, 3, 0, 2},
+		{5, 3, 1, 0}}
 	res := tsp(paths, 0, 0, []int{1, 2, 3})
 	expected := 7.0
 	if res != expected {
