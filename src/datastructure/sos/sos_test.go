@@ -3,47 +3,43 @@ package sos
 import "testing"
 
 func TestSosEmptyArray(t *testing.T) {
-	actual := sos(1, []int{}, []int{})
-	if len(actual) != 0 {
-		t.Errorf("expected empty but found %v", actual)
+	actual := sos(1, []int{})
+	expected := false
+	if expected != actual {
+		t.Errorf("expected %v but found %v", expected, actual)
 	}
 }
 
 func TestSosZeroSum(t *testing.T) {
-	actual := sos(0, []int{}, []int{})
-	if len(actual) != 0 {
-		t.Errorf("expected empty but found %v", actual)
-	}
-}
-
-func TestSosSumLessThanAllElems(t *testing.T) {
-	res := sos(1, []int{2}, []int{})
-	actual := [1]int{}
-	copy(actual[:], res)
-	expected := [1]int{0}
-	if actual != expected {
+	actual := sos(0, []int{})
+	expected := true
+	if expected != actual {
 		t.Errorf("expected %v but found %v", expected, actual)
 	}
 }
-func TestSosSumEqualToOneElems(t *testing.T) {
-	res := sos(1, []int{1}, []int{})
-	actual := [1]int{}
-	copy(actual[:], res)
-	expected := [1]int{1}
+
+func TestSosOneElem(t *testing.T) {
+	actual := sos(1, []int{1})
+	expected := true
 	if actual != expected {
 		t.Errorf("expected %v but found %v", expected, actual)
 	}
 }
 
-func sos(m int, n []int, curr []int) []int {
-	setlen := len(n)
-	if m == 0 || setlen == 0 {
-		return curr
-	} else if n[setlen-1] > m {
-		return sos(m, n[0:setlen-1], curr)
-	} else {
-		curr = append(curr, n[setlen-1])
-		sos(m-n[setlen-1], n[0:setlen-1], curr)
+func TestSosTwoElem(t *testing.T) {
+	actual := sos(3, []int{1, 2})
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
 	}
-	return curr
+}
+
+func sos(m int, n []int) bool {
+	if m == 0 {
+		return true
+	}
+	if len(n) == 0 {
+		return false
+	}
+	return sos(m-n[0], n[1:]) || sos(m, n[1:])
 }
