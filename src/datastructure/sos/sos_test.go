@@ -66,6 +66,21 @@ func TestSosMultiElemNotPresent(t *testing.T) {
 	}
 }
 
+func TestSosNegativeMultiElemPresent(t *testing.T) {
+	actual := sos(61, []int{5, -4, 85, 31, 4, 76, -3, 82, 3, 55})
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+func TestSosNegativeMultiElemNotPresent(t *testing.T) {
+	actual := sos(-8, []int{5, -4, 85, 31, 4, 76, -3, 82, 3, 55})
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func sos(m int, n []int) bool {
 	if m == 0 {
 		return true
