@@ -17,12 +17,16 @@ func sosIter(m int, n []int) bool {
 	if m == 0 {
 		return true
 	}
-	for _, num := range n {
-		if num <= m {
-			m-=num
-		}
-		if m == 0 {
-			return true
+	var num int
+	for i := 0; i < len(n); i++ {
+		num = m
+		for j := i; j < len(n); j++ {
+			if n[j] <= num {
+				num -= n[j]
+			}
+			if num == 0 {
+				return true
+			}
 		}
 	}
 	return false

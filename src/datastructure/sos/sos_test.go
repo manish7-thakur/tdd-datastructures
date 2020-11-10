@@ -99,7 +99,7 @@ func TestSosTwoElemSumNotPresentIter(t *testing.T) {
 }
 
 func TestSosTwoElemNotContiguousSumPresentIter(t *testing.T) {
-	actual := sosIter(3, []int{1, 0, 2})
+	actual := sosIter(4, []int{1, 2, 2})
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %v but found %v", expected, actual)
