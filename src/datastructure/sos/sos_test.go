@@ -98,6 +98,14 @@ func TestSosTwoElemSumNotPresentIter(t *testing.T) {
 	}
 }
 
+func TestSosTwoElemNotContiguousSumPresentIter(t *testing.T) {
+	actual := sosIter(3, []int{1, 0, 2})
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func TestSosMultiElemSumPresent(t *testing.T) {
 	actual := sos(87, []int{52, 41, 46, 9, 3, 12, 83, 32, 42, 85, 31, 6, 3, 55})
 	expected := true
