@@ -10,8 +10,24 @@ func TestSosEmptyArray(t *testing.T) {
 	}
 }
 
+func TestSosEmptyArrayIter(t *testing.T) {
+	actual := sosIter(1, []int{})
+	expected := false
+	if expected != actual {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func TestSosZeroSum(t *testing.T) {
 	actual := sos(0, []int{})
+	expected := true
+	if expected != actual {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestSosZeroSumIter(t *testing.T) {
+	actual := sosIter(0, []int{})
 	expected := true
 	if expected != actual {
 		t.Errorf("expected %v but found %v", expected, actual)
@@ -26,8 +42,24 @@ func TestSosOneElemSumPresent(t *testing.T) {
 	}
 }
 
+func TestSosOneElemSumPresentIter(t *testing.T) {
+	actual := sosIter(1, []int{1})
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func TestSosOneElemSumNotPresent(t *testing.T) {
 	actual := sos(1, []int{2})
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestSosOneElemSumNotPresentIter(t *testing.T) {
+	actual := sosIter(1, []int{2})
 	expected := false
 	if actual != expected {
 		t.Errorf("expected %v but found %v", expected, actual)
@@ -42,8 +74,24 @@ func TestSosTwoElemSumPresent(t *testing.T) {
 	}
 }
 
+func TestSosTwoElemSumPresentIter(t *testing.T) {
+	actual := sosIter(3, []int{1, 2})
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func TestSosTwoElemSumNotPresent(t *testing.T) {
 	actual := sos(3, []int{1, 1})
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestSosTwoElemSumNotPresentIter(t *testing.T) {
+	actual := sosIter(3, []int{1, 1})
 	expected := false
 	if actual != expected {
 		t.Errorf("expected %v but found %v", expected, actual)
