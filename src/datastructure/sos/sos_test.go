@@ -98,7 +98,7 @@ func TestSosTwoElemSumNotPresentIter(t *testing.T) {
 	}
 }
 
-func TestSosThreeElemNotContiguousSumPresentIter(t *testing.T) {
+func TestSosThreeElemLastIndexSumPresentIter(t *testing.T) {
 	actual := sosIter(4, []int{1, 2, 2})
 	expected := true
 	if actual != expected {
