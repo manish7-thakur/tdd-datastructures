@@ -122,8 +122,24 @@ func TestSosMultiElemSumPresent(t *testing.T) {
 	}
 }
 
+func TestSosMultiElemSumPresentIter(t *testing.T) {
+	actual := sosIter(87, []int{52, 41, 46, 9, 3, 12, 83, 32, 42, 85, 31, 6, 3, 55})
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func TestSosMultiElemNotPresent(t *testing.T) {
 	actual := sos(10, []int{52, 41, 46, 9, 3, 12, 83, 32, 42, 85, 31, 6, 3, 55})
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestSosMultiElemNotPresentIter(t *testing.T) {
+	actual := sosIter(10, []int{52, 41, 46, 9, 3, 12, 83, 32, 42, 85, 31, 6, 3, 55})
 	expected := false
 	if actual != expected {
 		t.Errorf("expected %v but found %v", expected, actual)
