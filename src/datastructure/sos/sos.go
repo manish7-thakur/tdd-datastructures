@@ -31,8 +31,16 @@ func sosIter(m int, n []int) bool {
 		for j := 1; j <= m; j++ {
 			if j == n[i] {
 				mem[i][j] = true
-			} else if j >= n[i] && i > 0 {
-				mem[i][j] = mem[i-1][j-n[i]]
+			} else if j > n[i] && i > 0 {
+				if mem[i-1][j] {
+					mem[i][j] = true
+				} else {
+					//if value just above is not true
+					mem[i][j] = mem[i-1][j-n[i]]
+				}
+			} else if j < n[i] && i > 0 {
+				//copy from top until j == n[i]
+				mem[i][j] = mem[i-1][j]
 			}
 		}
 	}

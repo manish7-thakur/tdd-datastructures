@@ -106,6 +106,14 @@ func TestSosThreeElemLastIndexSumPresentIter(t *testing.T) {
 	}
 }
 
+func TestSosThreeDiffElemLastIndexSumPresentIter(t *testing.T) {
+	actual := sosIter(8, []int{3, 2, 5})
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func TestSosMultiElemSumPresent(t *testing.T) {
 	actual := sos(87, []int{52, 41, 46, 9, 3, 12, 83, 32, 42, 85, 31, 6, 3, 55})
 	expected := true
