@@ -17,19 +17,24 @@ func sosIter(m int, n []int) bool {
 	if m == 0 {
 		return true
 	}
-	if len(n) == 0 {
+	setlen := len(n)
+	if setlen == 0 {
 		return false
 	}
-	mem := make([][]bool, len(n))
-	mem[0] = make([]bool, m+1)
+	mem := make([][]bool, setlen)
 	//first column with sum 0 is true as zero can be made from any set
-	for i := 0; i < len(n); i++ {
+	for i := 0; i < setlen; i++ {
+		mem[i] = make([]bool, m+1)
 		mem[i][0] = true
 	}
-	for i := 0; i < len(n); i++ {
+	for i := 0; i < setlen; i++ {
 		for j := 1; j <= m; j++ {
-			mem[i][j] = mem[i][j-n[i]]
+			if j == n[i] {
+				mem[i][j] = true
+			} else if j >= n[i] && i > 0 {
+				mem[i][j] = mem[i-1][j-n[i]]
+			}
 		}
 	}
-	return mem[len(n)-1][m]
+	return mem[setlen-1][m]
 }
