@@ -51,6 +51,17 @@ func TestKnapsackDoubleWeightSingleCapacity(t *testing.T) {
 	}
 }
 
+func TestKnapsackTripleWeightDoubleCapacity(t *testing.T) {
+	capacity := 5
+	weights := []int{3, 4, 2}
+	profits := []int{1, 3, 3}
+	res := maxProfit(weights, profits, capacity)
+	expected := 4
+	if res != expected {
+		t.Errorf("Expected %d but found %d", expected, res)
+	}
+}
+
 func maxProfit(weights []int, profits []int, capacity int) int {
 	weightlen := len(weights)
 	if weightlen == 0 || capacity == 0 {
