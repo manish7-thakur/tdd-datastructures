@@ -1,5 +1,7 @@
 package avl_tree
 
+import "datastructure/math"
+
 type AvlNode struct {
 	value  int
 	height int
@@ -40,7 +42,7 @@ func deleteItem(node *AvlNode, i int) *AvlNode {
 			return node
 		}
 	}
-	node.height = Max(height(node.left), height(node.right)) + 1
+	node.height = math.Max(height(node.left), height(node.right)) + 1
 	bf := getBalanceFactor(node)
 	return rotate(node, bf)
 }
@@ -53,7 +55,7 @@ func insert(node *AvlNode, value int) *AvlNode {
 	} else {
 		node.left = insert(node.left, value)
 	}
-	node.height = Max(height(node.left), height(node.right)) + 1
+	node.height = math.Max(height(node.left), height(node.right)) + 1
 	bf := getBalanceFactor(node)
 	return rotate(node, bf)
 }
@@ -86,8 +88,8 @@ func rotateLeft(pivot *AvlNode) *AvlNode {
 	pivot.right = newTop.left
 	newTop.left = pivot
 
-	pivot.height = Max(height(pivot.left), height(pivot.right)) + 1
-	newTop.height = Max(height(newTop.left), height(newTop.right)) + 1
+	pivot.height = math.Max(height(pivot.left), height(pivot.right)) + 1
+	newTop.height = math.Max(height(newTop.left), height(newTop.right)) + 1
 	return newTop
 }
 
@@ -96,8 +98,8 @@ func rotateRight(pivot *AvlNode) *AvlNode {
 	pivot.left = newTop.right
 	newTop.right = pivot
 
-	pivot.height = Max(height(pivot.left), height(pivot.right)) + 1
-	newTop.height = Max(height(newTop.left), height(newTop.right)) + 1
+	pivot.height = math.Max(height(pivot.left), height(pivot.right)) + 1
+	newTop.height = math.Max(height(newTop.left), height(newTop.right)) + 1
 
 	return newTop
 }
@@ -111,11 +113,4 @@ func height(node *AvlNode) int {
 		return node.height
 	}
 	return -1
-}
-
-func Max(x, y int) int {
-	if x < y {
-		return y
-	}
-	return x
 }
