@@ -67,6 +67,17 @@ func TestKnapsackSingleWeightHigherThanCapacity(t *testing.T) {
 	}
 }
 
+func TestKnapsackSingleWeightHigherThanCapacityIter(t *testing.T) {
+	capacity := 1
+	weights := []int{5}
+	profits := []int{3}
+	res := MaxProfitIter(weights, profits, capacity)
+	expected := 0
+	if res != expected {
+		t.Errorf("Expected %d but found %d", expected, res)
+	}
+}
+
 func TestKnapsackDoubleWeights(t *testing.T) {
 	capacity := 6
 	weights := []int{6, 5}

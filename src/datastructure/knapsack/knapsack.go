@@ -15,8 +15,21 @@ func MaxProfit(weights []int, profits []int, capacity int) int {
 }
 
 func MaxProfitIter(weights []int, profits []int, capacity int) int {
-	if len(weights) == 0 || capacity == 0 {
+	weightlen := len(weights)
+	if weightlen == 0 || capacity == 0 {
 		return 0
 	}
-	return profits[0]
+	mem := make([][]int, weightlen)
+	for i := 0; i < weightlen; i++ {
+		mem[i] = make([]int, capacity+1)
+	}
+	for j := 0; j <= capacity; j++ {
+		if j < weights[0] {
+			mem[0][j] = 0
+		} else {
+			mem[0][j] = profits[j]
+		}
+
+	}
+	return mem[0][capacity]
 }
