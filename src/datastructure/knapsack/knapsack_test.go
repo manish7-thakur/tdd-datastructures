@@ -10,9 +10,25 @@ func TestKnapsackEmptyWeights(t *testing.T) {
 	}
 }
 
+func TestKnapsackEmptyWeightsIter(t *testing.T) {
+	capacity := 5
+	res := MaxProfitIter([]int{}, []int{}, capacity)
+	if res != 0 {
+		t.Errorf("Expected empty but found %d", res)
+	}
+}
+
 func TestKnapsackWeightsZeroCapacity(t *testing.T) {
 	capacity := 0
 	res := MaxProfit([]int{}, []int{}, capacity)
+	if res != 0 {
+		t.Errorf("Expected empty but found %d", res)
+	}
+}
+
+func TestKnapsackWeightsZeroCapacityIter(t *testing.T) {
+	capacity := 0
+	res := MaxProfitIter([]int{}, []int{}, capacity)
 	if res != 0 {
 		t.Errorf("Expected empty but found %d", res)
 	}
@@ -23,6 +39,17 @@ func TestKnapsackSingleWeight(t *testing.T) {
 	weights := []int{5}
 	profits := []int{3}
 	res := MaxProfit(weights, profits, capacity)
+	expected := 3
+	if res != expected {
+		t.Errorf("Expected %d but found %d", expected, res)
+	}
+}
+
+func TestKnapsackSingleWeightIter(t *testing.T) {
+	capacity := 5
+	weights := []int{5}
+	profits := []int{3}
+	res := MaxProfitIter(weights, profits, capacity)
 	expected := 3
 	if res != expected {
 		t.Errorf("Expected %d but found %d", expected, res)
