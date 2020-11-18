@@ -100,6 +100,17 @@ func TestKnapsackDoubleWeightsIter(t *testing.T) {
 	}
 }
 
+func TestKnapsackDoubleWeightsBothIncludedIter(t *testing.T) {
+	capacity := 2
+	weights := []int{1, 1}
+	profits := []int{3, 4}
+	res := MaxProfitIter(weights, profits, capacity)
+	expected := 7
+	if res != expected {
+		t.Errorf("Expected %d but found %d", expected, res)
+	}
+}
+
 func TestKnapsackTripleWeights(t *testing.T) {
 	capacity := 5
 	weights := []int{3, 4, 2}
