@@ -144,6 +144,17 @@ func TestKnapsackFourWeights(t *testing.T) {
 	}
 }
 
+func TestKnapsackFourWeightsIter(t *testing.T) {
+	capacity := 2
+	weights := []int{1, 1, 1, 2}
+	profits := []int{1, 4, 5, 7}
+	res := MaxProfitIter(weights, profits, capacity)
+	expected := 9
+	if res != expected {
+		t.Errorf("Expected %d but found %d", expected, res)
+	}
+}
+
 func TestKnapsackMultipleWeights(t *testing.T) {
 	capacity := 84
 	weights := []int{15, 34, 43, 45, 35, 23, 4, 7, 3, 18, 2, 29, 2, 5, 3, 67}

@@ -31,7 +31,7 @@ func MaxProfitIter(weights []int, profits []int, capacity int) int {
 				}
 			} else {
 				if i > 0 {
-					mem[i][j] = math.Max(profits[i]+mem[i-1][j-weights[i]], mem[i-1][j-weights[i]])
+					mem[i][j] = math.Max(profits[i]+mem[i-1][j-weights[i]], mem[i-1][j])
 				} else {
 					mem[i][j] = profits[i]
 				}
