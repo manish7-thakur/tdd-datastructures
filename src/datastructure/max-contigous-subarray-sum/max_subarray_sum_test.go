@@ -54,6 +54,14 @@ func TestMaxContiguousSubarraySumThreeElementsNegative(t *testing.T) {
 	}
 }
 
+func TestMaxContiguousSubarraySumMultiElementsNegative(t *testing.T) {
+	actual := MaxContiguousSubarraySum([]int{45, 23, -12, 2, -9, -1, 2, 42, 34})
+	expected := 126
+	if actual != expected {
+		t.Errorf("Expected %d but found %v", expected, actual)
+	}
+}
+
 func MaxContiguousSubarraySum(arr []int) int {
 	arrlen := len(arr)
 	if arrlen == 0 {
