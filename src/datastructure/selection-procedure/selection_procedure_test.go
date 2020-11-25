@@ -42,6 +42,14 @@ func TestPartitionFourElems(t *testing.T) {
 	}
 }
 
+func TestPartitionFiveElems(t *testing.T) {
+	actual := Partition([]int{4, 5, 1, 2, 3})
+	expected := 3
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
 func Partition(arr []int) int {
 	if len(arr) == 0 {
 		return -1
