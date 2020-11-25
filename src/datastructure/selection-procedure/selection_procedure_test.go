@@ -18,9 +18,25 @@ func TestPartitionSingleElem(t *testing.T) {
 	}
 }
 
-func TestPartitionDoubleElem(t *testing.T) {
+func TestPartitionDoubleElems(t *testing.T) {
 	actual := Partition([]int{2, 1})
 	expected := 1
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestPartitionTripleElems(t *testing.T) {
+	actual := Partition([]int{3, 2, 1})
+	expected := 2
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestPartitionFourElems(t *testing.T) {
+	actual := Partition([]int{3, 1, 4, 2})
+	expected := 2
 	if actual != expected {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
@@ -32,11 +48,12 @@ func Partition(arr []int) int {
 	}
 	pos := 0
 	pivot := arr[0]
-	for i, n := range arr {
-		if n < pivot {
-			arr[pos], arr[i] = arr[i], arr[pos]
+	for i := 1; i < len(arr); i++ {
+		if arr[i] < pivot {
 			pos++
+			arr[pos], arr[i] = arr[i], arr[pos]
 		}
 	}
+	arr[pos], arr[0] = arr[0], arr[pos]
 	return pos
 }
