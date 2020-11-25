@@ -1,4 +1,4 @@
-package max_contigous_subarray_sum
+package max_contiguous_subarray_sum
 
 import (
 	math2 "datastructure/math"
