@@ -9,7 +9,9 @@ func Partition(arr []int) int {
 	for i := 1; i < len(arr); i++ {
 		if arr[i] < pivot {
 			pos++
+			arr[pos], arr[i] = arr[i], arr[pos]
 		}
 	}
+	arr[pos], arr[0] = arr[0], arr[pos]
 	return pos
 }

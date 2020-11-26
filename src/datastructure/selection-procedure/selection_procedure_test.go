@@ -74,19 +74,30 @@ func TestSelectionKthElemDoubleElemArray(t *testing.T) {
 	}
 }
 
+func TestSelectionKthElemTripleElemArray(t *testing.T) {
+	actual := SelectElem([]int{5, 2, 4}, 1)
+	expected := 2
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
 func SelectElem(arr []int, k int) int {
 	if len(arr) == 0 {
 		return -1
 	}
-	curr := arr
-	m := Partition(curr)
+	if len(arr) == 1 && k == 1 {
+		return arr[0]
+	}
+	m := Partition(arr)
 	for ; m != 0 && m != k; {
-		m := Partition(curr)
 		if m == k {
-			return curr[m]
+			return arr[m]
 		} else if k > m {
-			curr = curr[m+1:]
+			m = Partition(arr[m+1:])
+		} else {
+			m = Partition(arr[:m])
 		}
 	}
-	return arr[m]
+	return arr[m-1]
 }
