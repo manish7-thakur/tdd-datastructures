@@ -82,6 +82,14 @@ func TestSelectionKthElemTripleElemArray(t *testing.T) {
 	}
 }
 
+func TestSelectionKthElemFourElemArray(t *testing.T) {
+	actual := SelectElem([]int{5, 3, 2, 4}, 2)
+	expected := 3
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
 func SelectElem(arr []int, k int) int {
 	if len(arr) == 0 {
 		return -1
