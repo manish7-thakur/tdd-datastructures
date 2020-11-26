@@ -49,3 +49,44 @@ func TestPartitionFiveElems(t *testing.T) {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
 }
+
+func TestSelectionKthElemEmptyArray(t *testing.T) {
+	actual := SelectElem([]int{}, 2)
+	expected := -1
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestSelectionKthElemSingleElemArray(t *testing.T) {
+	actual := SelectElem([]int{2}, 1)
+	expected := 2
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestSelectionKthElemDoubleElemArray(t *testing.T) {
+	actual := SelectElem([]int{4, 3}, 1)
+	expected := 3
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func SelectElem(arr []int, k int) int {
+	if len(arr) == 0 {
+		return -1
+	}
+	curr := arr
+	m := Partition(curr)
+	for ; m != 0 && m != k; {
+		m := Partition(curr)
+		if m == k {
+			return curr[m]
+		} else if k > m {
+			curr = curr[m+1:]
+		}
+	}
+	return arr[m]
+}
