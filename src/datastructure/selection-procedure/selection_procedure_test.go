@@ -126,7 +126,7 @@ func SelectElem(arr []int, k int) int {
 	if len(arr) == 0 {
 		return -1
 	}
-	kthindx := k - 1
+	kthindx := k - 1 // first smallest mean 0 index item in sorted array
 	m := Partition(arr)
 	for ; m != 0 && m != kthindx; {
 		if m == kthindx {
