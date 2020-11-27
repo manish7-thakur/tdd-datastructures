@@ -106,6 +106,22 @@ func TestSelectionKthElemSixElemArray(t *testing.T) {
 	}
 }
 
+func TestSelectionKthElemSevenElemArray(t *testing.T) {
+	actual := SelectElem([]int{7, 5, 3, 8, 10, 4, 6}, 6)
+	expected := 8
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestSelectionKthElemMultiElemArray(t *testing.T) {
+	actual := SelectElem([]int{72, 65, 33, 18, 10, 45, 76, 12, 23, 74, 28, 57, 57, 25, 58}, 9)
+	expected := 57
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
 func SelectElem(arr []int, k int) int {
 	if len(arr) == 0 {
 		return -1
