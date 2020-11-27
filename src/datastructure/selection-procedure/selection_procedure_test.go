@@ -90,6 +90,22 @@ func TestSelectionKthElemFourElemArray(t *testing.T) {
 	}
 }
 
+func TestSelectionKthElemFiveElemArray(t *testing.T) {
+	actual := SelectElem([]int{7, 5, 2, 4, 6}, 2)
+	expected := 4
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
+func TestSelectionKthElemSixElemArray(t *testing.T) {
+	actual := SelectElem([]int{7, 5, 3, 8, 4, 6}, 4)
+	expected := 6
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
+
 func SelectElem(arr []int, k int) int {
 	if len(arr) == 0 {
 		return -1
@@ -98,8 +114,8 @@ func SelectElem(arr []int, k int) int {
 		return arr[0]
 	}
 	m := Partition(arr)
-	for ; m != 0 && m != k; {
-		if m == k {
+	for ; m != 0 && m != k-1; {
+		if m == k-1 {
 			return arr[m]
 		} else if k > m {
 			m = Partition(arr[m+1:])
@@ -107,5 +123,5 @@ func SelectElem(arr []int, k int) int {
 			m = Partition(arr[:m])
 		}
 	}
-	return arr[m-1]
+	return arr[k-1]
 }
