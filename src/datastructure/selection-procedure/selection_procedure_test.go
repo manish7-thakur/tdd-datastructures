@@ -126,12 +126,10 @@ func SelectElem(arr []int, k int) int {
 	if len(arr) == 0 {
 		return -1
 	}
-	if len(arr) == 1 && k == 1 {
-		return arr[0]
-	}
+	kthindx := k - 1
 	m := Partition(arr)
-	for ; m != 0 && m != k-1; {
-		if m == k-1 {
+	for ; m != 0 && m != kthindx; {
+		if m == kthindx {
 			return arr[m]
 		} else if k > m {
 			m = Partition(arr[m+1:])
@@ -139,5 +137,5 @@ func SelectElem(arr []int, k int) int {
 			m = Partition(arr[:m])
 		}
 	}
-	return arr[k-1]
+	return arr[kthindx]
 }
