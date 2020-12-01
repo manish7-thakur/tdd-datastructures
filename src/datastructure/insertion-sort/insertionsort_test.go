@@ -29,11 +29,42 @@ func TestSortDoubleElemArray(t *testing.T) {
 	}
 }
 
+func TestSortTripleElemArray(t *testing.T) {
+	res := InsertionSort([]int{3, 2, 1})
+	actual := [3]int{}
+	copy(actual[:], res)
+	expected := [3]int{1, 2, 3}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestSortFourElemArray(t *testing.T) {
+	res := InsertionSort([]int{4, 3, 2, 1})
+	actual := [4]int{}
+	copy(actual[:], res)
+	expected := [4]int{1, 2, 3, 4}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestSortMultiElemArray(t *testing.T) {
+	res := InsertionSort([]int{14, 23, 3, 47, 84, 67, 25, 59, 25, 347, 36})
+	actual := [11]int{}
+	copy(actual[:], res)
+	expected := [11]int{3, 14, 23, 25, 25, 36, 47, 59, 67, 84, 347}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func InsertionSort(arr []int) []int {
 	for i := 1; i < len(arr); i++ {
-		j := i - 1
-		if arr[i] < arr[j] {
-			arr[i], arr[j] = arr[j], arr[i]
+		for j := i; j > 0; j-- {
+			if arr[j] < arr[j-1] {
+				arr[j], arr[j-1] = arr[j-1], arr[j]
+			}
 		}
 	}
 	return arr
