@@ -29,13 +29,49 @@ func TestSortDoubleElemArray(t *testing.T) {
 	}
 }
 
+func TestSortTripleElemArray(t *testing.T) {
+	res := SelectionSort([]int{2, 3, 1})
+	actual := [3]int{}
+	copy(actual[:], res)
+	expected := [3]int{1, 2, 3}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestSortFourElemArray(t *testing.T) {
+	res := SelectionSort([]int{2, 4, 3, 1})
+	actual := [4]int{}
+	copy(actual[:], res)
+	expected := [4]int{1, 2, 3, 4}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestSortMultipleElemArray(t *testing.T) {
+	res := SelectionSort([]int{24, 42, 73, 21, 37, 66, 10, 35, 46, 29, 45, 45, 23, 69, 34})
+	actual := [15]int{}
+	copy(actual[:], res)
+	expected := [15]int{1, 2, 3, 4}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func SelectionSort(arr []int) []int {
 	if len(arr) <= 1 {
 		return arr
 	}
-	min := arr[0]
-	if arr[1] < min {
-		arr[0], arr[1] = arr[1], arr[0]
+	for i := 0; i < len(arr); i++ {
+		minidx := i
+		for j := i + 1; j < len(arr); j++ {
+			if arr[j] < arr[minidx] {
+				minidx = j
+			}
+		}
+		arr[i], arr[minidx] = arr[minidx], arr[i]
 	}
+
 	return arr
 }
