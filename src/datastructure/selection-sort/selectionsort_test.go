@@ -60,9 +60,6 @@ func TestSortMultipleElemArray(t *testing.T) {
 }
 
 func SelectionSort(arr []int) []int {
-	if len(arr) <= 1 {
-		return arr
-	}
 	for i := 0; i < len(arr); i++ {
 		minidx := i
 		for j := i + 1; j < len(arr); j++ {
