@@ -8,7 +8,9 @@ func SelectionSort(arr []int) []int {
 				minidx = j
 			}
 		}
-		arr[i], arr[minidx] = arr[minidx], arr[i]
+		if i != minidx {
+			arr[i], arr[minidx] = arr[minidx], arr[i]
+		}
 	}
 	return arr
 }
