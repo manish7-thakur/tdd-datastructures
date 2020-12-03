@@ -58,19 +58,3 @@ func TestSortMultiElemArray(t *testing.T) {
 		t.Errorf("expected %v but found %v", expected, actual)
 	}
 }
-
-func BubbleSort(arr []int) []int {
-	arrlen := len(arr)
-	if arrlen <= 1 {
-		return arr
-	}
-	for i := arrlen - 1; i >= 0; i-- {
-		for j := 0; j < i; j++ {
-			if arr[j] > arr[j+1] {
-				arr[j], arr[j+1] = arr[j+1], arr[j]
-			}
-		}
-	}
-
-	return arr
-}
