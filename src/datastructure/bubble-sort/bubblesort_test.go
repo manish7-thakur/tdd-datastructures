@@ -29,12 +29,48 @@ func TestSortDoubleElemArray(t *testing.T) {
 	}
 }
 
+func TestSortTripleElemArray(t *testing.T) {
+	res := BubbleSort([]int{2, 3, 1})
+	actual := [3]int{}
+	copy(actual[:], res)
+	expected := [3]int{1, 2, 3}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestSortFourElemArray(t *testing.T) {
+	res := BubbleSort([]int{2, 4, 3, 1})
+	actual := [4]int{}
+	copy(actual[:], res)
+	expected := [4]int{1, 2, 3, 4}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestSortMultiElemArray(t *testing.T) {
+	res := BubbleSort([]int{24, 14, 53, 31, 74, 24, 46, 7, 235, 57, 34, 56, 26})
+	actual := [13]int{}
+	copy(actual[:], res)
+	expected := [13]int{7, 14, 24, 24, 26, 31, 34, 46, 53, 56, 57, 74, 235}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
 func BubbleSort(arr []int) []int {
-	if len(arr) <= 1 {
+	arrlen := len(arr)
+	if arrlen <= 1 {
 		return arr
 	}
-	if arr[0] > arr[1] {
-		arr[0], arr[1] = arr[1], arr[0]
+	for i := arrlen - 1; i >= 0; i-- {
+		for j := 0; j < i; j++ {
+			if arr[j] > arr[j+1] {
+				arr[j], arr[j+1] = arr[j+1], arr[j]
+			}
+		}
 	}
+
 	return arr
 }
