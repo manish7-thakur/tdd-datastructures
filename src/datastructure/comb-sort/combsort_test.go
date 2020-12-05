@@ -72,8 +72,11 @@ func TestSortingMultiElemArray(t *testing.T) {
 func CombSort(arr []int) []int {
 	arrlen := len(arr)
 	width := arrlen / 2
+	if width == 0 {
+		width = 1
+	}
 	for i := 0; i < arrlen; i++ {
-		for j := 0; j < arrlen-width; j++ {
+		for j := 0; j < arrlen-width; j+=width {
 			next := j + width
 			if arr[j] > arr[next] {
 				arr[j], arr[next] = arr[next], arr[j]
