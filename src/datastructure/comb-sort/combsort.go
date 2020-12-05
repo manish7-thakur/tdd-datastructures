@@ -12,7 +12,6 @@ func CombSort(arr []int) []int {
 			next := j + width
 			if arr[j] > arr[next] {
 				arr[j], arr[next] = arr[next], arr[j]
-				sorted = false
 			}
 		}
 		width = nextGap(width)
