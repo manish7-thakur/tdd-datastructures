@@ -74,7 +74,9 @@ func CombSort(arr []int) []int {
 	width := nextGap(arrlen)
 	sorted := false
 	for ; !sorted; {
-		sorted = true
+		if width == 1 { // This is last iteration
+			sorted = true
+		}
 		for j := 0; j < arrlen-width; j++ {
 			next := j + width
 			if arr[j] > arr[next] {
