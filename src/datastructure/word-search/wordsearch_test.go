@@ -208,6 +208,18 @@ func TestFindSingleCharWordExistentFirstChar(t *testing.T) {
 	}
 }
 
+func TestFindDoubleCharWordExistentFirstCharMultipleOccurance(t *testing.T) {
+	board := [][]byte{{'w', 'x'}, {'w', 'y'}}
+	visited := make([][]bool, 2)
+	visited[0] = make([]bool, 2)
+	visited[1] = make([]bool, 2)
+	actual := FindWord(board, "wy", 1, 1, visited)
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
 func FindWord(board [][]byte, word string, l, b int, visited [][]bool) bool {
 	firstByte := word[0]
 	for m, row := range board {
