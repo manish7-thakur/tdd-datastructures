@@ -91,6 +91,41 @@ func TestSearchTripleCharExistentWord(t *testing.T) {
 	}
 }
 
+func TestSearchFourCharNonExistentWord(t *testing.T) {
+	board := [][]byte{{'a', 'b'}, {'c', 'd'}}
+	word := "abcb"
+	actual := Exists(board, word[1:], 0, 0, 1, 1)
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
+func TestSearchFourCharExistentWordBiggerBoard(t *testing.T) {
+	board := [][]byte{
+		{'o', 'a', 'a', 'n'},
+		{'e', 't', 'a', 'e'},
+		{'i', 'h', 'k', 'r'},
+		{'i', 'f', 'l', 'v'}}
+	word := "eat"
+	actual := Exists(board, word[1:], 1, 3, 3, 3)
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+	actual = Exists(board, word[1:], 1, 0, 3, 3)
+	expected = false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+	word = "oath"
+	actual = Exists(board, word[1:], 0, 0, 3, 3)
+	expected = true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
 func Exists(board [][]byte, word string, m, n, l, b int) bool {
 	if len(word) == 0 {
 		return true
