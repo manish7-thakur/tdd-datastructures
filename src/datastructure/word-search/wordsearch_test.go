@@ -1,10 +1,14 @@
 package word_search
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestSearchEmptyWord(t *testing.T) {
 	baord := [][]byte{{'a'}}
-	actual := Exists(baord, "", 0, 0, 0, 0)
+	visited := make([][]bool, 1)
+	visited[0] = make([]bool, 1)
+	actual := Exists(baord, "", 0, 0, 0, 0, visited)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -14,7 +18,9 @@ func TestSearchEmptyWord(t *testing.T) {
 func TestSearchSingleCharExistentWord(t *testing.T) {
 	board := [][]byte{{'a'}}
 	word := "a"
-	actual := Exists(board, word[1:], 0, 0, 0, 0)
+	visited := make([][]bool, 1)
+	visited[0] = make([]bool, 1)
+	actual := Exists(board, word[1:], 0, 0, 0, 0, visited)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -24,7 +30,9 @@ func TestSearchSingleCharExistentWord(t *testing.T) {
 func TestSearchDoubleCharNonExistentWord(t *testing.T) {
 	board := [][]byte{{'a'}}
 	word := "ab"
-	actual := Exists(board, word[1:], 0, 0, 0, 0)
+	visited := make([][]bool, 1)
+	visited[0] = make([]bool, 1)
+	actual := Exists(board, word[1:], 0, 0, 0, 0, visited)
 	expected := false
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -34,7 +42,10 @@ func TestSearchDoubleCharNonExistentWord(t *testing.T) {
 func TestSearchDoubleCharExistentWordDownDirection(t *testing.T) {
 	board := [][]byte{{'a'}, {'b'}}
 	word := "ab"
-	actual := Exists(board, word[1:], 0, 0, 1, 0)
+	visited := make([][]bool, 2)
+	visited[0] = make([]bool, 1)
+	visited[1] = make([]bool, 1)
+	actual := Exists(board, word[1:], 0, 0, 1, 0, visited)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -44,7 +55,10 @@ func TestSearchDoubleCharExistentWordDownDirection(t *testing.T) {
 func TestSearchDoubleCharExistentWordUpDirection(t *testing.T) {
 	board := [][]byte{{'a'}, {'b'}}
 	word := "ba"
-	actual := Exists(board, word[1:], 1, 0, 1, 0)
+	visited := make([][]bool, 2)
+	visited[0] = make([]bool, 1)
+	visited[1] = make([]bool, 1)
+	actual := Exists(board, word[1:], 1, 0, 1, 0, visited)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -54,7 +68,9 @@ func TestSearchDoubleCharExistentWordUpDirection(t *testing.T) {
 func TestSearchDoubleCharExistentWordBackwardDirection(t *testing.T) {
 	board := [][]byte{{'a', 'b'}}
 	word := "ba"
-	actual := Exists(board, word[1:], 0, 1, 0, 1)
+	visited := make([][]bool, 1)
+	visited[0] = make([]bool, 2)
+	actual := Exists(board, word[1:], 0, 1, 0, 1, visited)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -64,7 +80,9 @@ func TestSearchDoubleCharExistentWordBackwardDirection(t *testing.T) {
 func TestSearchDoubleCharExistentWordForwardDirection(t *testing.T) {
 	board := [][]byte{{'a', 'b'}}
 	word := "ab"
-	actual := Exists(board, word[1:], 0, 0, 0, 1)
+	visited := make([][]bool, 1)
+	visited[0] = make([]bool, 2)
+	actual := Exists(board, word[1:], 0, 0, 0, 1, visited)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -74,7 +92,9 @@ func TestSearchDoubleCharExistentWordForwardDirection(t *testing.T) {
 func TestSearchTripleCharNonExistentWord(t *testing.T) {
 	board := [][]byte{{'a', 'b', 'c'}}
 	word := "abx"
-	actual := Exists(board, word[1:], 0, 0, 0, 2)
+	visited := make([][]bool, 1)
+	visited[0] = make([]bool, 3)
+	actual := Exists(board, word[1:], 0, 0, 0, 2, visited)
 	expected := false
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -84,8 +104,39 @@ func TestSearchTripleCharNonExistentWord(t *testing.T) {
 func TestSearchTripleCharExistentWord(t *testing.T) {
 	board := [][]byte{{'a', 'b'}, {'x', 'c'}}
 	word := "abc"
-	actual := Exists(board, word[1:], 0, 0, 1, 1)
+	visited := make([][]bool, 2)
+	visited[0] = make([]bool, 2)
+	visited[1] = make([]bool, 2)
+	actual := Exists(board, word[1:], 0, 0, 1, 1, visited)
 	expected := true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
+func TestSearchTripleCharNonExistentWordAllDirectionsVisitedCell(t *testing.T) {
+	board := [][]byte{{'a', 'b'}, {'x', 'c'}}
+	word := "aba"
+	visited := make([][]bool, 2)
+	visited[0] = make([]bool, 2)
+	visited[1] = make([]bool, 2)
+	actual := Exists(board, word[1:], 0, 0, 1, 1, visited)
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+	word = "bab"
+	actual = Exists(board, word[1:], 0, 1, 1, 1, visited)
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+	word = "cbc"
+	actual = Exists(board, word[1:], 1, 1, 1, 1, visited)
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+	word = "bcb"
+	actual = Exists(board, word[1:], 0, 1, 1, 1, visited)
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}
@@ -94,7 +145,10 @@ func TestSearchTripleCharExistentWord(t *testing.T) {
 func TestSearchFourCharNonExistentWord(t *testing.T) {
 	board := [][]byte{{'a', 'b'}, {'c', 'd'}}
 	word := "abcb"
-	actual := Exists(board, word[1:], 0, 0, 1, 1)
+	visited := make([][]bool, 2)
+	visited[0] = make([]bool, 2)
+	visited[1] = make([]bool, 2)
+	actual := Exists(board, word[1:], 0, 0, 1, 1, visited)
 	expected := false
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -108,47 +162,53 @@ func TestSearchFourCharExistentWordBiggerBoard(t *testing.T) {
 		{'i', 'h', 'k', 'r'},
 		{'i', 'f', 'l', 'v'}}
 	word := "eat"
-	actual := Exists(board, word[1:], 1, 3, 3, 3)
+	visited := make([][]bool, 4)
+	visited[0] = make([]bool, 4)
+	visited[1] = make([]bool, 4)
+	visited[2] = make([]bool, 4)
+	visited[3] = make([]bool, 4)
+	actual := Exists(board, word[1:], 1, 3, 3, 3, visited)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}
-	actual = Exists(board, word[1:], 1, 0, 3, 3)
+	actual = Exists(board, word[1:], 1, 0, 3, 3, visited)
 	expected = false
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}
 	word = "oath"
-	actual = Exists(board, word[1:], 0, 0, 3, 3)
+	actual = Exists(board, word[1:], 0, 0, 3, 3, visited)
 	expected = true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}
 }
 
-func Exists(board [][]byte, word string, m, n, l, b int) bool {
+func Exists(board [][]byte, word string, m, n, l, b int, visited [][]bool) bool {
 	if len(word) == 0 {
 		return true
 	}
+	visited[m][n] = true
 	currByte := word[0]
 	if m < l {
-		if currByte == board[m+1][n] {
-			return Exists(board, word[1:], m+1, n, l, b)
+		if !visited[m+1][n] && currByte == board[m+1][n] {
+			return Exists(board, word[1:], m+1, n, l, b, visited)
 		}
 	}
 	if m > 0 {
-		if currByte == board[m-1][n] {
-			return Exists(board, word[1:], m-1, n, l, b)
+		if !visited[m-1][n] && currByte == board[m-1][n] {
+			return Exists(board, word[1:], m-1, n, l, b, visited)
 		}
 	}
 	if n > 0 {
-		if currByte == board[m][n-1] {
-			return Exists(board, word[1:], m, n-1, l, b)
+		if !visited[m][n-1] && currByte == board[m][n-1] {
+			return Exists(board, word[1:], m, n-1, l, b, visited)
 		}
 	}
 	if n < b {
-		if currByte == board[m][n+1] {
-			return Exists(board, word[1:], m, n+1, l, b)
+		if !visited[m][n+1] && currByte == board[m][n+1] {
+			return Exists(board, word[1:], m, n+1, l, b, visited)
 		}
 	}
 	return false
