@@ -1,6 +1,7 @@
 package word_search
 
 import (
+	"bytes"
 	"testing"
 )
 
@@ -183,6 +184,39 @@ func TestSearchFourCharExistentWordBiggerBoard(t *testing.T) {
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
 	}
+}
+
+func TestFindSingleCharWordNonExistentFirstChar(t *testing.T) {
+	board := [][]byte{{'w'}}
+	visited := make([][]bool, 1)
+	visited[0] = make([]bool, 1)
+	actual := FindWord(board, "x", 0, 0, visited)
+	expected := false
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
+func TestFindSingleCharWordExistentFirstChar(t *testing.T) {
+	board := [][]byte{{'w'}}
+	visited := make([][]bool, 1)
+	visited[0] = make([]bool, 1)
+	actual := FindWord(board, "w", 0, 0, visited)
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
+func FindWord(board [][]byte, word string, l, b int, visited [][]bool) bool {
+	firstByte := word[0]
+	for m, row := range board {
+		idx := bytes.IndexByte(row, firstByte)
+		if idx != -1 && Exists(board, word[1:], m, idx, l, b, visited) {
+			return true
+		}
+	}
+	return false
 }
 
 func Exists(board [][]byte, word string, m, n, l, b int, visited [][]bool) bool {
