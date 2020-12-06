@@ -208,7 +208,7 @@ func TestFindSingleCharWordExistentFirstChar(t *testing.T) {
 	}
 }
 
-func TestFindDoubleCharWordExistentFirstCharMultipleOccurance(t *testing.T) {
+func TestFindDoubleCharWordExistentFirstCharMultipleOccurrence(t *testing.T) {
 	board := [][]byte{{'w', 'x'}, {'w', 'y'}}
 	visited := make([][]bool, 2)
 	visited[0] = make([]bool, 2)
