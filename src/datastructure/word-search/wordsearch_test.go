@@ -220,6 +220,51 @@ func TestFindDoubleCharWordExistentFirstCharMultipleOccurrence(t *testing.T) {
 	}
 }
 
+func TestFindWordsEmptyWords(t *testing.T) {
+	visited := make([][]bool, 1)
+	visited[0] = make([]bool, 1)
+	res := FindWords([][]byte{{'w'}}, []string{}, 1, 1)
+	if len(res) != 0 {
+		t.Errorf("expected empty but found %v", res)
+	}
+}
+
+func TestFindWordsExistentSingleWord(t *testing.T) {
+	visited := make([][]bool, 1)
+	visited[0] = make([]bool, 1)
+	res := FindWords([][]byte{{'w'}}, []string{"w"}, 1, 1)
+	actual := [1]string{}
+	copy(actual[:], res)
+	expected := [1]string{"w"}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func TestFindWordsExistentMultipleWords(t *testing.T) {
+	res := FindWords([][]byte{{'w', 'x'}, {'x', 'y'}}, []string{"wx", "cy", "xy"}, 1, 1)
+	actual := [3]string{}
+	copy(actual[:], res)
+	expected := [3]string{"wx", "xy"}
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual)
+	}
+}
+
+func FindWords(board [][]byte, words []string, l, b int) []string {
+	foundWords := make([]string, 0)
+	visited := make([][]bool, l+1)
+	for _, word := range words {
+		for i, _ := range visited {
+			visited[i] = make([]bool, b+1)
+		}
+		if FindWord(board, word, l, b, visited) {
+			foundWords = append(foundWords, word)
+		}
+	}
+	return foundWords
+}
+
 func FindWord(board [][]byte, word string, l, b int, visited [][]bool) bool {
 	firstByte := word[0]
 	for m, row := range board {
