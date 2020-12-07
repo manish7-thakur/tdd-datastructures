@@ -49,33 +49,17 @@ func Exists(board [][]byte, word string, m, n, l, b int, visited [][]bool) bool 
 	path2 := false
 	path3 := false
 	path4 := false
-	if m < l {
-		rowidx := m + 1
-		if !visited[rowidx][n] && currByte == board[rowidx][n] {
-			path1 = Exists(board, word[1:], rowidx, n, l, b, visited)
-			visited[rowidx][n] = false
-		}
+	if m < l && !visited[m+1][n] && currByte == board[m+1][n] {
+		path1 = Exists(board, word[1:], m+1, n, l, b, visited)
 	}
-	if m > 0 {
-		rowidx := m - 1
-		if !visited[rowidx][n] && currByte == board[rowidx][n] {
-			path2 = Exists(board, word[1:], rowidx, n, l, b, visited)
-			visited[rowidx][n] = false
-		}
+	if m > 0 && !visited[m-1][n] && currByte == board[m-1][n] {
+		path2 = Exists(board, word[1:], m-1, n, l, b, visited)
 	}
-	if n > 0 {
-		colidx := n - 1
-		if !visited[m][colidx] && currByte == board[m][colidx] {
-			path3 = Exists(board, word[1:], m, colidx, l, b, visited)
-			visited[m][colidx] = false
-		}
+	if n > 0 && !visited[m][n-1] && currByte == board[m][n-1] {
+		path3 = Exists(board, word[1:], m, n-1, l, b, visited)
 	}
-	if n < b {
-		colidx := n + 1
-		if !visited[m][colidx] && currByte == board[m][colidx] {
-			path4 = Exists(board, word[1:], m, colidx, l, b, visited)
-			visited[m][colidx] = false
-		}
+	if n < b && !visited[m][n+1] && currByte == board[m][n+1] {
+		path4 = Exists(board, word[1:], m, n+1, l, b, visited)
 	}
 	visited[m][n] = false
 	return path1 || path2 || path3 || path4
