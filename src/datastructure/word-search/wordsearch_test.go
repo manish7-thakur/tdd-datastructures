@@ -45,7 +45,7 @@ func TestSearchDoubleCharExistentWordDownDirection(t *testing.T) {
 	visited := make([][]bool, 2)
 	visited[0] = make([]bool, 1)
 	visited[1] = make([]bool, 1)
-	actual := Exists(board, word[1:], 0, 0, 1, 0, visited)
+	actual := Exists(board, word[1:], 0, 0, 2, 1, visited)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -82,7 +82,7 @@ func TestSearchDoubleCharExistentWordForwardDirection(t *testing.T) {
 	word := "ab"
 	visited := make([][]bool, 1)
 	visited[0] = make([]bool, 2)
-	actual := Exists(board, word[1:], 0, 0, 0, 1, visited)
+	actual := Exists(board, word[1:], 0, 0, 1, 2, visited)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -107,7 +107,7 @@ func TestSearchTripleCharExistentWord(t *testing.T) {
 	visited := make([][]bool, 2)
 	visited[0] = make([]bool, 2)
 	visited[1] = make([]bool, 2)
-	actual := Exists(board, word[1:], 0, 0, 1, 1, visited)
+	actual := Exists(board, word[1:], 0, 0, 2, 2, visited)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -124,7 +124,7 @@ func TestSearchTripleCharExistentWordTwoDirections(t *testing.T) {
 	visited[0] = make([]bool, 3)
 	visited[1] = make([]bool, 3)
 	visited[2] = make([]bool, 3)
-	actual := Exists(board, word[1:], 0, 0, 2, 2, visited)
+	actual := Exists(board, word[1:], 0, 0, 3, 3, visited)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -141,7 +141,7 @@ func TestSearchTripleCharExistentWordTwoDirectionsVisted(t *testing.T) {
 	visited[0] = make([]bool, 3)
 	visited[1] = make([]bool, 3)
 	visited[2] = make([]bool, 3)
-	actual := Exists(board, word[1:], 1, 1, 2, 2, visited)
+	actual := Exists(board, word[1:], 1, 1, 3, 3, visited)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -246,7 +246,7 @@ func TestFindDoubleCharWordExistentFirstCharMultipleOccurrence(t *testing.T) {
 	visited := make([][]bool, 2)
 	visited[0] = make([]bool, 2)
 	visited[1] = make([]bool, 2)
-	actual := FindWord(board, "wy", 1, 1, visited)
+	actual := FindWord(board, "wy", 2, 2, visited)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -258,7 +258,7 @@ func TestFindDoubleCharWordExistentFirstCharMultipleOccurrenceSameRow(t *testing
 	visited := make([][]bool, 2)
 	visited[0] = make([]bool, 2)
 	visited[1] = make([]bool, 2)
-	actual := FindWord(board, "wy", 1, 1, visited)
+	actual := FindWord(board, "wy", 2, 2, visited)
 	expected := true
 	if actual != expected {
 		t.Errorf("expected %t but found %t", expected, actual)
@@ -287,7 +287,7 @@ func TestFindWordsExistentSingleWord(t *testing.T) {
 }
 
 func TestFindWordsExistentMultipleWords(t *testing.T) {
-	res := FindWords([][]byte{{'w', 'x'}, {'x', 'y'}}, []string{"wx", "cy", "xy"}, 1, 1)
+	res := FindWords([][]byte{{'w', 'x'}, {'x', 'y'}}, []string{"wx", "cy", "xy"}, 2, 2)
 	actual := [3]string{}
 	copy(actual[:], res)
 	expected := [3]string{"wx", "xy"}

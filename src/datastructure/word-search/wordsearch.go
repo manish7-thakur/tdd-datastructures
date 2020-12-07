@@ -45,25 +45,25 @@ func Exists(board [][]byte, word string, m, n, l, b int, visited [][]bool) bool 
 	}
 	visited[m][n] = true
 	currByte := word[0]
-	if m < l && !visited[m+1][n] && currByte == board[m+1][n] {
+	if m+1 < l && !visited[m+1][n] && currByte == board[m+1][n] {
 		if Exists(board, word[1:], m+1, n, l, b, visited) {
 			visited[m][n] = false
 			return true
 		}
 	}
-	if m > 0 && !visited[m-1][n] && currByte == board[m-1][n] {
+	if m-1 >= 0 && !visited[m-1][n] && currByte == board[m-1][n] {
 		if Exists(board, word[1:], m-1, n, l, b, visited) {
 			visited[m][n] = false
 			return true
 		}
 	}
-	if n > 0 && !visited[m][n-1] && currByte == board[m][n-1] {
+	if n-1 >= 0 && !visited[m][n-1] && currByte == board[m][n-1] {
 		if Exists(board, word[1:], m, n-1, l, b, visited) {
 			visited[m][n] = false
 			return true
 		}
 	}
-	if n < b && !visited[m][n+1] && currByte == board[m][n+1] {
+	if n+1 < b && !visited[m][n+1] && currByte == board[m][n+1] {
 		if Exists(board, word[1:], m, n+1, l, b, visited) {
 			visited[m][n] = false
 			return true
