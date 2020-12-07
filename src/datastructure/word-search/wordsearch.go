@@ -48,7 +48,7 @@ func Exists(board [][]byte, word string, m, n, l, b int, visited [][]bool) bool 
 	if m+1 < l && !visited[m+1][n] && currByte == board[m+1][n] {
 		if Exists(board, word[1:], m+1, n, l, b, visited) {
 			visited[m][n] = false
-			return true
+			return true // if found, return from here & no need to check below statements, `return Exists()` may be false & prevent traversing below paths
 		}
 	}
 	if m-1 >= 0 && !visited[m-1][n] && currByte == board[m-1][n] {

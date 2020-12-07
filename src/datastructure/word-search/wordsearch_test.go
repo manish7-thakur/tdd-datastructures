@@ -135,8 +135,8 @@ func TestSearchTripleCharExistentWordTwoDirectionsVisted(t *testing.T) {
 	board := [][]byte{
 		{'a', 'b', 'c'},
 		{'a', 'e', 'd'},
-		{'a', 'f', 'g'}}
-	word := "eaabcdgfa"
+		{'a', 'b', 'g'}}
+	word := "eaabcdgba"
 	visited := make([][]bool, 3)
 	visited[0] = make([]bool, 3)
 	visited[1] = make([]bool, 3)
