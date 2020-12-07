@@ -114,6 +114,23 @@ func TestSearchTripleCharExistentWord(t *testing.T) {
 	}
 }
 
+func TestSearchTripleCharExistentWordTwoDirections(t *testing.T) {
+	board := [][]byte{
+		{'a', 'b', 'x'},
+		{'b', 'v', 'd'},
+		{'x', 'c', 'b'}}
+	word := "abxd"
+	visited := make([][]bool, 3)
+	visited[0] = make([]bool, 3)
+	visited[1] = make([]bool, 3)
+	visited[2] = make([]bool, 3)
+	actual := Exists(board, word[1:], 0, 0, 2, 2, visited)
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
 func TestSearchTripleCharNonExistentWordAllDirectionsVisitedCell(t *testing.T) {
 	board := [][]byte{{'a', 'b'}, {'x', 'c'}}
 	word := "aba"
@@ -260,70 +277,4 @@ func TestFindWordsExistentMultipleWords(t *testing.T) {
 	if actual != expected {
 		t.Errorf("expected %v but found %v", expected, actual)
 	}
-}
-
-func FindWords(board [][]byte, words []string, l, b int) []string {
-	foundWords := make([]string, 0)
-	visited := make([][]bool, l+1)
-	for _, word := range words {
-		for i, _ := range visited {
-			visited[i] = make([]bool, b+1)
-		}
-		if FindWord(board, word, l, b, visited) {
-			foundWords = append(foundWords, word)
-		}
-	}
-	return foundWords
-}
-
-func FindWord(board [][]byte, word string, l, b int, visited [][]bool) bool {
-	firstByte := word[0]
-	for m, row := range board {
-		idxs := getAllIndices(row, firstByte)
-		for _, idx := range idxs {
-			if idx != -1 && Exists(board, word[1:], m, idx, l, b, visited) {
-				return true
-			}
-		}
-	}
-	return false
-}
-
-func getAllIndices(row []byte, searchByte uint8) []int {
-	indices := make([]int, 0)
-	for i, byte := range row {
-		if searchByte == byte {
-			indices = append(indices, i)
-		}
-	}
-	return indices
-}
-
-func Exists(board [][]byte, word string, m, n, l, b int, visited [][]bool) bool {
-	if len(word) == 0 {
-		return true
-	}
-	visited[m][n] = true
-	currByte := word[0]
-	if m < l {
-		if !visited[m+1][n] && currByte == board[m+1][n] {
-			return Exists(board, word[1:], m+1, n, l, b, visited)
-		}
-	}
-	if m > 0 {
-		if !visited[m-1][n] && currByte == board[m-1][n] {
-			return Exists(board, word[1:], m-1, n, l, b, visited)
-		}
-	}
-	if n > 0 {
-		if !visited[m][n-1] && currByte == board[m][n-1] {
-			return Exists(board, word[1:], m, n-1, l, b, visited)
-		}
-	}
-	if n < b {
-		if !visited[m][n+1] && currByte == board[m][n+1] {
-			return Exists(board, word[1:], m, n+1, l, b, visited)
-		}
-	}
-	return false
 }
