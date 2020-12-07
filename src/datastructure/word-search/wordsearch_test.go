@@ -1,7 +1,6 @@
 package word_search
 
 import (
-	"bytes"
 	"testing"
 )
 
@@ -220,6 +219,18 @@ func TestFindDoubleCharWordExistentFirstCharMultipleOccurrence(t *testing.T) {
 	}
 }
 
+func TestFindDoubleCharWordExistentFirstCharMultipleOccurrenceSameRow(t *testing.T) {
+	board := [][]byte{{'w', 'w'}, {'x', 'y'}}
+	visited := make([][]bool, 2)
+	visited[0] = make([]bool, 2)
+	visited[1] = make([]bool, 2)
+	actual := FindWord(board, "wy", 1, 1, visited)
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
 func TestFindWordsEmptyWords(t *testing.T) {
 	visited := make([][]bool, 1)
 	visited[0] = make([]bool, 1)
@@ -268,12 +279,24 @@ func FindWords(board [][]byte, words []string, l, b int) []string {
 func FindWord(board [][]byte, word string, l, b int, visited [][]bool) bool {
 	firstByte := word[0]
 	for m, row := range board {
-		idx := bytes.IndexByte(row, firstByte)
-		if idx != -1 && Exists(board, word[1:], m, idx, l, b, visited) {
-			return true
+		idxs := getAllIndices(row, firstByte)
+		for _, idx := range idxs {
+			if idx != -1 && Exists(board, word[1:], m, idx, l, b, visited) {
+				return true
+			}
 		}
 	}
 	return false
+}
+
+func getAllIndices(row []byte, searchByte uint8) []int {
+	indices := make([]int, 0)
+	for i, byte := range row {
+		if searchByte == byte {
+			indices = append(indices, i)
+		}
+	}
+	return indices
 }
 
 func Exists(board [][]byte, word string, m, n, l, b int, visited [][]bool) bool {
