@@ -131,6 +131,23 @@ func TestSearchTripleCharExistentWordTwoDirections(t *testing.T) {
 	}
 }
 
+func TestSearchTripleCharExistentWordTwoDirectionsVisted(t *testing.T) {
+	board := [][]byte{
+		{'a', 'b', 'c'},
+		{'a', 'e', 'd'},
+		{'a', 'f', 'g'}}
+	word := "eaabcdgfa"
+	visited := make([][]bool, 3)
+	visited[0] = make([]bool, 3)
+	visited[1] = make([]bool, 3)
+	visited[2] = make([]bool, 3)
+	actual := Exists(board, word[1:], 1, 1, 2, 2, visited)
+	expected := true
+	if actual != expected {
+		t.Errorf("expected %t but found %t", expected, actual)
+	}
+}
+
 func TestSearchTripleCharNonExistentWordAllDirectionsVisitedCell(t *testing.T) {
 	board := [][]byte{{'a', 'b'}, {'x', 'c'}}
 	word := "aba"
