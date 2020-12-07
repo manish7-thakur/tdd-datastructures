@@ -36,6 +36,7 @@ func Exists(board [][]byte, word string, m, n, l, b int, visited [][]bool) bool 
 			visited[m][n+1] = false
 		}
 	}
+	visited[m][n] = false
 	return path1 || path2 || path3 || path4
 }
 
@@ -65,10 +66,10 @@ func FindWord(board [][]byte, word string, l, b int, visited [][]bool) bool {
 func FindWords(board [][]byte, words []string, l, b int) []string {
 	foundWords := make([]string, 0)
 	visited := make([][]bool, l+1)
+	for i, _ := range visited {
+		visited[i] = make([]bool, b+1)
+	}
 	for _, word := range words {
-		for i, _ := range visited {
-			visited[i] = make([]bool, b+1)
-		}
 		if FindWord(board, word, l, b, visited) {
 			foundWords = append(foundWords, word)
 		}
