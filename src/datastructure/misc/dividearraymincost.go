@@ -31,13 +31,11 @@ func MinCostDivideArrayTwoParts(A []int) int {
 	min2 := math.MaxInt32
 	min3 := math.MaxInt32
 	if Abs(minarr[0].Idx-minarr[1].Idx) != 1 {
-		min1 = minarr[0].Val + minarr[1].Val
-	}
-	if Abs(minarr[0].Idx-minarr[2].Idx) != 1 {
-		min2 = minarr[0].Val + minarr[2].Val
-	}
-	if Abs(minarr[1].Idx-minarr[2].Idx) != 1 {
-		min3 = minarr[1].Val + minarr[2].Val
+		return minarr[0].Val + minarr[1].Val
+	} else if Abs(minarr[1].Idx-minarr[2].Idx) != 1 {
+		return minarr[1].Val + minarr[2].Val
+	} else {
+		min3 = minarr[0].Val + minarr[2].Val
 	}
 	return Min(Min(min1, min2), min3)
 }
