@@ -36,3 +36,27 @@ func TestMinCostDivideArrayTwoParts(t *testing.T) {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
 }
+
+func TestMinNonAdjacentCost(t *testing.T) {
+	actual := MinNonAdjacentCost([]*Pair{{1, 1}, &Pair{2, 2}, {4, 3}})
+	expected := 5
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+	actual = MinNonAdjacentCost([]*Pair{{1, 4}, {2, 5}, {4, 3}})
+	expected = 6
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+	actual = MinNonAdjacentCost([]*Pair{{1, 4}, {2, 2}, {3, 3}})
+	expected = 3
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+
+	actual = MinNonAdjacentCost([]*Pair{{2, 14}, {4, 32}, {6, 23}})
+	expected = 6
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+}
