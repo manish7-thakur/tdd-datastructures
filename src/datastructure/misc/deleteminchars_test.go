@@ -64,6 +64,16 @@ func TestDeleteMinCharsArray(t *testing.T) {
 	if actual != expected {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
+	actual = DeleteMinChars([]int{1, 1, 1, 1, 1, 3, 3})
+	expected = 5
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+	actual = DeleteMinChars([]int{1, 1, 3, 3, 5, 5})
+	expected = 3
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
 }
 
 func TestDeleteMinCharsMap(t *testing.T) {
@@ -167,6 +177,15 @@ func TestDeleteMinCharsMap(t *testing.T) {
 	occ[3] = 2
 	actual = DeleteMinCharsMap(occ)
 	expected = 5
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+	clearMap(occ)
+	occ[1] = 2
+	occ[3] = 2
+	occ[5] = 2
+	actual = DeleteMinCharsMap(occ)
+	expected = 3
 	if actual != expected {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
