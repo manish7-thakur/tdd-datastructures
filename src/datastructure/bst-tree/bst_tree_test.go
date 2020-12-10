@@ -93,6 +93,79 @@ func TestPreorderTraversalMulti(t *testing.T) {
 	}
 }
 
+func TestPreorderTraversalIterEmpty(t *testing.T) {
+	var root *Node
+	var res = make([]int, 0, 0)
+	res = PreorderIter(root)
+	if len(res) != 0 {
+		t.Errorf("Expected empty but found %v", res)
+	}
+	root = insert(root, 1)
+	res = PreorderIter(root)
+	actual := [1]int{}
+	copy(actual[:], res)
+	expected := [1]int{1}
+	if actual != expected {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+
+}
+
+func TestPreorderTraversalIterTwoItems(t *testing.T) {
+	var root *Node
+	var res = make([]int, 0, 0)
+	items := []int{3, 1}
+	root = insertM(root, &items)
+	res = PreorderIter(root)
+	actual := [2]int{}
+	copy(actual[:], res)
+	expected := [2]int{3, 1}
+	if actual != expected {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
+
+func TestPreorderTraversalIterThreeItems(t *testing.T) {
+	var root *Node
+	var res = make([]int, 0, 0)
+	items := []int{3, 1, 2}
+	root = insertM(root, &items)
+	res = PreorderIter(root)
+	actual := [3]int{}
+	copy(actual[:], res)
+	expected := [3]int{3, 1, 2}
+	if actual != expected {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
+
+func TestPreorderTraversalIterFourItems(t *testing.T) {
+	var root *Node
+	var res = make([]int, 0, 0)
+	items := []int{3, 1, 2, 4}
+	root = insertM(root, &items)
+	res = PreorderIter(root)
+	actual := [4]int{}
+	copy(actual[:], res)
+	expected := [4]int{3, 1, 2, 4}
+	if actual != expected {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
+
+func TestPreorderTraversalIterMulti(t *testing.T) {
+	var root *Node
+	var items = []int{2, 82, 492, 39, 32}
+	root = insertM(root, &items)
+	var res = PreorderIter(root)
+	var actual [5]int
+	copy(actual[:], res)
+	expected := [5]int{2, 82, 39, 32, 492}
+	if actual != expected {
+		t.Errorf("Expected %v but found %v", expected, actual)
+	}
+}
+
 func TestInorderTraversalMulti(t *testing.T) {
 	var root *Node
 	var items = []int{2, 82, 492, 39, 32}

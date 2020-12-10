@@ -35,6 +35,28 @@ func preorder(node *Node, items *[]int) []int {
 	return *items
 }
 
+func PreorderIter(root *Node) []int {
+	if root == nil {
+		return []int{}
+	}
+	stack := make([]*Node, 0)
+	stack = append(stack, root)
+	elems := make([]int, 0)
+	for ; len(stack) != 0; {
+		stacklen := len(stack)
+		top := stack[stacklen-1]
+		elems = append(elems, top.value)
+		stack = stack[0 : len(stack)-1]
+		if top.right != nil {
+			stack = append(stack, top.right)
+		}
+		if top.left != nil {
+			stack = append(stack, top.left)
+		}
+	}
+	return elems
+}
+
 func inorder(node *Node, res *[]int) []int {
 	if node == nil {
 		return *res
