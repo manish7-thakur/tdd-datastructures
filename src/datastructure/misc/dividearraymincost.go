@@ -1,7 +1,6 @@
 package misc
 
 import (
-	"math"
 	"sort"
 )
 
@@ -27,24 +26,17 @@ func MinCostDivideArrayTwoParts(A []int) int {
 			sort.Slice(minarr, func(i, j int) bool { return minarr[i].Val < minarr[j].Val })
 		}
 	}
-	min1 := math.MaxInt32
-	min2 := math.MaxInt32
-	min3 := math.MaxInt32
+	return MinNonAdjacentCost(minarr)
+}
+
+func MinNonAdjacentCost(minarr []*Pair) int {
 	if Abs(minarr[0].Idx-minarr[1].Idx) != 1 {
 		return minarr[0].Val + minarr[1].Val
 	} else if Abs(minarr[1].Idx-minarr[2].Idx) != 1 {
 		return minarr[1].Val + minarr[2].Val
 	} else {
-		min3 = minarr[0].Val + minarr[2].Val
+		return minarr[0].Val + minarr[2].Val
 	}
-	return Min(Min(min1, min2), min3)
-}
-
-func Min(a int, b int) int {
-	if a < b {
-		return a
-	}
-	return b
 }
 
 func Abs(v int) int {

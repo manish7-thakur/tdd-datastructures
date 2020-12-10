@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestMinCost(t *testing.T) {
+func TestMinCostDivideArrayTwoParts(t *testing.T) {
 	actual := MinCostDivideArrayTwoParts([]int{})
 	expected := 0
 	if actual != expected {
