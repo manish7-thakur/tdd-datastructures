@@ -9,7 +9,7 @@ E.g
 1. Given S = "aaaabbbb", the function should return 1. We can delete one occurrence of a or one occurrence of b.
 Then one letter will occur 4 times and one 3 times.
 
-2. Given S = "ccaaffddecce", the function should return 6. For e.g. we can delete all occurrences of e & f and one occurrence of d to
+2. Given S = "ccaaffddeccee", the function should return 6. For e.g. we can delete all occurrences of e & f and one occurrence of d to
 obtain the word "ccaadc". Note that both e & f will occur zero times in the new word, but that is fine, since we only care about letters
 that appear at-least once.
 
@@ -21,22 +21,28 @@ Write an efficient algorithm for the following assumptions:
 	*N is an integer within the range [0....300,000]
 	*string S consists only of lowercase letters (a-z)
 
- */
-func DeleteMinChars(arr []int) int {
-	total := 0
-	previous := 0
-	for i := 0; i < len(arr)-1; i++ {
-		if previous == arr[i+1] {
-			total += arr[i+1]
-		} else if arr[i] == arr[i+1] && arr[i]-1 == previous {
-			total += arr[i]
-			previous = arr[i]
-		} else if arr[i] == arr[i+1] {
-			total += 1
-			previous = arr[i]
+*/
+
+func MinCharsToDelete(s string) int {
+	occMap := FindOccurrence(s)
+	return DeleteMinCharsMap(occMap)
+}
+
+func FindOccurrence(s string) map[int]int {
+	charMap := make(map[rune]int)
+	occMap := make(map[int]int)
+	for _, c := range s {
+		if oldVal, ok := occMap[charMap[c]]; ok {
+			if oldVal == 1 {
+				delete(occMap, charMap[c])
+			} else {
+				occMap[charMap[c]]--
+			}
 		}
+		charMap[c]++
+		occMap[charMap[c]]++
 	}
-	return total
+	return occMap
 }
 
 func DeleteMinCharsMap(arr map[int]int) int {

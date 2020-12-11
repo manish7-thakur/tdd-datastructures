@@ -4,82 +4,7 @@ import (
 	"testing"
 )
 
-func TestDeleteMinCharsArray(t *testing.T) {
-	actual := DeleteMinChars([]int{2})
-	expected := 0
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
-	}
-	actual = DeleteMinChars([]int{2, 2})
-	expected = 1
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
-	}
-	actual = DeleteMinChars([]int{2, 2, 2})
-	expected = 3
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
-	}
-	actual = DeleteMinChars([]int{2, 2, 2, 2})
-	expected = 5
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
-	}
-	actual = DeleteMinChars([]int{2, 3})
-	expected = 0
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
-	}
-	actual = DeleteMinChars([]int{2, 2, 3})
-	expected = 1
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
-	}
-	actual = DeleteMinChars([]int{2, 2, 3, 3})
-	expected = 4
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
-	}
-	actual = DeleteMinChars([]int{2, 2, 2, 3, 3})
-	expected = 6
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
-	}
-	actual = DeleteMinChars([]int{2, 2, 3, 3, 3})
-	expected = 7
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
-	}
-	actual = DeleteMinChars([]int{2, 2, 3, 3, 3, 4})
-	expected = 7
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
-	}
-
-	actual = DeleteMinChars([]int{2, 2, 3, 3, 3, 4, 4})
-	expected = 11
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
-	}
-	actual = DeleteMinChars([]int{1, 1, 1, 1, 1, 2})
-	expected = 4
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
-	}
-	actual = DeleteMinChars([]int{1, 1, 1, 1, 1, 3, 3})
-	expected = 5
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
-	}
-	actual = DeleteMinChars([]int{1, 1, 3, 3, 5, 5})
-	expected = 3
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
-	}
-}
-
 func TestDeleteMinCharsMap(t *testing.T) {
-
 	occ := make(map[int]int)
 	occ[2] = 1
 	actual := DeleteMinCharsMap(occ)
@@ -193,7 +118,7 @@ func TestDeleteMinCharsMap(t *testing.T) {
 	}
 }
 
-func TestOccuranceArray(t *testing.T) {
+func TestOccurrenceMap(t *testing.T) {
 	occMap := FindOccurrence("a")
 	expected := 1
 	actual := occMap[1]
@@ -211,46 +136,37 @@ func TestOccuranceArray(t *testing.T) {
 		t.Errorf("expected to be deleted but was present")
 	}
 	occMap = FindOccurrence("aab")
-	if occMap[1] != 1 && occMap[2] != 1 && len(occMap) != 2 {
+	if occMap[1] != 1 || occMap[2] != 1 || len(occMap) != 2 {
 		t.Errorf("mismatch found")
 	}
 	occMap = FindOccurrence("aabb")
-	if occMap[2] != 2 && len(occMap) != 1 {
+	if occMap[2] != 2 || len(occMap) != 1 {
 		t.Errorf("mismatch found")
 	}
 	occMap = FindOccurrence("aabbbcccc")
-	if occMap[2] != 1 && occMap[3] != 1 && occMap[4] != 1 && len(occMap) != 3 {
+	if occMap[2] != 1 || occMap[3] != 1 || occMap[4] != 1 || len(occMap) != 3 {
 		t.Errorf("mismatch found")
 	}
-	occMap = FindOccurrence("ccaaffddecce")
-	if occMap[2] != 4 && occMap[4] != 1 && len(occMap) != 2 {
+	occMap = FindOccurrence("ccaaffddecee")
+	if occMap[2] != 3 || occMap[3] != 2 || len(occMap) != 2 {
 		t.Errorf("mismatch found")
 	}
 	occMap = FindOccurrence("eeee")
-	if occMap[4] != 1 && len(occMap) != 2 {
+	if occMap[4] != 1 || len(occMap) != 1 {
 		t.Errorf("mismatch found")
 	}
 	occMap = FindOccurrence("example")
-	if occMap[1] != 5 && occMap[2] != 1 && len(occMap) != 2 {
+	if occMap[1] != 5 || occMap[2] != 1 || len(occMap) != 2 {
 		t.Errorf("mismatch found")
 	}
 }
 
-func FindOccurrence(s string) map[int]int {
-	charMap := make(map[rune]int)
-	occMap := make(map[int]int)
-	for _, c := range s {
-		if oldVal, ok := charMap[c]; ok {
-			if oldVal == 1 {
-				delete(occMap, oldVal)
-			} else {
-				occMap[oldVal]--
-			}
-		}
-		charMap[c]++
-		occMap[charMap[c]]++
+func TestMinCharsToDelete(t *testing.T) {
+	actual := MinCharsToDelete("ccaaffddecee")
+	expected := 6
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
 	}
-	return occMap
 }
 
 func clearMap(occ map[int]int) {
