@@ -120,20 +120,12 @@ func TestDeleteMinCharsMap(t *testing.T) {
 
 func TestOccurrenceMap(t *testing.T) {
 	occMap := FindOccurrence("a")
-	expected := 1
-	actual := occMap[1]
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
+	if occMap[1] != 1 || len(occMap) != 1 {
+		t.Errorf("mismatch found")
 	}
 	occMap = FindOccurrence("aa")
-	expected = 1
-	actual = occMap[2]
-	if actual != expected {
-		t.Errorf("expected %d but found %d", expected, actual)
-	}
-	_, ok := occMap[1]
-	if ok {
-		t.Errorf("expected to be deleted but was present")
+	if occMap[2] != 1 || len(occMap) != 1 {
+		t.Errorf("mismatch found")
 	}
 	occMap = FindOccurrence("aab")
 	if occMap[1] != 1 || occMap[2] != 1 || len(occMap) != 2 {
