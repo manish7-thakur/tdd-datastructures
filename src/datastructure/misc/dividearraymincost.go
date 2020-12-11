@@ -13,7 +13,6 @@ func MinCostDivideArrayTwoParts(A []int) int {
 	if len(A) < 5 {
 		return 0
 	}
-
 	minarr := make([]*Pair, 3)
 	minarr[0] = &Pair{A[1], 1}
 	minarr[1] = &Pair{A[2], 2}

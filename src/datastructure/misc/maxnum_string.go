@@ -17,15 +17,14 @@ func MaxNum(s string) int {
 		if i+1 < strlen {
 			twoDigitVal, _ = strconv.Atoi(s[i : i+2])
 		}
-		if oneDigitVal > twoDigitVal {
-			if oneDigitVal > max {
-				max = oneDigitVal
-			}
-		} else {
-			if twoDigitVal > max {
-				max = twoDigitVal
-			}
-		}
+		max = Max(Max(oneDigitVal, twoDigitVal), max)
 	}
 	return max
+}
+
+func Max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
