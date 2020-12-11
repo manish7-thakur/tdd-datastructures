@@ -167,6 +167,21 @@ func TestMinCharsToDelete(t *testing.T) {
 	if actual != expected {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
+	actual = MinCharsToDelete("aaaabbbb")
+	expected = 1
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+	actual = MinCharsToDelete("eeee")
+	expected = 0
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+	actual = MinCharsToDelete("example")
+	expected = 4
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
 }
 
 func clearMap(occ map[int]int) {
