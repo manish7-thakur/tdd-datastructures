@@ -32,10 +32,10 @@ func MinCostDivideArrayTwoParts(A []int) int {
 func MinNonAdjacentCost(minarr []*Pair) int {
 	if Abs(minarr[0].Idx-minarr[1].Idx) != 1 {
 		return minarr[0].Val + minarr[1].Val
-	} else if Abs(minarr[1].Idx-minarr[2].Idx) != 1 {
-		return minarr[1].Val + minarr[2].Val
-	} else {
+	} else if Abs(minarr[0].Idx-minarr[2].Idx) != 1 {
 		return minarr[0].Val + minarr[2].Val
+	} else {
+		return minarr[1].Val + minarr[2].Val
 	}
 }
 

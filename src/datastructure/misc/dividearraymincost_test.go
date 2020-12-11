@@ -54,8 +54,8 @@ func TestMinNonAdjacentCost(t *testing.T) {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
 
-	actual = MinNonAdjacentCost([]*Pair{{2, 14}, {4, 32}, {6, 23}})
-	expected = 6
+	actual = MinNonAdjacentCost([]*Pair{{2, 14}, {3, 15}, {6, 23}})
+	expected = 8
 	if actual != expected {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
