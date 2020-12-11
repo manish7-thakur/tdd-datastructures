@@ -1,6 +1,8 @@
 package misc
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestDeleteMinCharsArray(t *testing.T) {
 	actual := DeleteMinChars([]int{2})
@@ -189,6 +191,66 @@ func TestDeleteMinCharsMap(t *testing.T) {
 	if actual != expected {
 		t.Errorf("expected %d but found %d", expected, actual)
 	}
+}
+
+func TestOccuranceArray(t *testing.T) {
+	occMap := FindOccurrence("a")
+	expected := 1
+	actual := occMap[1]
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+	occMap = FindOccurrence("aa")
+	expected = 1
+	actual = occMap[2]
+	if actual != expected {
+		t.Errorf("expected %d but found %d", expected, actual)
+	}
+	_, ok := occMap[1]
+	if ok {
+		t.Errorf("expected to be deleted but was present")
+	}
+	occMap = FindOccurrence("aab")
+	if occMap[1] != 1 && occMap[2] != 1 && len(occMap) != 2 {
+		t.Errorf("mismatch found")
+	}
+	occMap = FindOccurrence("aabb")
+	if occMap[2] != 2 && len(occMap) != 1 {
+		t.Errorf("mismatch found")
+	}
+	occMap = FindOccurrence("aabbbcccc")
+	if occMap[2] != 1 && occMap[3] != 1 && occMap[4] != 1 && len(occMap) != 3 {
+		t.Errorf("mismatch found")
+	}
+	occMap = FindOccurrence("ccaaffddecce")
+	if occMap[2] != 4 && occMap[4] != 1 && len(occMap) != 2 {
+		t.Errorf("mismatch found")
+	}
+	occMap = FindOccurrence("eeee")
+	if occMap[4] != 1 && len(occMap) != 2 {
+		t.Errorf("mismatch found")
+	}
+	occMap = FindOccurrence("example")
+	if occMap[1] != 5 && occMap[2] != 1 && len(occMap) != 2 {
+		t.Errorf("mismatch found")
+	}
+}
+
+func FindOccurrence(s string) map[int]int {
+	charMap := make(map[rune]int)
+	occMap := make(map[int]int)
+	for _, c := range s {
+		if oldVal, ok := charMap[c]; ok {
+			if oldVal == 1 {
+				delete(occMap, oldVal)
+			} else {
+				occMap[oldVal]--
+			}
+		}
+		charMap[c]++
+		occMap[charMap[c]]++
+	}
+	return occMap
 }
 
 func clearMap(occ map[int]int) {
