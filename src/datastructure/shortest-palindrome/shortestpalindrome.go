@@ -19,9 +19,14 @@ func ShortestPalindrome(s string) string {
 	}
 	str := b.String()
 	kmp_arr := kmp.LPS(str)
-	idxvalue := kmp_arr[len(kmp_arr)-1]
+	arraylen := len(kmp_arr)
+	idxvalue := kmp_arr[arraylen-1]
+	newstrlen := len(str)
+	prefix := str[strings.IndexByte(str, '#')+1 : newstrlen-idxvalue]
 	b.Reset()
-	prefix := str[strings.IndexByte(str, '#')+1 : len(str)-idxvalue]
+	prefixlen := len(prefix)
+	b.Grow(prefixlen + strlen)
+	println(b.Cap())
 	b.WriteString(prefix)
 	b.WriteString(s)
 	return b.String()
