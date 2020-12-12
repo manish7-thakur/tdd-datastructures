@@ -123,6 +123,14 @@ func TestShortestPalindromeFiveCharOneDistinct(t *testing.T) {
 	}
 }
 
+func TestShortestPalindromeSevenCharOneDistinct(t *testing.T) {
+	actual := ShortestPalindrome("babbaba")
+	expected := "ababbaba"
+	if actual != expected {
+		t.Errorf("expected %s but found %s", expected, actual)
+	}
+}
+
 func TestShortestPalindromeFiveCharPalindromeOneDistinct(t *testing.T) {
 	actual := ShortestPalindrome("eeeed")
 	expected := "deeeed"
