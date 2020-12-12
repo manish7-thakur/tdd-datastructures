@@ -27,6 +27,13 @@ func TestShortestPalindromeTwoChar(t *testing.T) {
 		t.Errorf("expected %s but found %s", expected, actual)
 	}
 }
+func TestShortestPalindromeTwoCharSame(t *testing.T) {
+	actual := ShortestPalindrome("aa")
+	expected := "aa"
+	if actual != expected {
+		t.Errorf("expected %s but found %s", expected, actual)
+	}
+}
 
 func TestShortestPalindromeThreeChar(t *testing.T) {
 	actual := ShortestPalindrome("abb")
@@ -62,21 +69,21 @@ func TestShortestPalindromeFourRepeatedChar(t *testing.T) {
 
 func ShortestPalindrome(s string) string {
 	strlen := len(s)
-	mid := strlen / 2
-	i := 0
-	if mid-1 >= 0 {
-		i = mid - 1
-	} else {
-		i = mid
+	if strlen <= 1 {
+		return s
 	}
-	j := i + 1
-	for ; i > 0 && j < strlen; {
-		if s[i-1] != s[j] {
-			i--
-			j--
-		} else {
+	mid := strlen / 2
+
+	i := mid - 1
+	j := mid
+	for ; i >= 0 && j < strlen; {
+		if s[i] == s[j] {
 			i--
 			j++
+		} else {
+			for ; i != j || s[i] != s[j]; {
+				j--
+			}
 		}
 	}
 	prefix := ""
