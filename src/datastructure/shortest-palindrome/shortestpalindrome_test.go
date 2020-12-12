@@ -131,9 +131,33 @@ func TestShortestPalindromeFiveCharPalindromeThreeDistinct(t *testing.T) {
 	}
 }
 
+func TestShortestPalindromeFiveCharPalindromeFourDistinct(t *testing.T) {
+	actual := ShortestPalindrome("edcfd")
+	expected := "dfcdedcfd"
+	if actual != expected {
+		t.Errorf("expected %s but found %s", expected, actual)
+	}
+}
+
+func TestShortestPalindromeFiveCharPalindromeFiveDistinct(t *testing.T) {
+	actual := ShortestPalindrome("eacfd")
+	expected := "dfcaeacfd"
+	if actual != expected {
+		t.Errorf("expected %s but found %s", expected, actual)
+	}
+}
+
+func TestShortestPalindromeEightChars(t *testing.T) {
+	actual := ShortestPalindrome("aacecaaa")
+	expected := "aaacecaaa"
+	if actual != expected {
+		t.Errorf("expected %s but found %s", expected, actual)
+	}
+}
+
 func ShortestPalindrome(s string) string {
 	strlen := len(s)
-	if strlen <= 1 {
+	if strlen < 2 {
 		return s
 	}
 	mid := strlen / 2
