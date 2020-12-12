@@ -17,7 +17,7 @@ func ShortestPalindrome(s string) string {
 		i = mid
 		j = mid
 	}
-	for ; i >= 0 && j < strlen; {
+	for ; i >= 0; {
 		if s[i] == s[j] {
 			i--
 			j++

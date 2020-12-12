@@ -155,3 +155,10 @@ func TestShortestPalindromeEightChars(t *testing.T) {
 	}
 }
 
+func TestShortestPalindromeMultiChars(t *testing.T) {
+	actual := ShortestPalindrome("aaabddsssaabccaaabbccbddsss")
+	expected := "sssddbccbbaaaccbaasssddbaaabddsssaabccaaabbccbddsss"
+	if actual != expected {
+		t.Errorf("expected %s but found %s", expected, actual)
+	}
+}
