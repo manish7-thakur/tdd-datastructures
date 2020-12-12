@@ -1,7 +1,6 @@
 package shortest_palindrome
 
 import (
-	"math"
 	"testing"
 )
 
@@ -53,22 +52,36 @@ func TestShortestPalindromeFourChar(t *testing.T) {
 	}
 }
 
+func TestShortestPalindromeFourRepeatedChar(t *testing.T) {
+	actual := ShortestPalindrome("babd")
+	expected := "dbabd"
+	if actual != expected {
+		t.Errorf("expected %s but found %s", expected, actual)
+	}
+}
+
 func ShortestPalindrome(s string) string {
 	strlen := len(s)
-	mid := int(math.Ceil(float64(strlen / 2.0)))
-	i := mid
-	j := mid
+	mid := strlen / 2
+	i := 0
+	if mid-1 >= 0 {
+		i = mid - 1
+	} else {
+		i = mid
+	}
+	j := i + 1
 	for ; i > 0 && j < strlen; {
 		if s[i-1] != s[j] {
 			i--
+			j--
 		} else {
-
+			i--
+			j++
 		}
 	}
 	prefix := ""
-	i++
-	for ; i < strlen; i++ {
-		prefix = string(s[i]) + prefix
+	for ; j < strlen; j++ {
+		prefix = string(s[j]) + prefix
 	}
 	return prefix + s
 }
