@@ -1,6 +1,7 @@
 package shortest_palindrome
 
 import (
+	"strings"
 	"testing"
 )
 
@@ -180,9 +181,11 @@ func ShortestPalindrome(s string) string {
 			}
 		}
 	}
-	prefix := ""
-	for ; j < strlen; j++ {
-		prefix = string(s[j]) + prefix
+	var b strings.Builder
+	b.Grow(2*strlen - j)
+	for i = strlen - 1; i >= j; i-- {
+		b.WriteByte(s[i])
 	}
-	return prefix + s
+	b.WriteString(s)
+	return b.String()
 }
