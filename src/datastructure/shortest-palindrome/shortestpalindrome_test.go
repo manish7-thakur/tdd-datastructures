@@ -43,6 +43,14 @@ func TestShortestPalindromeThreeChar(t *testing.T) {
 	}
 }
 
+func TestShortestPalindromeThreeRepeatedCharOneDistinct(t *testing.T) {
+	actual := ShortestPalindrome("bbd")
+	expected := "dbbd"
+	if actual != expected {
+		t.Errorf("expected %s but found %s", expected, actual)
+	}
+}
+
 func TestShortestPalindromeThreeCharPalindrome(t *testing.T) {
 	actual := ShortestPalindrome("bbb")
 	expected := "bbb"
@@ -62,6 +70,14 @@ func TestShortestPalindromeThreeCharDiff(t *testing.T) {
 func TestShortestPalindromeFourChar(t *testing.T) {
 	actual := ShortestPalindrome("abcd")
 	expected := "dcbabcd"
+	if actual != expected {
+		t.Errorf("expected %s but found %s", expected, actual)
+	}
+}
+
+func TestShortestPalindromeFourCharPalindrome(t *testing.T) {
+	actual := ShortestPalindrome("cccc")
+	expected := "cccc"
 	if actual != expected {
 		t.Errorf("expected %s but found %s", expected, actual)
 	}
@@ -96,7 +112,7 @@ func ShortestPalindrome(s string) string {
 			i--
 			j++
 		} else {
-			for ; i != j || s[i] != s[j]; {
+			for ; i != j && s[i] != s[j]; {
 				j--
 			}
 		}
