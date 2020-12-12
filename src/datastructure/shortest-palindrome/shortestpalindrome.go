@@ -1,6 +1,9 @@
 package shortest_palindrome
 
-import "strings"
+import (
+	"datastructure/kmp"
+	"strings"
+)
 
 func ShortestPalindrome(s string) string {
 	strlen := len(s)
@@ -17,13 +20,18 @@ func ShortestPalindrome(s string) string {
 		i = mid
 		j = mid
 	}
+	prefixarr := kmp.LPS(s)
 	for ; i >= 0; {
 		if s[i] == s[j] {
 			i--
 			j++
 		} else {
 			for ; i != j && s[i] != s[j]; {
-				j--
+				if prefixarr[j-1] > 0 {
+					j = prefixarr[j-1]
+				} else {
+					j--
+				}
 			}
 		}
 	}
