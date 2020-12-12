@@ -91,6 +91,14 @@ func TestShortestPalindromeFourRepeatedChar(t *testing.T) {
 	}
 }
 
+func TestShortestPalindromeFourRepeatedCharOneDistinct(t *testing.T) {
+	actual := ShortestPalindrome("bbbd")
+	expected := "dbbbd"
+	if actual != expected {
+		t.Errorf("expected %s but found %s", expected, actual)
+	}
+}
+
 func ShortestPalindrome(s string) string {
 	strlen := len(s)
 	if strlen <= 1 {
