@@ -26,7 +26,6 @@ func ShortestPalindrome(s string) string {
 	b.Reset()
 	prefixlen := len(prefix)
 	b.Grow(prefixlen + strlen)
-	println(b.Cap())
 	b.WriteString(prefix)
 	b.WriteString(s)
 	return b.String()
