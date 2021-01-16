@@ -11,4 +11,8 @@ func TestMulOneCrossOneMat(t *testing.T) {
 	if actual != expected {
 		t.Errorf("expected %v but found %v", expected, actual);
 	}
+	actual = multiply2(a, b)
+	if actual != expected {
+		t.Errorf("expected %v but found %v", expected, actual);
+	}
 }
