@@ -1,9 +1,5 @@
 package misc
 
-import (
-	"fmt"
-)
-
 /*
 Given a string S consisting of N lowercase letters, return the minimum number of letters
 that must be deleted to obtain a word in which every letter occurs a unique number of times.We only care
@@ -13,7 +9,7 @@ E.g
 1. Given S = "aaaabbbb", the function should return 1. We can delete one occurrence of a or one occurrence of b.
 Then one letter will occur 4 times and one 3 times.
 
-2. Given S = "ccaaffddeccee", the function should return 6. For e.g. we can delete all occurrences of e & f and one occurrence of d to
+2. Given S = "ccaaffddecee", the function should return 6. For e.g. we can delete all occurrences of e & f and one occurrence of d to
 obtain the word "ccaadc". Note that both e & f will occur zero times in the new word, but that is fine, since we only care about letters
 that appear at-least once.
 
@@ -59,14 +55,4 @@ func DeleteMinCharsMap(arr map[int]int) int {
 		}
 	}
 	return total
-}
-
-func pattern(n int) {
-	len := 1
-	for i := 2; i <= n; i *= 2 {
-		for j := 0; j < i; j++ {
-			fmt.Printf("%0*b\n", len, j)
-		}
-		len++
-	}
 }
